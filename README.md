@@ -1,3 +1,3 @@
 # Time to work
 
-Document work time for varous projects
+Document work time for various projects
