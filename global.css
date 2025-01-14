@@ -44,7 +44,7 @@ body {
 }
 
 button {
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-family: var(--ff-primary);
   color: black;
   padding: 0.5rem;

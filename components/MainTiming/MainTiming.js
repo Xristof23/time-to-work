@@ -1,4 +1,5 @@
 import { properTimeFormatter } from "../../utils.js";
+import ListEntry from "../ListEntry/ListEntry.js";
 
 let startValue;
 
@@ -24,7 +25,7 @@ const localDate = today.toLocaleDateString("en-EN", dateOptions);
 const localTime = today.toLocaleTimeString("en-EN", timeOptions);
 
 export default function MainTiming() {
-  const mainTiming = document.createElement("section");
+  const mainTiming = document.createElement("form");
   mainTiming.classList.add("mainTiming");
   mainTiming.innerHTML = /*html*/ `
     <p> 
@@ -34,13 +35,15 @@ export default function MainTiming() {
     </p>
     <p>Time: ${localTime}
     </p> 
-    <form>
-    <label class="label_standard">Project: <input class="input_text"id="project" data-js="project" /> 
+    
+    <label for="project" class="label_standard">Project: 
+    <input class="input_text" name="project" id="project" data-js="project" /> 
     </label> 
     <br/>
-    <label class="label_standard">Task: <input class="input_text"/> 
+    <label for="task" class="label_standard">Task: 
+    <input class="input_text" name="task" id="task" data-js="task"/> 
     </label> 
-    </form>
+    
    <p>Start: <output data-js="start-output"></output></p> 
    <p>End: <output data-js="end-output"></output></p> 
    <p>Time spent: <output data-js="time-output"></output></p> 
@@ -51,11 +54,14 @@ export default function MainTiming() {
     <button type="button" class="stop_button" data-js="stop-button">
     Stop
     </button>
-    <button type="button" data-js="save-button">
+    <button type="submit" data-js="save-button">
     Save
     </button>
     <button type="button" class="stop_button" data-js="reset-button">
     Reset
+    </button>
+    <button type="button" class="stop_button" data-js="delete-button">
+    Delete last
     </button>`;
 
   const startOutput = mainTiming.querySelector('[data-js="start-output"]');
@@ -63,6 +69,21 @@ export default function MainTiming() {
   const endOutput = mainTiming.querySelector('[data-js="end-output"]');
 
   const startButton = mainTiming.querySelector('[data-js="start-button"]');
+  startButton.addEventListener("click", handleStart);
+  const stopButton = mainTiming.querySelector('[data-js="stop-button"]');
+  stopButton.addEventListener("click", handleStop);
+
+  const deleteButton = mainTiming.querySelector('[data-js="delete-button"]');
+  deleteButton.addEventListener("click", handleDelete);
+
+  function handleDelete() {
+    console.log("delete");
+    const recordedTasks =
+      JSON.parse(localStorage.getItem("RecordedTasks")) || [];
+    recordedTasks.splice(0, 1);
+    localStorage.setItem("RecordedTasks", JSON.stringify(recordedTasks));
+    location.reload();
+  }
 
   function handleStart() {
     startValue = Date.now();
@@ -72,10 +93,6 @@ export default function MainTiming() {
     startOutput.textContent = startTime;
   }
 
-  startButton.addEventListener("click", handleStart);
-
-  const stopButton = mainTiming.querySelector('[data-js="stop-button"]');
-
   function handleStop() {
     const endValue = Date.now();
     timespan = endValue - startValue;
@@ -84,36 +101,47 @@ export default function MainTiming() {
     const formattedEnd = endDate.toLocaleTimeString("en-EN", timeOptions);
     endOutput.textContent = formattedEnd;
     timeOutput.textContent = formattedTimespan;
-
-    // return formattedTimespan;
   }
 
-  stopButton.addEventListener("click", handleStop);
+  // function handleFormSubmit(event) {
+  //   event.target.reset();
+  //   event.target.elements.question.focus();
+  // }
 
-  function handleSave() {
+  function handleSave(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
     const recordedTasks =
       JSON.parse(localStorage.getItem("RecordedTasks")) || [];
 
     const newEntry = {
+      project: data.project,
+      task: data.task,
       date: localDate,
+      time: localTime,
       timespan,
       timeSpent: properTimeFormatter(timespan),
     };
-    recordedTasks.push(newEntry);
+    recordedTasks.unshift(newEntry);
     localStorage.setItem("RecordedTasks", JSON.stringify(recordedTasks));
+    // To prevent the need to rerender, add the new entry to the DOM directly
+    // const timeRecords = document.querySelector(".time-records");
+    // const newListEntry = ListEntry(newEntry);
+    // timeRecords.prepend(newListEntry);
     location.reload();
   }
 
-  const saveButton = mainTiming.querySelector('[data-js="save-button"]');
-  saveButton.addEventListener("click", handleSave);
+  mainTiming.addEventListener("submit", handleSave);
 
   function handleReset() {
-    alert("Do you really want to reset? Have you saved your work?");
+    alert(
+      "Do you really want to reset? Have you saved your work? press esc if you are not sure"
+    );
     timespan = 0;
     startOutput.textContent = 0;
     endOutput.textContent = 0;
     timeOutput.textContent = 0;
-    console.log("reset");
   }
 
   const resetButton = mainTiming.querySelector('[data-js="reset-button"]');

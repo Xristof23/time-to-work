@@ -5,8 +5,6 @@ import TimeRecords from "../TimeRecords/TimeRecords.js";
 export default function App() {
   const app = document.createElement("main");
   app.classList.add("app");
-  app.append(Header());
-  app.append(MainTiming());
-  app.append(TimeRecords());
+  app.append(Header(), MainTiming(), TimeRecords());
   return app;
 }
