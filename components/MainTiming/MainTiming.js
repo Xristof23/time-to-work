@@ -2,6 +2,8 @@ import { properTimeFormatter } from "../../utils.js";
 
 let startValue;
 
+let timespan = 0;
+
 const today = new Date();
 
 const dateOptions = {
@@ -32,6 +34,13 @@ export default function MainTiming() {
     </p>
     <p>Time: ${localTime}
     </p> 
+    <form>
+    <label class="label_standard">Project: <input class="input_text"id="project" data-js="project" /> 
+    </label> 
+    <br/>
+    <label class="label_standard">Task: <input class="input_text"/> 
+    </label> 
+    </form>
    <p>Start: <output data-js="start-output"></output></p> 
    <p>End: <output data-js="end-output"></output></p> 
    <p>Time spent: <output data-js="time-output"></output></p> 
@@ -41,6 +50,12 @@ export default function MainTiming() {
     </button>
     <button type="button" class="stop_button" data-js="stop-button">
     Stop
+    </button>
+    <button type="button" data-js="save-button">
+    Save
+    </button>
+    <button type="button" class="stop_button" data-js="reset-button">
+    Reset
     </button>`;
 
   const startOutput = mainTiming.querySelector('[data-js="start-output"]');
@@ -63,15 +78,47 @@ export default function MainTiming() {
 
   function handleStop() {
     const endValue = Date.now();
-    const elapsedMs = endValue - startValue;
-    const formattedTime = properTimeFormatter(elapsedMs);
+    timespan = endValue - startValue;
+    const formattedTimespan = properTimeFormatter(timespan);
     const endDate = new Date(endValue);
     const formattedEnd = endDate.toLocaleTimeString("en-EN", timeOptions);
     endOutput.textContent = formattedEnd;
-    timeOutput.textContent = formattedTime;
+    timeOutput.textContent = formattedTimespan;
+    // return formattedTimespan;
   }
 
   stopButton.addEventListener("click", handleStop);
+
+  function handleSave() {
+    console.log("handle save");
+    const recordedTasks =
+      JSON.parse(localStorage.getItem("RecordedTasks")) || [];
+    console.log("recordedTasks from Maintiming", recordedTasks);
+
+    const newEntry = {
+      date: localDate,
+      timespan,
+      timeSpent: properTimeFormatter(timespan),
+    };
+    recordedTasks.push(newEntry);
+    console.log(recordedTasks);
+    localStorage.setItem("RecordedTasks", JSON.stringify(recordedTasks));
+  }
+
+  const saveButton = mainTiming.querySelector('[data-js="save-button"]');
+  saveButton.addEventListener("click", handleSave);
+
+  function handleReset() {
+    alert("Do you really want to reset? Have you saved your work?");
+    timespan = 0;
+    startOutput.textContent = 0;
+    endOutput.textContent = 0;
+    timeOutput.textContent = 0;
+    console.log("reset");
+  }
+
+  const resetButton = mainTiming.querySelector('[data-js="reset-button"]');
+  resetButton.addEventListener("click", handleReset);
 
   return mainTiming;
 }
