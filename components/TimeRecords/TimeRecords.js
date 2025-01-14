@@ -6,7 +6,6 @@ const userEntries = JSON.parse(localStorage.getItem("RecordedTasks"));
 export default function TimeRecords() {
   const timeRecords = document.createElement("section");
   timeRecords.classList.add("time-records");
-  timeRecords.append(Headline2("My tasks"));
 
   userEntries.forEach((element) => {
     const listElement = ListEntry(element);

@@ -126,10 +126,10 @@ export default function MainTiming() {
     recordedTasks.unshift(newEntry);
     localStorage.setItem("RecordedTasks", JSON.stringify(recordedTasks));
     // To prevent the need to rerender, add the new entry to the DOM directly
-    // const timeRecords = document.querySelector(".time-records");
-    // const newListEntry = ListEntry(newEntry);
-    // timeRecords.prepend(newListEntry);
-    location.reload();
+    const timeRecords = document.querySelector(".time-records");
+    const newListEntry = ListEntry(newEntry);
+    timeRecords.prepend(newListEntry);
+    // location.reload();
   }
 
   mainTiming.addEventListener("submit", handleSave);
