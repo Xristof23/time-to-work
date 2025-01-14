@@ -1,3 +1,5 @@
+import { properTimeFormatter } from "../../utils.js";
+
 let startValue;
 
 const today = new Date();
@@ -14,8 +16,6 @@ const timeOptions = {
   hour: "numeric",
   minute: "numeric",
   second: "numeric",
-
-  //   fractionalSecondDigits: 2,
 };
 
 const localDate = today.toLocaleDateString("en-EN", dateOptions);
@@ -28,13 +28,13 @@ export default function MainTiming() {
     <p> 
     Explain later how this works
     </p>
-    <p> Date: ${localDate}
+    <p>Date: ${localDate}
     </p>
-    <p>Time : ${localTime}
+    <p>Time: ${localTime}
     </p> 
-   <p>Start : <output data-js="start-output"></output></p> 
-   <p>End : <output data-js="end-output"></output></p> 
-   <p>Time spent : <output data-js="time-output"></output></p> 
+   <p>Start: <output data-js="start-output"></output></p> 
+   <p>End: <output data-js="end-output"></output></p> 
+   <p>Time spent: <output data-js="time-output"></output></p> 
    
     <button type="button" data-js="start-button">
     Start 
@@ -60,18 +60,6 @@ export default function MainTiming() {
   startButton.addEventListener("click", handleStart);
 
   const stopButton = mainTiming.querySelector('[data-js="stop-button"]');
-
-  function properTimeFormatter(timeInMs, options) {
-    const allSeconds = Math.round(timeInMs / 1000);
-    const seconds = Math.floor(allSeconds % 1000);
-    const allMinutes = Math.floor(allSeconds / 60);
-    const hours = Math.floor(allMinutes / 60);
-    const minutes = Math.floor(allMinutes % 60);
-    const unit =
-      hours === 0 && minutes === 0 ? "sec" : hours === 0 ? "min" : "hours";
-    const formattedTime = `${hours}:${minutes}:${seconds} ${unit}`;
-    return formattedTime;
-  }
 
   function handleStop() {
     const endValue = Date.now();
