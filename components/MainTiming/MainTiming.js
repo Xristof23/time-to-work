@@ -84,16 +84,15 @@ export default function MainTiming() {
     const formattedEnd = endDate.toLocaleTimeString("en-EN", timeOptions);
     endOutput.textContent = formattedEnd;
     timeOutput.textContent = formattedTimespan;
+
     // return formattedTimespan;
   }
 
   stopButton.addEventListener("click", handleStop);
 
   function handleSave() {
-    console.log("handle save");
     const recordedTasks =
       JSON.parse(localStorage.getItem("RecordedTasks")) || [];
-    console.log("recordedTasks from Maintiming", recordedTasks);
 
     const newEntry = {
       date: localDate,
@@ -101,8 +100,8 @@ export default function MainTiming() {
       timeSpent: properTimeFormatter(timespan),
     };
     recordedTasks.push(newEntry);
-    console.log(recordedTasks);
     localStorage.setItem("RecordedTasks", JSON.stringify(recordedTasks));
+    location.reload();
   }
 
   const saveButton = mainTiming.querySelector('[data-js="save-button"]');

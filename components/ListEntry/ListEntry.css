@@ -1,0 +1,11 @@
+.detail_paragraph {
+  line-height: 0.9rem;
+  padding-left: 0.25rem;
+}
+
+article {
+  margin: 0.5rem;
+  border: 1px solid black;
+  border-radius: 4px;
+  background-color: var(--lightblue);
+}
