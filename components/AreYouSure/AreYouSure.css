@@ -1,0 +1,19 @@
+.areYouSure {
+  background-color: lemonchiffon;
+  border-radius: 4px;
+  display: block;
+}
+
+.areYouSure--active {
+  display: block;
+}
+
+.areYouSure--passive {
+  display: none;
+}
+
+.no_button {
+  font-weight: 700;
+  border: 2px solid var(--red);
+  background-color: lemonchiffon;
+}

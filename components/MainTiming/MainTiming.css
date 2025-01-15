@@ -1,6 +1,6 @@
 .stop_button {
-  font-weight: 700;
-  background-color: var(--red);
+  border: 2px solid var(--red);
+  background-color: var(--primary);
 }
 
 .label_standard {

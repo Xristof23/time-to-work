@@ -1,7 +1,6 @@
-import Headline2 from "../Headline2/Headline2.js";
 import ListEntry from "../ListEntry/ListEntry.js";
 
-const userEntries = JSON.parse(localStorage.getItem("RecordedTasks"));
+const userEntries = JSON.parse(localStorage.getItem("RecordedTasks")) || [];
 
 export default function TimeRecords() {
   const timeRecords = document.createElement("section");

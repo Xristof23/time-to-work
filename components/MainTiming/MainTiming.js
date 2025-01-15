@@ -1,4 +1,5 @@
 import { properTimeFormatter } from "../../utils.js";
+import AreYouSure from "../AreYouSure/AreYourSure.js";
 import ListEntry from "../ListEntry/ListEntry.js";
 
 let startValue;
@@ -77,7 +78,6 @@ export default function MainTiming() {
   deleteButton.addEventListener("click", handleDelete);
 
   function handleDelete() {
-    console.log("delete");
     const recordedTasks =
       JSON.parse(localStorage.getItem("RecordedTasks")) || [];
     recordedTasks.splice(0, 1);
@@ -103,11 +103,6 @@ export default function MainTiming() {
     timeOutput.textContent = formattedTimespan;
   }
 
-  // function handleFormSubmit(event) {
-  //   event.target.reset();
-  //   event.target.elements.question.focus();
-  // }
-
   function handleSave(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -125,23 +120,19 @@ export default function MainTiming() {
     };
     recordedTasks.unshift(newEntry);
     localStorage.setItem("RecordedTasks", JSON.stringify(recordedTasks));
-    // To prevent the need to rerender, add the new entry to the DOM directly
+
     const timeRecords = document.querySelector(".time-records");
     const newListEntry = ListEntry(newEntry);
     timeRecords.prepend(newListEntry);
-    // location.reload();
+    event.target.reset();
+    event.target.elements.project.focus();
   }
 
   mainTiming.addEventListener("submit", handleSave);
 
   function handleReset() {
-    alert(
-      "Do you really want to reset? Have you saved your work? press esc if you are not sure"
-    );
-    timespan = 0;
-    startOutput.textContent = 0;
-    endOutput.textContent = 0;
-    timeOutput.textContent = 0;
+    mainTiming.append(AreYouSure());
+    // areYouSure.classList.toggle("areYouSure--active");
   }
 
   const resetButton = mainTiming.querySelector('[data-js="reset-button"]');
