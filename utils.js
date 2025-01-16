@@ -1,3 +1,12 @@
+function createID(counter) {
+  const unixDate = Date.now();
+  const firstPart = Math.floor(unixDate / 1000);
+  ++counter;
+  const newId = firstPart + "C" + counter;
+  console.log("newID", newId);
+  return newId;
+}
+
 function properTimeFormatter(timeInMs, options) {
   const allSeconds = Math.round(timeInMs / 1000);
   const rawSeconds = Math.floor(allSeconds % 60);
@@ -29,4 +38,4 @@ function properTimeFormatter(timeInMs, options) {
   return formattedTime;
 }
 
-export { properTimeFormatter };
+export { createID, properTimeFormatter };

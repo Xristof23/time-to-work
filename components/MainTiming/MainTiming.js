@@ -6,6 +6,21 @@ let startValue;
 
 let timespan = 0;
 
+let idCounter = 0;
+
+function createUID() {
+  const unixDate = Date.now();
+  const firstNumber = Math.floor(unixDate / 1000);
+  const firstPart = firstNumber.toString().slice(2);
+  ++idCounter;
+  const secondPart = idCounter.toLocaleString("en-US", {
+    minimumIntegerDigits: 3,
+    useGrouping: false,
+  });
+  const newId = firstPart + "C" + secondPart;
+  return newId;
+}
+
 const today = new Date();
 
 const dateOptions = {
@@ -64,6 +79,9 @@ export default function MainTiming() {
     </button>
     <button type="button" class="stop_button" data-js="delete-button">
     Delete last
+    </button>
+       <button type="button" data-js="test-button">
+    TEST ID
     </button>`;
 
   const dateOutput = mainTiming.querySelector('[data-js="date-output"]');
@@ -75,12 +93,20 @@ export default function MainTiming() {
   const endOutput = mainTiming.querySelector('[data-js="end-output"]');
 
   const startButton = mainTiming.querySelector('[data-js="start-button"]');
-  startButton.addEventListener("click", handleStart);
   const stopButton = mainTiming.querySelector('[data-js="stop-button"]');
+  startButton.addEventListener("click", handleStart);
+
   stopButton.addEventListener("click", handleStop);
 
   const deleteButton = mainTiming.querySelector('[data-js="delete-button"]');
   deleteButton.addEventListener("click", handleDelete);
+
+  const testButton = mainTiming.querySelector('[data-js="test-button"]');
+  testButton.addEventListener("click", handleTest);
+
+  function handleTest() {
+    createUID();
+  }
 
   function handleDelete() {
     const recordedTasks =
@@ -118,6 +144,7 @@ export default function MainTiming() {
       JSON.parse(localStorage.getItem("RecordedTasks")) || [];
 
     const newEntry = {
+      id: createUID(),
       startValue,
       project: data.project,
       task: data.task,
