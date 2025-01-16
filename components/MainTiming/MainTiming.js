@@ -22,19 +22,20 @@ const timeOptions = {
   second: "numeric",
 };
 
-const localDate = today.toLocaleDateString("en-EN", dateOptions);
-const localTime = today.toLocaleTimeString("en-EN", timeOptions);
+let localDate = today.toLocaleDateString("en-EN", dateOptions);
+let localTime = today.toLocaleTimeString("en-EN", timeOptions);
 
 export default function MainTiming() {
   const mainTiming = document.createElement("form");
+  mainTiming.setAttribute("id", "main-form");
   mainTiming.classList.add("mainTiming");
   mainTiming.innerHTML = /*html*/ `
     <p> 
     Explain later how this works
     </p>
-    <p>Date: ${localDate}
+    <p>Date:  <output data-js="date-output">${localDate}</output>
     </p>
-    <p>Time: ${localTime}
+    <p>Time: <output data-js="time-output">${localTime}</output> 
     </p> 
     
     <label for="project" class="label_standard">Project: 
@@ -47,7 +48,7 @@ export default function MainTiming() {
     
    <p>Start: <output data-js="start-output"></output></p> 
    <p>End: <output data-js="end-output"></output></p> 
-   <p>Time spent: <output data-js="time-output"></output></p> 
+   <p>Time spent: <output data-js="timespan-output"></output></p> 
    
     <button type="button" data-js="start-button">
     Start 
@@ -65,8 +66,12 @@ export default function MainTiming() {
     Delete last
     </button>`;
 
-  const startOutput = mainTiming.querySelector('[data-js="start-output"]');
+  const dateOutput = mainTiming.querySelector('[data-js="date-output"]');
   const timeOutput = mainTiming.querySelector('[data-js="time-output"]');
+  const startOutput = mainTiming.querySelector('[data-js="start-output"]');
+  const timespanOutput = mainTiming.querySelector(
+    '[data-js="timespan-output"]'
+  );
   const endOutput = mainTiming.querySelector('[data-js="end-output"]');
 
   const startButton = mainTiming.querySelector('[data-js="start-button"]');
@@ -88,9 +93,11 @@ export default function MainTiming() {
   function handleStart() {
     startValue = Date.now();
     const startDate = new Date(startValue);
-    const startTime = startDate.toLocaleTimeString("en-EN", timeOptions);
-
-    startOutput.textContent = startTime;
+    localDate = startDate.toLocaleDateString("en-EN", dateOptions);
+    localTime = startDate.toLocaleTimeString("en-EN", timeOptions);
+    dateOutput.textContent = localDate;
+    timeOutput.textContent = localTime;
+    startOutput.textContent = localTime;
   }
 
   function handleStop() {
@@ -100,7 +107,7 @@ export default function MainTiming() {
     const endDate = new Date(endValue);
     const formattedEnd = endDate.toLocaleTimeString("en-EN", timeOptions);
     endOutput.textContent = formattedEnd;
-    timeOutput.textContent = formattedTimespan;
+    timespanOutput.textContent = formattedTimespan;
   }
 
   function handleSave(event) {
@@ -111,6 +118,7 @@ export default function MainTiming() {
       JSON.parse(localStorage.getItem("RecordedTasks")) || [];
 
     const newEntry = {
+      startValue,
       project: data.project,
       task: data.task,
       date: localDate,
@@ -124,6 +132,13 @@ export default function MainTiming() {
     const timeRecords = document.querySelector(".time-records");
     const newListEntry = ListEntry(newEntry);
     timeRecords.prepend(newListEntry);
+    timespan = 0;
+    dateOutput.textContent = localDate;
+    timeOutput.textContent = localTime;
+    startOutput.textContent = "";
+    endOutput.textContent = "";
+    timespanOutput.textContent = "";
+
     event.target.reset();
     event.target.elements.project.focus();
   }

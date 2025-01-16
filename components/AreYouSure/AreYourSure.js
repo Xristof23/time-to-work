@@ -26,10 +26,11 @@ export default function AreYouSure() {
     const startOutput = document.querySelector('[data-js="start-output"]');
     const endOutput = document.querySelector('[data-js="end-output"]');
     const timeOutput = document.querySelector('[data-js="time-output"]');
-    startOutput.textContent = 0;
-    endOutput.textContent = 0;
-    timeOutput.textContent = 0;
-    areYouSure.classList.toggle("areYouSure--passive");
+    startOutput.textContent = "";
+    endOutput.textContent = "";
+    timeOutput.textContent = "";
+    // areYouSure.classList.toggle("areYouSure--passive");
+    location.reload();
   }
 
   function handleYes() {
