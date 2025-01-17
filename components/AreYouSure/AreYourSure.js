@@ -1,8 +1,10 @@
-export default function AreYouSure() {
+const userEntries = JSON.parse(localStorage.getItem("RecordedTasks")) || [];
+
+export default function AreYouSure(text, goal, id) {
   const areYouSure = document.createElement("div");
   areYouSure.classList.add("areYouSure");
   areYouSure.innerHTML = /*html*/ `
-    <p>"Do you really want to reset? Have you saved your work? Press "No, abort." if you are not sure!"</p>
+    <p>"Do you really want to ${text} Press "No, abort." if you are not sure!"</p>
     <button type="button" class="no_button" data-js="no-button" >
     No, abort.
     </button>
@@ -18,7 +20,6 @@ export default function AreYouSure() {
   yesButton.addEventListener("click", handleYes);
 
   function handleAbort() {
-    console.log("pressed no");
     areYouSure.classList.toggle("areYouSure--passive");
   }
 
@@ -32,9 +33,14 @@ export default function AreYouSure() {
     // areYouSure.classList.toggle("areYouSure--passive");
     location.reload();
   }
+  function deleteEntry(id) {
+    const updatedEntries = userEntries.filter((entry) => entry.id != id);
+    localStorage.setItem("RecordedTasks", JSON.stringify(updatedEntries));
+    location.reload();
+  }
 
   function handleYes() {
-    realReset();
+    goal === "reset" ? realReset() : deleteEntry(id);
   }
 
   return areYouSure;

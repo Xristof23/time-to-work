@@ -80,9 +80,7 @@ export default function MainTiming() {
     <button type="button" class="stop_button" data-js="delete-button">
     Delete last
     </button>
-       <button type="button" data-js="test-button">
-    TEST ID
-    </button>`;
+  `;
 
   const dateOutput = mainTiming.querySelector('[data-js="date-output"]');
   const timeOutput = mainTiming.querySelector('[data-js="time-output"]');
@@ -100,13 +98,6 @@ export default function MainTiming() {
 
   const deleteButton = mainTiming.querySelector('[data-js="delete-button"]');
   deleteButton.addEventListener("click", handleDelete);
-
-  const testButton = mainTiming.querySelector('[data-js="test-button"]');
-  testButton.addEventListener("click", handleTest);
-
-  function handleTest() {
-    createUID();
-  }
 
   function handleDelete() {
     const recordedTasks =
@@ -173,7 +164,7 @@ export default function MainTiming() {
   mainTiming.addEventListener("submit", handleSave);
 
   function handleReset() {
-    mainTiming.append(AreYouSure());
+    mainTiming.append(AreYouSure("reset? Have you saved your work?", "reset"));
     // areYouSure.classList.toggle("areYouSure--active");
   }
 

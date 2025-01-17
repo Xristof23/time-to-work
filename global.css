@@ -18,8 +18,7 @@
 }
 
 h1,
-h2,
-h3 {
+h2 {
   line-height: 1.2;
 }
 
@@ -30,12 +29,20 @@ h3,
 p {
   color: var(--darkblue);
   margin: 0;
-  padding: 0.25rem 0.5rem;
+  padding: 0.25rem;
   font-family: var(--ff-primary);
 }
 
 h2 {
   margin: 0.5rem 0 0.1rem;
+}
+
+h3 {
+  font-size: 1.05rem;
+  font-weight: 550;
+  margin: 0.25rem 0;
+  padding: 0.25rem;
+  line-height: 1.2;
 }
 body {
   line-height: 1.5;
