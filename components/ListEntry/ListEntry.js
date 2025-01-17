@@ -1,4 +1,5 @@
 import AreYouSure from "../AreYouSure/AreYourSure.js";
+import { wantedDelete } from "../../modalContent.js";
 
 export default function ListEntry(element) {
   const listEntry = document.createElement("article");
@@ -22,9 +23,7 @@ export default function ListEntry(element) {
 
   function handleAreYouSure() {
     const id = element.id;
-    listEntry.append(
-      AreYouSure("delete this entry? This is not reversible!", "delete", id)
-    );
+    listEntry.append(AreYouSure(wantedDelete, id));
   }
 
   return listEntry;

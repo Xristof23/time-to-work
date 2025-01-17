@@ -1,10 +1,10 @@
 const userEntries = JSON.parse(localStorage.getItem("RecordedTasks")) || [];
 
-export default function AreYouSure(text, goal, id) {
+export default function AreYouSure(props, id) {
   const areYouSure = document.createElement("div");
   areYouSure.classList.add("areYouSure");
   areYouSure.innerHTML = /*html*/ `
-    <p>"Do you really want to ${text} Press "No, abort.", if you are not sure!"</p>
+    <p> ${props.text} </p>
     <button type="button" class="no_button" data-js="no-button" >
     No, abort.
     </button>
@@ -39,7 +39,7 @@ export default function AreYouSure(text, goal, id) {
   }
 
   function handleYes() {
-    goal === "reset" ? realReset() : deleteEntry(id);
+    props.mode === "delete" ? deleteEntry(id) : realReset();
   }
 
   return areYouSure;

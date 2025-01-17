@@ -3,6 +3,14 @@
   background-color: var(--primary);
 }
 
+.save_button {
+  display: none;
+}
+
+.save_button--active {
+  display: inline-block;
+}
+
 .label_standard {
   margin-left: 0.25rem;
 }
