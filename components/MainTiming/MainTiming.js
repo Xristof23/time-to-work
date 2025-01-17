@@ -59,6 +59,10 @@ export default function MainTiming() {
     <br/>
     <label for="task" class="label_standard">Task: 
     <input class="input_text" name="task" id="task" data-js="task"/> 
+     <br/>
+    </label> 
+     <label for="category" class="label_standard">Category: 
+    <input class="input_text" name="category" id="category" data-js="category"/> 
     </label> 
     
    <p>Start: <output data-js="start-output"></output></p> 
@@ -139,6 +143,7 @@ export default function MainTiming() {
       startValue,
       project: data.project,
       task: data.task,
+      category: data.category,
       date: localDate,
       time: localTime,
       timespan,
@@ -165,7 +170,6 @@ export default function MainTiming() {
 
   function handleReset() {
     mainTiming.append(AreYouSure("reset? Have you saved your work?", "reset"));
-    // areYouSure.classList.toggle("areYouSure--active");
   }
 
   const resetButton = mainTiming.querySelector('[data-js="reset-button"]');

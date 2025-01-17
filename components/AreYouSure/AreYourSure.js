@@ -4,7 +4,7 @@ export default function AreYouSure(text, goal, id) {
   const areYouSure = document.createElement("div");
   areYouSure.classList.add("areYouSure");
   areYouSure.innerHTML = /*html*/ `
-    <p>"Do you really want to ${text} Press "No, abort." if you are not sure!"</p>
+    <p>"Do you really want to ${text} Press "No, abort.", if you are not sure!"</p>
     <button type="button" class="no_button" data-js="no-button" >
     No, abort.
     </button>
@@ -30,7 +30,6 @@ export default function AreYouSure(text, goal, id) {
     startOutput.textContent = "";
     endOutput.textContent = "";
     timeOutput.textContent = "";
-    // areYouSure.classList.toggle("areYouSure--passive");
     location.reload();
   }
   function deleteEntry(id) {

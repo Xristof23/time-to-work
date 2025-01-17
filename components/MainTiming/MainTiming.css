@@ -4,9 +4,10 @@
 }
 
 .label_standard {
-  margin: 0.5rem;
+  margin-left: 0.25rem;
 }
 
 .input_text {
   border-radius: 4px;
+  margin: 0.25rem 0.5rem;
 }
