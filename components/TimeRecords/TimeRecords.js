@@ -1,6 +1,15 @@
 import ListEntry from "../ListEntry/ListEntry.js";
 
-const userEntries = JSON.parse(localStorage.getItem("RecordedTasks")) || [];
+const userEntries = JSON.parse(localStorage.getItem("RecordedTasks")) || [
+  {
+    id: "test123",
+    project: "Example project",
+    task: "Something to do",
+    date: "today",
+    time: "12:00",
+    timeSpent: "6 min",
+  },
+];
 
 export default function TimeRecords() {
   const timeRecords = document.createElement("section");

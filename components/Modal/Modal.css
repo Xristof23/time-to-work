@@ -1,0 +1,28 @@
+.modal {
+  display: block;
+  background-color: var(--white);
+  padding: 0.5rem;
+  border: 2px solid var(--red);
+  border-radius: 4px;
+  position: absolute;
+  top: 280px;
+  left: 5%;
+  height: 10rem;
+  width: 90%;
+  z-index: 2;
+}
+
+.modal--passive {
+  display: none;
+}
+
+.yes_button {
+  color: var(--white);
+  font-weight: 700;
+  border: 2px solid var(--red);
+  background-color: var(--red);
+}
+
+.button--passive {
+  display: none;
+}

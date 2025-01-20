@@ -1,10 +1,28 @@
+import { wantedReset, wantedSave, wantTest } from "../../modalContent.js";
 import { properTimeFormatter } from "../../utils.js";
-import AreYouSure from "../AreYouSure/AreYourSure.js";
 import ListEntry from "../ListEntry/ListEntry.js";
+import Modal from "../Modal/Modal.js";
 
 let startValue;
 
 let timespan = 0;
+
+let idCounter = 0;
+
+let timerRunning = false;
+
+function createUID() {
+  const unixDate = Date.now();
+  const firstNumber = Math.floor(unixDate / 1000);
+  const firstPart = firstNumber.toString().slice(2);
+  ++idCounter;
+  const secondPart = idCounter.toLocaleString("en-US", {
+    minimumIntegerDigits: 3,
+    useGrouping: false,
+  });
+  const newId = firstPart + "C" + secondPart;
+  return newId;
+}
 
 const today = new Date();
 
@@ -39,11 +57,15 @@ export default function MainTiming() {
     </p> 
     
     <label for="project" class="label_standard">Project: 
-    <input class="input_text" name="project" id="project" data-js="project" /> 
-    </label> 
+    <input class="input_text" name="project" id="project" required data-js="project" /> 
+    *</label> 
     <br/>
     <label for="task" class="label_standard">Task: 
-    <input class="input_text" name="task" id="task" data-js="task"/> 
+    <input class="input_text" name="task" id="task" required data-js="task"/> 
+    *</label> 
+     <br/>
+     <label for="category" class="label_standard">Category: 
+    <input class="input_text" name="category" id="category" data-js="category"/> 
     </label> 
     
    <p>Start: <output data-js="start-output"></output></p> 
@@ -56,15 +78,16 @@ export default function MainTiming() {
     <button type="button" class="stop_button" data-js="stop-button">
     Stop
     </button>
-    <button type="submit" data-js="save-button">
+    <button type="submit" class="save_button" data-js="save-button">
     Save
     </button>
     <button type="button" class="stop_button" data-js="reset-button">
     Reset
     </button>
-    <button type="button" class="stop_button" data-js="delete-button">
-    Delete last
-    </button>`;
+        <button type="button" class="test_button" data-js="test-button">
+    Test
+    </button>
+  `;
 
   const dateOutput = mainTiming.querySelector('[data-js="date-output"]');
   const timeOutput = mainTiming.querySelector('[data-js="time-output"]');
@@ -75,22 +98,16 @@ export default function MainTiming() {
   const endOutput = mainTiming.querySelector('[data-js="end-output"]');
 
   const startButton = mainTiming.querySelector('[data-js="start-button"]');
-  startButton.addEventListener("click", handleStart);
   const stopButton = mainTiming.querySelector('[data-js="stop-button"]');
+  const saveButton = mainTiming.querySelector('[data-js="save-button"]');
+  const testButton = mainTiming.querySelector('[data-js="test-button"]');
+  startButton.addEventListener("click", handleStart);
   stopButton.addEventListener("click", handleStop);
-
-  const deleteButton = mainTiming.querySelector('[data-js="delete-button"]');
-  deleteButton.addEventListener("click", handleDelete);
-
-  function handleDelete() {
-    const recordedTasks =
-      JSON.parse(localStorage.getItem("RecordedTasks")) || [];
-    recordedTasks.splice(0, 1);
-    localStorage.setItem("RecordedTasks", JSON.stringify(recordedTasks));
-    location.reload();
-  }
+  mainTiming.addEventListener("submit", checkBeforeSubmit);
+  testButton.addEventListener("click", handleTest);
 
   function handleStart() {
+    timerRunning = true;
     startValue = Date.now();
     const startDate = new Date(startValue);
     localDate = startDate.toLocaleDateString("en-EN", dateOptions);
@@ -101,6 +118,8 @@ export default function MainTiming() {
   }
 
   function handleStop() {
+    timerRunning = false;
+    saveButton.classList.add("save_button--active");
     const endValue = Date.now();
     timespan = endValue - startValue;
     const formattedTimespan = properTimeFormatter(timespan);
@@ -110,7 +129,16 @@ export default function MainTiming() {
     timespanOutput.textContent = formattedTimespan;
   }
 
-  function handleSave(event) {
+  function handleTest() {
+    mainTiming.append(Modal(wantTest));
+  }
+
+  function checkBeforeSubmit(event) {
+    event.preventDefault();
+    timespan === 0 ? mainTiming.append(Modal(wantedSave)) : handleSubmit(event);
+  }
+
+  function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
@@ -118,9 +146,11 @@ export default function MainTiming() {
       JSON.parse(localStorage.getItem("RecordedTasks")) || [];
 
     const newEntry = {
+      id: createUID(),
       startValue,
       project: data.project,
       task: data.task,
+      category: data.category,
       date: localDate,
       time: localTime,
       timespan,
@@ -143,11 +173,8 @@ export default function MainTiming() {
     event.target.elements.project.focus();
   }
 
-  mainTiming.addEventListener("submit", handleSave);
-
   function handleReset() {
-    mainTiming.append(AreYouSure());
-    // areYouSure.classList.toggle("areYouSure--active");
+    mainTiming.append(Modal(wantedReset));
   }
 
   const resetButton = mainTiming.querySelector('[data-js="reset-button"]');
