@@ -1,7 +1,8 @@
-import { wantedReset, wantedSave } from "../../modalContent.js";
+import { wantedReset, wantedSave, wantTest } from "../../modalContent.js";
 import { properTimeFormatter } from "../../utils.js";
 import AreYouSure from "../AreYouSure/AreYourSure.js";
 import ListEntry from "../ListEntry/ListEntry.js";
+import Modal from "../Modal/Modal.js";
 
 let startValue;
 
@@ -84,6 +85,9 @@ export default function MainTiming() {
     <button type="button" class="stop_button" data-js="reset-button">
     Reset
     </button>
+        <button type="button" class="test_button" data-js="test-button">
+    Test
+    </button>
   `;
 
   const dateOutput = mainTiming.querySelector('[data-js="date-output"]');
@@ -97,9 +101,11 @@ export default function MainTiming() {
   const startButton = mainTiming.querySelector('[data-js="start-button"]');
   const stopButton = mainTiming.querySelector('[data-js="stop-button"]');
   const saveButton = mainTiming.querySelector('[data-js="save-button"]');
+  const testButton = mainTiming.querySelector('[data-js="test-button"]');
   startButton.addEventListener("click", handleStart);
   stopButton.addEventListener("click", handleStop);
-  mainTiming.addEventListener("submit", handleSubmit);
+  mainTiming.addEventListener("submit", checkBeforeSubmit);
+  testButton.addEventListener("click", handleTest);
 
   function handleStart() {
     timerRunning = true;
@@ -124,8 +130,16 @@ export default function MainTiming() {
     timespanOutput.textContent = formattedTimespan;
   }
 
+  function handleTest() {
+    mainTiming.append(Modal(wantTest));
+  }
+
+  function checkBeforeSubmit(event) {
+    event.preventDefault();
+    timespan === 0 ? mainTiming.append(Modal(wantedSave)) : handleSubmit(event);
+  }
+
   function handleSubmit(event) {
-    console.log("submit");
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);

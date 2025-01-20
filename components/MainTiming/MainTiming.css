@@ -4,11 +4,17 @@
 }
 
 .save_button {
-  display: none;
+  display: inline-block;
+  background-color: #a1acb0;
+  border: 2px solid #a1acb0;
+  color: #799970;
 }
 
 .save_button--active {
   display: inline-block;
+  background-color: var(--secondary-light);
+  border: 2px solid var(--secondary-light);
+  color: black;
 }
 
 .label_standard {

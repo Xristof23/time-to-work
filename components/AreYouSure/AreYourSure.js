@@ -39,7 +39,7 @@ export default function AreYouSure(props, id) {
   }
 
   function handleYes() {
-    props.mode === "delete" ? deleteEntry(id) : realReset();
+    props.mode === "delete" ? deleteEntry(id) : "reset" ? realReset() : null;
   }
 
   return areYouSure;

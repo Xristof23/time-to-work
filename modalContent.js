@@ -10,7 +10,14 @@ const wantedReset = {
 
 const wantedSave = {
   text: "Please press the start button first!",
+  button1: "Ok",
   mode: "save",
 };
 
-export { wantedDelete, wantedReset, wantedSave };
+const wantTest = {
+  text: "This is only a test. Not much to see, huh?",
+  button1: "Ok",
+  mode: "test",
+};
+
+export { wantedDelete, wantedReset, wantedSave, wantTest };
