@@ -1,6 +1,5 @@
 @import "./global.css";
 @import "./components/App/App.css";
-@import "./components/AreYouSure/AreYouSure.css";
 @import "./components/Header/Header.css";
 @import "./components/ListEntry/ListEntry.css";
 @import "./components/MainTiming/MainTiming.css";

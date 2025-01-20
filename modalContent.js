@@ -1,10 +1,14 @@
 const wantedDelete = {
   text: "Do you really want to delete this entry? This is not reversible! Press No, abort., if you are not sure!",
+  button1: "No, cancel.",
+  button2: "Yes, go on.",
   mode: "delete",
 };
 
 const wantedReset = {
-  text: "Do you really want to reset? Your inputs have not been saved yet! Press No, abort., if you are not sure!",
+  text: "Do you really want to reset? Your entry has not been saved yet! Press No, abort., if you are not sure!",
+  button1: "No, cancel.",
+  button2: "Yes, go on.",
   mode: "reset",
 };
 

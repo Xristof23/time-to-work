@@ -1,5 +1,5 @@
-import AreYouSure from "../AreYouSure/AreYourSure.js";
 import { wantedDelete } from "../../modalContent.js";
+import Modal from "../Modal/Modal.js";
 
 export default function ListEntry(element) {
   const listEntry = document.createElement("article");
@@ -23,7 +23,7 @@ export default function ListEntry(element) {
 
   function handleAreYouSure() {
     const id = element.id;
-    listEntry.append(AreYouSure(wantedDelete, id));
+    listEntry.append(Modal(wantedDelete, id));
   }
 
   return listEntry;

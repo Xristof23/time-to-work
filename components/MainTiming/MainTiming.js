@@ -1,6 +1,5 @@
 import { wantedReset, wantedSave, wantTest } from "../../modalContent.js";
 import { properTimeFormatter } from "../../utils.js";
-import AreYouSure from "../AreYouSure/AreYourSure.js";
 import ListEntry from "../ListEntry/ListEntry.js";
 import Modal from "../Modal/Modal.js";
 
@@ -175,7 +174,7 @@ export default function MainTiming() {
   }
 
   function handleReset() {
-    mainTiming.append(AreYouSure(wantedReset));
+    mainTiming.append(Modal(wantedReset));
   }
 
   const resetButton = mainTiming.querySelector('[data-js="reset-button"]');
