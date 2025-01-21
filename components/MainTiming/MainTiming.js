@@ -1,8 +1,12 @@
 import { wantedReset, wantedSave, wantTest } from "../../modalContent.js";
 import { properTimeFormatter } from "../../utils.js";
+import AddControls from "../AddControls/AddControls.js";
+import Headline2 from "../Headline2/Headline2.js";
 import ListEntry from "../ListEntry/ListEntry.js";
 import Modal from "../Modal/Modal.js";
+import TimeRecords from "../TimeRecords/TimeRecords.js";
 
+//"modul globals"
 let startValue;
 
 let timespan = 0;
@@ -11,16 +15,18 @@ let idCounter = 0;
 
 let timerRunning = false;
 
+let advancedCounter = 0;
+
 function createUID() {
   const unixDate = Date.now();
-  const firstNumber = Math.floor(unixDate / 1000);
-  const firstPart = firstNumber.toString().slice(2);
+  const firstNumber = Math.round(unixDate / 1000);
+  const firstPart = firstNumber.toString().slice(3);
   ++idCounter;
   const secondPart = idCounter.toLocaleString("en-US", {
-    minimumIntegerDigits: 3,
+    minimumIntegerDigits: 2,
     useGrouping: false,
   });
-  const newId = firstPart + "C" + secondPart;
+  const newId = Number(firstPart + "0" + secondPart);
   return newId;
 }
 
@@ -47,6 +53,7 @@ export default function MainTiming() {
   const mainTiming = document.createElement("form");
   mainTiming.setAttribute("id", "main-form");
   mainTiming.classList.add("mainTiming");
+
   mainTiming.innerHTML = /*html*/ `
     <p> 
     Explain later how this works
@@ -84,8 +91,8 @@ export default function MainTiming() {
     <button type="button" class="stop_button" data-js="reset-button">
     Reset
     </button>
-        <button type="button" class="test_button" data-js="test-button">
-    Test
+        <button type="button" class="stop_button"  data-js="advanced-button">
+    Advanced controls
     </button>
   `;
 
@@ -100,11 +107,13 @@ export default function MainTiming() {
   const startButton = mainTiming.querySelector('[data-js="start-button"]');
   const stopButton = mainTiming.querySelector('[data-js="stop-button"]');
   const saveButton = mainTiming.querySelector('[data-js="save-button"]');
-  const testButton = mainTiming.querySelector('[data-js="test-button"]');
+  const advancedButton = mainTiming.querySelector(
+    '[data-js="advanced-button"]'
+  );
   startButton.addEventListener("click", handleStart);
   stopButton.addEventListener("click", handleStop);
   mainTiming.addEventListener("submit", checkBeforeSubmit);
-  testButton.addEventListener("click", handleTest);
+  advancedButton.addEventListener("click", handleAdvanced);
 
   function handleStart() {
     timerRunning = true;
@@ -129,8 +138,12 @@ export default function MainTiming() {
     timespanOutput.textContent = formattedTimespan;
   }
 
-  function handleTest() {
-    mainTiming.append(Modal(wantTest));
+  function handleAdvanced() {
+    const addControls = document.getElementById("add-controls1");
+    advancedCounter % 2 === 0
+      ? mainTiming.append(AddControls())
+      : addControls.remove();
+    ++advancedCounter;
   }
 
   function checkBeforeSubmit(event) {
@@ -142,8 +155,13 @@ export default function MainTiming() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
+
     const recordedTasks =
       JSON.parse(localStorage.getItem("RecordedTasks")) || [];
+
+    const app = document.querySelector(".app");
+    recordedTasks.length === 0 &&
+      app.append(Headline2("My entries"), TimeRecords());
 
     const newEntry = {
       id: createUID(),
@@ -159,6 +177,9 @@ export default function MainTiming() {
     recordedTasks.unshift(newEntry);
     localStorage.setItem("RecordedTasks", JSON.stringify(recordedTasks));
 
+    recordedTasks.length === 0 &&
+      app.append(Headline2("My entries"), TimeRecords());
+
     const timeRecords = document.querySelector(".time-records");
     const newListEntry = ListEntry(newEntry);
     timeRecords.prepend(newListEntry);
@@ -171,6 +192,7 @@ export default function MainTiming() {
 
     event.target.reset();
     event.target.elements.project.focus();
+    recordedTasks.length === 1 && location.reload();
   }
 
   function handleReset() {

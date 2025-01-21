@@ -4,8 +4,9 @@ export default function Modal(props, id) {
   const modal = document.createElement("div");
   modal.classList.add("modal");
   modal.setAttribute("id", "modal1");
+  const idText = id ? `${id}!` : "";
   modal.innerHTML = /*html*/ `
-    <p> ${props.text} </p>
+    <p> ${props.text} ${idText}</p>
       <button type="button" data-js="no-button" >
     ${props.button1}
     </button>
@@ -23,6 +24,7 @@ export default function Modal(props, id) {
 
   function handleYes() {
     props.mode === "delete" ? deleteEntry(id) : "reset" ? realReset() : null;
+    props.mode === "deleteAll" ? deleteAllEntries() : null;
   }
 
   function handleAbort() {
@@ -40,6 +42,12 @@ export default function Modal(props, id) {
   }
   function deleteEntry(id) {
     const updatedEntries = userEntries.filter((entry) => entry.id != id);
+    localStorage.setItem("RecordedTasks", JSON.stringify(updatedEntries));
+    location.reload();
+  }
+
+  function deleteAllEntries() {
+    const updatedEntries = [];
     localStorage.setItem("RecordedTasks", JSON.stringify(updatedEntries));
     location.reload();
   }
