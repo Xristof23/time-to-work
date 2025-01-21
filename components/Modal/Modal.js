@@ -22,8 +22,6 @@ export default function Modal(props, id) {
 
   !props.button2 && yesButton.classList.add("button--passive");
 
-  console.log(props.mode);
-
   function handleYes() {
     props.mode === "delete" ? deleteEntry(id) : "reset" ? realReset() : null;
     props.mode === "deleteAll" ? deleteAllEntries() : null;
@@ -49,7 +47,6 @@ export default function Modal(props, id) {
   }
 
   function deleteAllEntries() {
-    console.log("reached delete All");
     const updatedEntries = [];
     localStorage.setItem("RecordedTasks", JSON.stringify(updatedEntries));
     location.reload();
