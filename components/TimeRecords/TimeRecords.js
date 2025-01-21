@@ -1,23 +1,11 @@
 import ListEntry from "../ListEntry/ListEntry.js";
 
-const userEntries = JSON.parse(localStorage.getItem("RecordedTasks")) || [
-  {
-    id: "test123",
-    project: "Example project",
-    task: "Something to do",
-    category: "Examples",
-    date: "today",
-    time: "12:00",
-    timeSpent: "6 min",
-  },
-];
-
-console.log("userEntries from timerecords: ", userEntries);
+const userEntries = JSON.parse(localStorage.getItem("RecordedTasks")) || [];
 
 export default function TimeRecords() {
   const timeRecords = document.createElement("section");
   timeRecords.classList.add("time-records");
-
+  timeRecords.setAttribute("id", "time-records");
   userEntries.forEach((element) => {
     const listElement = ListEntry(element);
     timeRecords.append(listElement);

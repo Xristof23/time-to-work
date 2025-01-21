@@ -23,7 +23,6 @@ export default function ListEntry(element) {
 
   function handleAreYouSure() {
     const id = element.id;
-    console.log("id from ListEntry", id);
     listEntry.append(Modal(wantedDelete, id));
   }
 

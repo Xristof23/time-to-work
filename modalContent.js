@@ -5,6 +5,13 @@ const wantedDelete = {
   mode: "delete",
 };
 
+const wantedDeleteAll = {
+  text: "Do you really want to delete all entries? This is not reversible! Press &quot;No, cancel.&quot;, if you are not sure!",
+  button1: "No, cancel.",
+  button2: "Yes, go on.",
+  mode: "deleteAll",
+};
+
 const wantedReset = {
   text: "Do you really want to reset? Your entry has not been saved yet! Press No, abort., if you are not sure!",
   button1: "No, cancel.",
@@ -24,4 +31,4 @@ const wantTest = {
   mode: "test",
 };
 
-export { wantedDelete, wantedReset, wantedSave, wantTest };
+export { wantedDelete, wantedReset, wantedSave, wantTest, wantedDeleteAll };

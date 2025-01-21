@@ -1,5 +1,10 @@
 .time-records {
+  display: block;
   padding: 0.25rem;
+  margin-top: 0.25rem;
   background-color: var(--secondary-light);
   border-radius: 4px;
+}
+.time-records--active {
+  display: block;
 }
