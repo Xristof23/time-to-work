@@ -5,11 +5,14 @@ const userEntries = JSON.parse(localStorage.getItem("RecordedTasks")) || [
     id: "test123",
     project: "Example project",
     task: "Something to do",
+    category: "Examples",
     date: "today",
     time: "12:00",
     timeSpent: "6 min",
   },
 ];
+
+console.log("userEntries from timerecords: ", userEntries);
 
 export default function TimeRecords() {
   const timeRecords = document.createElement("section");
