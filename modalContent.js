@@ -1,5 +1,5 @@
 const wantedDelete = {
-  text: "Do you really want to delete this entry? This is not reversible! Press No, abort., if you are not sure!",
+  text: "Do you really want to delete this entry? This is not reversible! Press &quot;No, cancel.&quot;, if you are not sure to delete entry with id ",
   button1: "No, cancel.",
   button2: "Yes, go on.",
   mode: "delete",

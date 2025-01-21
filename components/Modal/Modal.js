@@ -6,8 +6,9 @@ export default function Modal(props, id) {
   const modal = document.createElement("div");
   modal.classList.add("modal");
   modal.setAttribute("id", "modal1");
+  const idText = id ? `${id}!` : "";
   modal.innerHTML = /*html*/ `
-    <p> ${props.text} </p>
+    <p> ${props.text} ${idText}</p>
       <button type="button" data-js="no-button" >
     ${props.button1}
     </button>
