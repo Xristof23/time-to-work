@@ -1,4 +1,4 @@
-// const userEntries = JSON.parse(localStorage.getItem("RecordedTasks")) || [];
+import { disappearListContainer } from "../../utils.js";
 
 export default function Modal(props, id) {
   const modal = document.createElement("div");
@@ -43,9 +43,11 @@ export default function Modal(props, id) {
   function deleteEntry(id) {
     const userEntries = JSON.parse(localStorage.getItem("RecordedTasks"));
     const updatedEntries = userEntries.filter((entry) => entry.id != id);
-    console.log("updatedEntries", updatedEntries);
+    const entryToDelete = document.getElementById(`${id}`);
+    entryToDelete.remove();
     localStorage.setItem("RecordedTasks", JSON.stringify(updatedEntries));
-    location.reload();
+    modal.remove();
+    updatedEntries.length === 0 && disappearListContainer();
   }
 
   function deleteAllEntries() {

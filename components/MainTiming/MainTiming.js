@@ -1,5 +1,5 @@
 import { wantedReset, wantedSave, wantTest } from "../../modalContent.js";
-import { properTimeFormatter } from "../../utils.js";
+import { properTimeFormatter, createUID } from "../../utils.js";
 import AddControls from "../AddControls/AddControls.js";
 import Headline2 from "../Headline2/Headline2.js";
 import ListEntry from "../ListEntry/ListEntry.js";
@@ -16,19 +16,6 @@ let idCounter = 0;
 let timerRunning = false;
 
 let advancedCounter = 0;
-
-function createUID() {
-  const unixDate = Date.now();
-  const firstNumber = Math.round(unixDate / 1000);
-  const firstPart = firstNumber.toString().slice(3);
-  const randomNr = Math.floor(Math.random() * 1000);
-  const secondPart = randomNr.toLocaleString("en-US", {
-    minimumIntegerDigits: 3,
-    useGrouping: false,
-  });
-  const newId = Number(firstPart + secondPart);
-  return newId;
-}
 
 const today = new Date();
 
@@ -159,10 +146,6 @@ export default function MainTiming() {
     const recordedTasks =
       JSON.parse(localStorage.getItem("RecordedTasks")) || [];
 
-    const app = document.querySelector(".app");
-    recordedTasks.length === 0 &&
-      app.append(Headline2("My entries"), TimeRecords());
-
     const newEntry = {
       id: createUID(),
       startValue,
@@ -176,9 +159,6 @@ export default function MainTiming() {
     };
     recordedTasks.unshift(newEntry);
     localStorage.setItem("RecordedTasks", JSON.stringify(recordedTasks));
-
-    recordedTasks.length === 0 &&
-      app.append(Headline2("My entries"), TimeRecords());
 
     const timeRecords = document.querySelector(".time-records");
     const newListEntry = ListEntry(newEntry);

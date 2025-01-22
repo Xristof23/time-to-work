@@ -1,0 +1,9 @@
+.list_container {
+  display: block;
+  border: 2px solid var(--secondary);
+  border-radius: 4px;
+}
+
+.list-container--passive {
+  display: none;
+}

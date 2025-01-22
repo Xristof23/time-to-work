@@ -1,0 +1,5 @@
+.nav {
+  background-color: var(--secondary);
+  position: relative;
+  top: -1rem;
+}

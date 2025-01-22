@@ -1,0 +1,8 @@
+.headline2 {
+  display: inline-block;
+}
+
+.headline2--passive {
+  display: inline-block;
+  border: 1px solid black;
+}
