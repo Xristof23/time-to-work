@@ -2,4 +2,9 @@
   background-color: var(--secondary);
   position: relative;
   top: -1rem;
+  padding: 0.25rem;
+}
+
+.button {
+  height: 1.5rem;
 }

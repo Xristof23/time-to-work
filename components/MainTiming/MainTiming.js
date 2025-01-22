@@ -1,17 +1,14 @@
 import { wantedReset, wantedSave, wantTest } from "../../modalContent.js";
 import { properTimeFormatter, createUID } from "../../utils.js";
 import AddControls from "../AddControls/AddControls.js";
-import Headline2 from "../Headline2/Headline2.js";
+import ListContainer from "../ListContainer/ListContainer.js";
 import ListEntry from "../ListEntry/ListEntry.js";
 import Modal from "../Modal/Modal.js";
-import TimeRecords from "../TimeRecords/TimeRecords.js";
 
 //"modul globals"
 let startValue;
 
 let timespan = 0;
-
-let idCounter = 0;
 
 let timerRunning = false;
 
@@ -42,9 +39,9 @@ export default function MainTiming() {
   mainTiming.classList.add("mainTiming");
 
   mainTiming.innerHTML = /*html*/ `
-    <p> 
-    Explain later how this works
-    </p>
+    <h2> 
+    New Entry
+    </h2>
     <p>Date:  <output data-js="date-output">${localDate}</output>
     </p>
     <p>Time: <output data-js="time-output">${localTime}</output> 
@@ -79,7 +76,7 @@ export default function MainTiming() {
     Reset
     </button>
         <button type="button" class="stop_button"  data-js="advanced-button">
-    Advanced controls
+   More controls
     </button>
   `;
 
@@ -159,6 +156,10 @@ export default function MainTiming() {
     };
     recordedTasks.unshift(newEntry);
     localStorage.setItem("RecordedTasks", JSON.stringify(recordedTasks));
+
+    const app = document.getElementById("app");
+    const listContainer = document.getElementById("list-container");
+    !listContainer ? app.append(ListContainer()) : null;
 
     const timeRecords = document.querySelector(".time-records");
     const newListEntry = ListEntry(newEntry);
