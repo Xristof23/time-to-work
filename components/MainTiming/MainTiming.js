@@ -21,12 +21,12 @@ function createUID() {
   const unixDate = Date.now();
   const firstNumber = Math.round(unixDate / 1000);
   const firstPart = firstNumber.toString().slice(3);
-  ++idCounter;
-  const secondPart = idCounter.toLocaleString("en-US", {
-    minimumIntegerDigits: 2,
+  const randomNr = Math.floor(Math.random() * 1000);
+  const secondPart = randomNr.toLocaleString("en-US", {
+    minimumIntegerDigits: 3,
     useGrouping: false,
   });
-  const newId = Number(firstPart + "0" + secondPart);
+  const newId = Number(firstPart + secondPart);
   return newId;
 }
 

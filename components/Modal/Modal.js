@@ -1,4 +1,4 @@
-const userEntries = JSON.parse(localStorage.getItem("RecordedTasks")) || [];
+// const userEntries = JSON.parse(localStorage.getItem("RecordedTasks")) || [];
 
 export default function Modal(props, id) {
   const modal = document.createElement("div");
@@ -41,7 +41,9 @@ export default function Modal(props, id) {
     location.reload();
   }
   function deleteEntry(id) {
+    const userEntries = JSON.parse(localStorage.getItem("RecordedTasks"));
     const updatedEntries = userEntries.filter((entry) => entry.id != id);
+    console.log("updatedEntries", updatedEntries);
     localStorage.setItem("RecordedTasks", JSON.stringify(updatedEntries));
     location.reload();
   }
