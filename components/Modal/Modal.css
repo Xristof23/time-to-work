@@ -6,9 +6,9 @@
   border-radius: 4px;
   position: absolute;
   top: 50%;
-  left: -2%;
   height: 10rem;
-  width: 104%;
+  left: 0rem;
+  width: 100%;
   z-index: 4;
 }
 
@@ -21,4 +21,8 @@
   font-weight: 700;
   border: 2px solid var(--red);
   background-color: var(--red);
+}
+
+.button--passive {
+  display: none;
 }
