@@ -30,6 +30,14 @@ export default function ListEntry(element) {
 
   function handleShowDetails() {
     const entryDetails = document.getElementById(`${element.id}d`);
+    const detailButton = listEntry.querySelector('[data-js="detail-button"]');
+    if (counter % 2 === 0) {
+      listEntry.append(EntryDetails(element));
+      detailButton.textContent = "close details";
+    } else {
+      entryDetails.remove();
+      detailButton.textContent = "more details";
+    }
     counter % 2 === 0
       ? listEntry.append(EntryDetails(element))
       : entryDetails.remove();
