@@ -1,6 +1,6 @@
 import TimeRecords from "../TimeRecords/TimeRecords.js";
 
-export default function ListContainer() {
+export default function ListContainer(userEntries) {
   const listContainer = document.createElement("section");
   listContainer.classList.add("list_container");
   listContainer.setAttribute("id", "list-container");
@@ -9,7 +9,7 @@ export default function ListContainer() {
     <h2>My entries</h2>
     </div>
 `;
-  listContainer.append(TimeRecords());
+  listContainer.append(TimeRecords(userEntries));
 
   return listContainer;
 }

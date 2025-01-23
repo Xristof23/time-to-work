@@ -10,9 +10,9 @@ export default function Menu() {
   const menu = document.createElement("nav");
   menu.classList.add("nav");
   menu.innerHTML = /*html*/ `
-    <button id="what-button" data-js="what-button">what?</button>
-    <button id="new-task-button" data-js="new-task-button">new task</button>
-    <button id="done-tasks-button" data-js="done-tasks-button">done tasks</button>
+    <button id="what-button" class="menu_button" data-js="what-button">what?</button>
+    <button id="new-task-button" class="menu_button" data-js="new-task-button">new task</button>
+    <button id="done-tasks-button" class="menu_button" data-js="done-tasks-button">done tasks</button>
 `;
   const whatButton = menu.querySelector('[data-js="what-button"]');
   const newTaskButton = menu.querySelector('[data-js="new-task-button"]');
@@ -27,7 +27,6 @@ export default function Menu() {
     const target = e.target || e.srcElement,
       // text = target.textContent || target.innerText;
       text = target.id;
-    console.log("clicked ", text);
     const app = document.getElementById("app");
     const what = document.getElementById("what");
     const newTask = document.getElementById("main-form");
@@ -35,22 +34,42 @@ export default function Menu() {
 
     switch (text) {
       case "what-button":
-        whatButtonCounter % 2 === 0 ? app.append(What()) : what.remove();
-        ++whatButtonCounter;
+        newTask && newTaskButton.classList.toggle("menu_button--active");
+        newTask && newTask.remove();
+        listContainer &&
+          doneTasksButton.classList.toggle("menu_button--active");
+        listContainer && listContainer.remove();
+        !what && whatButton.classList.toggle("menu_button--active");
+        !what && app.append(What());
         break;
       case "new-task-button":
+        what && whatButton.classList.toggle("menu_button--active");
         what && what.remove();
-        newTaskButtonCounter % 2 === 0
-          ? app.append(MainTiming())
-          : newTask.remove();
-        ++newTaskButtonCounter;
+        listContainer &&
+          doneTasksButton.classList.toggle("menu_button--active");
+        listContainer && listContainer.remove();
+        !newTask && newTaskButton.classList.toggle("menu_button--active");
+        !newTask && app.append(MainTiming());
         break;
       case "done-tasks-button":
+        what && whatButton.classList.toggle("menu_button--active");
         what && what.remove();
-        doneTasksButtonCounter % 2 === 0
-          ? app.append(ListContainer())
-          : listContainer.remove();
-        ++doneTasksButtonCounter;
+        newTask && newTaskButton.classList.toggle("menu_button--active");
+        newTask && newTask.remove();
+        if (listContainer) {
+          null;
+        } else {
+          doneTasksButton.classList.toggle("menu_button--active");
+          const userEntries =
+            JSON.parse(localStorage.getItem("RecordedTasks")) || [];
+          app.append(ListContainer(userEntries));
+        }
+
+        // console.log(userEntries);
+        // doneTasksButtonCounter % 2 === 0
+        //   ?
+        //   : listContainer.remove();
+        // ++doneTasksButtonCounter;
         break;
     }
   }

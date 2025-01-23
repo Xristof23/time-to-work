@@ -108,6 +108,7 @@ export default function MainTiming() {
     dateOutput.textContent = localDate;
     timeOutput.textContent = localTime;
     startOutput.textContent = localTime;
+    endOutput.textContent = "time is running ...";
   }
 
   function handleStop() {
@@ -159,7 +160,7 @@ export default function MainTiming() {
 
     const app = document.getElementById("app");
     const listContainer = document.getElementById("list-container");
-    !listContainer ? app.append(ListContainer()) : null;
+    !listContainer ? app.append(ListContainer(recordedTasks)) : null;
 
     const timeRecords = document.querySelector(".time-records");
     const newListEntry = ListEntry(newEntry);

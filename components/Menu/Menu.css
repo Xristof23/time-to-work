@@ -5,6 +5,13 @@
   padding: 0.25rem;
 }
 
-.button {
-  height: 1.5rem;
+.menu_button {
+  height: 1.9rem;
+}
+
+.menu_button--active {
+  height: 1.9rem;
+  font-weight: 600;
+  background-color: var(--primary);
+  border: none;
 }
