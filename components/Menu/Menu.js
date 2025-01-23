@@ -2,10 +2,6 @@ import What from "../What/What.js";
 import ListContainer from "../ListContainer/ListContainer.js";
 import MainTiming from "../MainTiming/MainTiming.js";
 
-let whatButtonCounter = 0;
-let newTaskButtonCounter = 0;
-let doneTasksButtonCounter = 0;
-
 export default function Menu() {
   const menu = document.createElement("nav");
   menu.classList.add("nav");
@@ -64,23 +60,8 @@ export default function Menu() {
             JSON.parse(localStorage.getItem("RecordedTasks")) || [];
           app.append(ListContainer(userEntries));
         }
-
-        // console.log(userEntries);
-        // doneTasksButtonCounter % 2 === 0
-        //   ?
-        //   : listContainer.remove();
-        // ++doneTasksButtonCounter;
         break;
     }
-  }
-
-  function handleEntries() {
-    const app = document.getElementById("app");
-    const listContainer = document.getElementById("list-container");
-    entriesButtonCounter % 2 === 0
-      ? app.append(ListContainer())
-      : listContainer.remove();
-    ++entriesButtonCounter;
   }
 
   return menu;

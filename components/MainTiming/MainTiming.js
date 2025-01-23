@@ -160,11 +160,11 @@ export default function MainTiming() {
 
     const app = document.getElementById("app");
     const listContainer = document.getElementById("list-container");
-    !listContainer ? app.append(ListContainer(recordedTasks)) : null;
-
-    const timeRecords = document.querySelector(".time-records");
-    const newListEntry = ListEntry(newEntry);
-    timeRecords.prepend(newListEntry);
+    !listContainer && app.append(ListContainer(recordedTasks));
+    const doneTasksButton = document.querySelector(
+      '[data-js="done-tasks-button"]'
+    );
+    doneTasksButton.classList.toggle("menu_button--active");
     timespan = 0;
     dateOutput.textContent = localDate;
     timeOutput.textContent = localTime;
@@ -174,7 +174,6 @@ export default function MainTiming() {
 
     event.target.reset();
     event.target.elements.project.focus();
-    recordedTasks.length === 1 && location.reload();
   }
 
   function handleReset() {

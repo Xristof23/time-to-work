@@ -42,18 +42,9 @@ function createUID() {
   return newId;
 }
 
-// one of the two following wil be redundant
-
 function disappearListContainer() {
   const listContainer = document.getElementById("list-container");
   listContainer.classList.add("list_container--passive");
-  console.log("reached disappear");
 }
 
-function hideElement(id) {
-  const element = document.getElementById(id);
-  element.style.display("none");
-  console.log("Element hidden");
-}
-
-export { properTimeFormatter, createUID, hideElement, disappearListContainer };
+export { properTimeFormatter, createUID, disappearListContainer };

@@ -8,11 +8,12 @@ export default function ListEntry(element) {
   listEntry.classList.add("listEntry");
   listEntry.setAttribute("id", `${element.id}`);
   listEntry.innerHTML = /* html */ `
-  <div>
-  <h3>Entry from ${element.date}, ${element.time}</h3><button class = "delete_button" data-js="detail-delete-button">X</button>
-  </div>
-  <p class="detail_paragraph">Task: ${element.task} </p>
-  <button data-js="detail-button">more details</button>
+   <button class = "delete_button" data-js="detail-delete-button">X</button>
+  <h3>Entry from ${element.date}, ${element.time}</h3>
+  <p class="task">Task: ${element.task} </p>
+ 
+  
+  <button class="detail_button" data-js="detail-button">more details</button>
   `;
 
   const deleteButton = listEntry.querySelector(
