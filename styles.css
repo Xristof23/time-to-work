@@ -1,8 +1,13 @@
 @import "./global.css";
 @import "./components/AddControls/AddControls.css";
 @import "./components/App/App.css";
+@import "./components/EntryDetails/EntryDetails.css";
 @import "./components/Header/Header.css";
+@import "./components/Headline2/Headline2.css";
+@import "./components/ListContainer/ListContainer.css";
 @import "./components/ListEntry/ListEntry.css";
 @import "./components/MainTiming/MainTiming.css";
+@import "./components/Menu/Menu.css";
 @import "./components/Modal/Modal.css";
 @import "./components/TimeRecords/TimeRecords.css";
+@import "./components/What/What.css";

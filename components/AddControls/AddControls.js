@@ -6,7 +6,7 @@ export default function () {
   addControls.classList.add("addControls");
   addControls.setAttribute("id", "add-controls1");
   addControls.innerHTML = /* html */ `
-    <button class="delete_all_button" data-js="delete-all">Delete all Entries</button>
+    <button class="delete_all_button" data-js="delete-all">Delete all entries</button>
     `;
 
   const deleteAll = addControls.querySelector('[data-js="delete-all"]');

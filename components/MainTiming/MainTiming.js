@@ -1,34 +1,18 @@
 import { wantedReset, wantedSave, wantTest } from "../../modalContent.js";
-import { properTimeFormatter } from "../../utils.js";
+import { properTimeFormatter, createUID } from "../../utils.js";
 import AddControls from "../AddControls/AddControls.js";
-import Headline2 from "../Headline2/Headline2.js";
+import ListContainer from "../ListContainer/ListContainer.js";
 import ListEntry from "../ListEntry/ListEntry.js";
 import Modal from "../Modal/Modal.js";
-import TimeRecords from "../TimeRecords/TimeRecords.js";
 
 //"modul globals"
 let startValue;
 
 let timespan = 0;
 
-let idCounter = 0;
-
 let timerRunning = false;
 
 let advancedCounter = 0;
-
-function createUID() {
-  const unixDate = Date.now();
-  const firstNumber = Math.round(unixDate / 1000);
-  const firstPart = firstNumber.toString().slice(3);
-  ++idCounter;
-  const secondPart = idCounter.toLocaleString("en-US", {
-    minimumIntegerDigits: 2,
-    useGrouping: false,
-  });
-  const newId = Number(firstPart + "0" + secondPart);
-  return newId;
-}
 
 const today = new Date();
 
@@ -55,9 +39,9 @@ export default function MainTiming() {
   mainTiming.classList.add("mainTiming");
 
   mainTiming.innerHTML = /*html*/ `
-    <p> 
-    Explain later how this works
-    </p>
+    <h2> 
+    New Entry
+    </h2>
     <p>Date:  <output data-js="date-output">${localDate}</output>
     </p>
     <p>Time: <output data-js="time-output">${localTime}</output> 
@@ -92,7 +76,7 @@ export default function MainTiming() {
     Reset
     </button>
         <button type="button" class="stop_button"  data-js="advanced-button">
-    Advanced controls
+   More controls
     </button>
   `;
 
@@ -124,6 +108,7 @@ export default function MainTiming() {
     dateOutput.textContent = localDate;
     timeOutput.textContent = localTime;
     startOutput.textContent = localTime;
+    endOutput.textContent = "time is running ...";
   }
 
   function handleStop() {
@@ -159,10 +144,6 @@ export default function MainTiming() {
     const recordedTasks =
       JSON.parse(localStorage.getItem("RecordedTasks")) || [];
 
-    const app = document.querySelector(".app");
-    recordedTasks.length === 0 &&
-      app.append(Headline2("My entries"), TimeRecords());
-
     const newEntry = {
       id: createUID(),
       startValue,
@@ -177,12 +158,13 @@ export default function MainTiming() {
     recordedTasks.unshift(newEntry);
     localStorage.setItem("RecordedTasks", JSON.stringify(recordedTasks));
 
-    recordedTasks.length === 0 &&
-      app.append(Headline2("My entries"), TimeRecords());
-
-    const timeRecords = document.querySelector(".time-records");
-    const newListEntry = ListEntry(newEntry);
-    timeRecords.prepend(newListEntry);
+    const app = document.getElementById("app");
+    const listContainer = document.getElementById("list-container");
+    !listContainer && app.append(ListContainer(recordedTasks));
+    const doneTasksButton = document.querySelector(
+      '[data-js="done-tasks-button"]'
+    );
+    doneTasksButton.classList.toggle("menu_button--active");
     timespan = 0;
     dateOutput.textContent = localDate;
     timeOutput.textContent = localTime;
@@ -192,7 +174,6 @@ export default function MainTiming() {
 
     event.target.reset();
     event.target.elements.project.focus();
-    recordedTasks.length === 1 && location.reload();
   }
 
   function handleReset() {

@@ -1,31 +1,39 @@
-.detail_paragraph {
-  line-height: 0.9rem;
-  padding-left: 0.25rem;
+.listEntry {
+  margin: 0.5rem 0.5rem 1rem 0.5rem;
+  padding: 0.25rem;
+  position: relative;
+  border-radius: 4px;
+  background-color: var(--primary);
+  min-height: 7rem;
 }
 
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  gap: 0.25rem;
+}
+.task {
+  margin: 0;
+}
+.detail_button {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  z-index: 2;
+}
 .delete_button {
   color: var(--red);
   padding: 0.2rem;
   font-size: 0.8rem;
   font-weight: 700;
-  position: sticky;
-  left: 100%;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
   border: 2px solid var(--red);
   width: 1.6rem;
   height: 1.6rem;
   line-height: 1rem;
   background-color: transparent;
-  z-index: 1;
-}
-
-div {
-  display: flex;
-  flex-direction: row;
-}
-
-article {
-  margin: 0.5rem 0.5rem 1rem 0.5rem;
-  padding: 0.25rem;
-  border-radius: 4px;
-  background-color: var(--primary);
+  z-index: 2;
 }

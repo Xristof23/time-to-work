@@ -1,0 +1,17 @@
+.nav {
+  background-color: var(--secondary);
+  position: relative;
+  top: -1rem;
+  padding: 0.25rem;
+}
+
+.menu_button {
+  height: 1.9rem;
+}
+
+.menu_button--active {
+  height: 1.9rem;
+  font-weight: 600;
+  background-color: var(--primary);
+  border: none;
+}

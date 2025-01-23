@@ -29,4 +29,22 @@ function properTimeFormatter(timeInMs, options) {
   return formattedTime;
 }
 
-export { properTimeFormatter };
+function createUID() {
+  const unixDate = Date.now();
+  const firstNumber = Math.round(unixDate / 1000);
+  const firstPart = firstNumber.toString().slice(3);
+  const randomNr = Math.floor(Math.random() * 1000);
+  const secondPart = randomNr.toLocaleString("en-US", {
+    minimumIntegerDigits: 3,
+    useGrouping: false,
+  });
+  const newId = Number(firstPart + secondPart);
+  return newId;
+}
+
+function disappearListContainer() {
+  const listContainer = document.getElementById("list-container");
+  listContainer.classList.add("list_container--passive");
+}
+
+export { properTimeFormatter, createUID, disappearListContainer };
