@@ -6,6 +6,7 @@ export default function App() {
   app.setAttribute("id", "app");
   app.classList.add("app");
   app.append(Header());
+  app.append(MainTiming());
 
   return app;
 }

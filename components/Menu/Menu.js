@@ -7,7 +7,7 @@ export default function Menu() {
   menu.classList.add("nav");
   menu.innerHTML = /*html*/ `
     <button id="what-button" class="menu_button" data-js="what-button">what?</button>
-    <button id="new-task-button" class="menu_button" data-js="new-task-button">new task</button>
+    <button id="new-task-button" class="menu_button--active" data-js="new-task-button">new task</button>
     <button id="done-tasks-button" class="menu_button" data-js="done-tasks-button">done tasks</button>
 `;
   const whatButton = menu.querySelector('[data-js="what-button"]');
