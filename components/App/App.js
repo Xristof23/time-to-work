@@ -5,7 +5,7 @@ export default function App() {
   const app = document.createElement("main");
   app.setAttribute("id", "app");
   app.classList.add("app");
-  app.append(Header(), MainTiming());
+  app.append(Header());
 
   return app;
 }

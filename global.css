@@ -48,14 +48,14 @@ h3 {
 body {
   line-height: 1.5;
   font-family: var(--ff-primary);
-  color: var(--black);
+  color: var(--darkblue);
 }
 
 button {
   font-size: 1rem;
   line-height: 0.9rem;
   font-family: var(--ff-primary);
-  color: black;
+  color: var(--darkblue);
   padding: 0.4rem;
   margin: 0.25rem;
   min-height: fit-content;
