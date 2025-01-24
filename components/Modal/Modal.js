@@ -1,4 +1,3 @@
-import { reallyDeleteAll } from "../../modalContent.js";
 import { disappearListContainer } from "../../utils.js";
 
 export default function Modal(props, id) {

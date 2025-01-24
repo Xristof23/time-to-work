@@ -32,6 +32,12 @@ const wantedSave = {
   mode: "save",
 };
 
+const noEntries = {
+  text: "There are no entries in this list",
+  button1: "Ok",
+  mode: "noEntries",
+};
+
 const wantedStart = {
   text: "The timer is already running!",
   button1: "Ok",
@@ -52,4 +58,5 @@ export {
   wantTest,
   wantedDeleteAll,
   reallyDeleteAll,
+  noEntries,
 };
