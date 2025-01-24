@@ -36,9 +36,13 @@ export default function Modal(props, id) {
     const startOutput = document.querySelector('[data-js="start-output"]');
     const endOutput = document.querySelector('[data-js="end-output"]');
     const timeOutput = document.querySelector('[data-js="time-output"]');
+    const timespanOutput = mainTiming.querySelector(
+      '[data-js="timespan-output"]'
+    );
     startOutput.textContent = "";
     endOutput.textContent = "";
     timeOutput.textContent = "";
+    timespanOutput.textContent = "";
     modal.remove();
     const form = document.getElementById("main-form");
     form.reset();

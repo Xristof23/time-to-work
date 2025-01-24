@@ -8,7 +8,7 @@ export default function ListContainer(userEntries) {
   listContainer.setAttribute("id", "list-container");
 
   listContainer.innerHTML = /*html*/ `
-    <h2>My entries</h2>
+    <h2>Done tasks</h2>
         <button type="button" class="delete-all_button"  data-js="delete-all-button">
    Delete all
     </button>
@@ -18,8 +18,8 @@ export default function ListContainer(userEntries) {
   );
   advancedButton.addEventListener("click", handleDeleteAll);
 
-  userEntries.length > 0 && listContainer.append(TimeRecords(userEntries));
-  userEntries.length === 0 && listContainer.append(Modal(noEntries));
+  // userEntries.length > 0 && listContainer.append(TimeRecords(userEntries));
+  // userEntries.length === 0 && listContainer.append(Modal(noEntries));
 
   function handleDeleteAll() {
     listContainer.append(Modal(wantedDeleteAll));

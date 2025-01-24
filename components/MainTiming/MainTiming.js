@@ -169,7 +169,13 @@ export default function MainTiming() {
 
     const app = document.getElementById("app");
     const listContainer = document.getElementById("list-container");
-    !listContainer && app.append(ListContainer(recordedTasks));
+    if (!listContainer) {
+      app.append(ListContainer(recordedTasks));
+    } else {
+      listContainer.remove();
+      app.append(ListContainer(recordedTasks));
+    }
+
     const doneTasksButton = document.querySelector(
       '[data-js="done-tasks-button"]'
     );

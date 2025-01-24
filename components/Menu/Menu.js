@@ -1,6 +1,7 @@
 import What from "../What/What.js";
 import ListContainer from "../ListContainer/ListContainer.js";
 import MainTiming from "../MainTiming/MainTiming.js";
+import { noTasks, whatContent } from "../../textContent.js";
 
 export default function Menu() {
   const menu = document.createElement("nav");
@@ -36,7 +37,7 @@ export default function Menu() {
           doneTasksButton.classList.toggle("menu_button--active");
         listContainer && listContainer.remove();
         !what && whatButton.classList.toggle("menu_button--active");
-        !what && app.append(What());
+        !what && app.append(What(whatContent));
         break;
       case "new-task-button":
         what && whatButton.classList.toggle("menu_button--active");
@@ -52,13 +53,15 @@ export default function Menu() {
         what && what.remove();
         newTask && newTaskButton.classList.toggle("menu_button--active");
         newTask && newTask.remove();
+        const userEntries =
+          JSON.parse(localStorage.getItem("RecordedTasks")) || [];
         if (listContainer) {
           null;
-        } else {
+        } else if (userEntries.length > 0) {
           doneTasksButton.classList.toggle("menu_button--active");
-          const userEntries =
-            JSON.parse(localStorage.getItem("RecordedTasks")) || [];
           app.append(ListContainer(userEntries));
+        } else {
+          app.append(What(noTasks));
         }
         break;
     }
