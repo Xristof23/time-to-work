@@ -32,6 +32,12 @@ const wantedSave = {
   mode: "save",
 };
 
+const wantedStart = {
+  text: "The timer is already running!",
+  button1: "Ok",
+  mode: "save",
+};
+
 const wantTest = {
   text: "This is only a test. Not much to see, huh?",
   button1: "Ok",
@@ -42,6 +48,7 @@ export {
   wantedDelete,
   wantedReset,
   wantedSave,
+  wantedStart,
   wantTest,
   wantedDeleteAll,
   reallyDeleteAll,

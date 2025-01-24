@@ -40,7 +40,9 @@ export default function Modal(props, id) {
     startOutput.textContent = "";
     endOutput.textContent = "";
     timeOutput.textContent = "";
-    location.reload();
+    modal.remove();
+    const form = document.getElementById("main-form");
+    form.reset();
   }
   function deleteEntry(id) {
     const userEntries = JSON.parse(localStorage.getItem("RecordedTasks"));

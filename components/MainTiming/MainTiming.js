@@ -1,4 +1,4 @@
-import { wantedReset, wantedSave, wantTest } from "../../modalContent.js";
+import { wantedReset, wantedSave, wantedStart } from "../../modalContent.js";
 import { properTimeFormatter, createUID } from "../../utils.js";
 import ListContainer from "../ListContainer/ListContainer.js";
 import Modal from "../Modal/Modal.js";
@@ -28,6 +28,8 @@ const timeOptions = {
 
 let localDate = today.toLocaleDateString("en-EN", dateOptions);
 let localTime = today.toLocaleTimeString("en-EN", timeOptions);
+
+let intervalId;
 
 export default function MainTiming() {
   const mainTiming = document.createElement("form");
@@ -90,21 +92,38 @@ export default function MainTiming() {
   mainTiming.addEventListener("submit", checkBeforeSubmit);
 
   function handleStart() {
-    timerRunning = true;
-    stopButton.classList.toggle("stop_button--active");
-    startValue = Date.now();
-    const startDate = new Date(startValue);
-    localDate = startDate.toLocaleDateString("en-EN", dateOptions);
-    localTime = startDate.toLocaleTimeString("en-EN", timeOptions);
-    dateOutput.textContent = localDate;
-    timeOutput.textContent = localTime;
-    startOutput.textContent = localTime;
-    endOutput.textContent = "time is running ...";
+    if (timerRunning) {
+      mainTiming.append(Modal(wantedStart));
+    } else {
+      timerRunning = true;
+      stopButton.classList.toggle("stop_button--active");
+      startValue = Date.now();
+      handleUpdateTime();
+      const startDate = new Date(startValue);
+      localDate = startDate.toLocaleDateString("en-EN", dateOptions);
+      localTime = startDate.toLocaleTimeString("en-EN", timeOptions);
+      dateOutput.textContent = localDate;
+      timeOutput.textContent = localTime;
+      startOutput.textContent = localTime;
+      endOutput.textContent = "time is running ...";
+    }
+  }
+
+  function handleUpdateTime() {
+    if (!intervalId) {
+      intervalId = setInterval(updateTime, 1000);
+    }
+  }
+
+  function updateTime() {
+    const updatedTime = Date.now() - startValue;
+    const formattedTime = properTimeFormatter(updatedTime);
+    timespanOutput.textContent = formattedTime;
   }
 
   function handleStop() {
     if (timerRunning === false) {
-      alert("Press start first!");
+      mainTiming.append(Modal(wantedSave));
     } else {
       saveButton.classList.add("save_button--active");
       const endValue = Date.now();
@@ -116,6 +135,8 @@ export default function MainTiming() {
       timespanOutput.textContent = formattedTimespan;
       timerRunning = false;
       stopButton.classList.toggle("stop_button--active");
+      clearInterval(intervalId);
+      intervalId = null;
     }
   }
 
