@@ -57,7 +57,8 @@ export default function Modal(props, id) {
   function deleteAllEntries() {
     const updatedEntries = [];
     localStorage.setItem("RecordedTasks", JSON.stringify(updatedEntries));
-    location.reload();
+    modal.remove();
+    // const listContainer = document.getElementById
   }
 
   return modal;

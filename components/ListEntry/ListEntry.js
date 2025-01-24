@@ -11,9 +11,13 @@ export default function ListEntry(element) {
   listEntry.classList.add("listEntry");
   listEntry.setAttribute("id", `${id}`);
 
+  // const noEntry = document.createElement("p");
+
+  const noEntry = !element ? "There are no entries in this list" : "";
+
   listEntry.innerHTML = /* html */ `
     <button class = "delete_button" data-js="detail-delete-button">X</button>
-    <h3>${task}</h3>
+    <h3>${task}${noEntry}</h3>
     <p class="date_time">  ${date}, ${formattedTime}</p>
     <button class="detail_button" data-js="detail-button">more details</button>
   `;
