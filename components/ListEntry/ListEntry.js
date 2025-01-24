@@ -4,16 +4,18 @@ import Modal from "../Modal/Modal.js";
 let counter = 0;
 
 export default function ListEntry(element) {
+  const { date, time, task, id } = element;
+  const formattedTime = time.slice(0, 5);
+
   const listEntry = document.createElement("article");
   listEntry.classList.add("listEntry");
-  listEntry.setAttribute("id", `${element.id}`);
+  listEntry.setAttribute("id", `${id}`);
+
   listEntry.innerHTML = /* html */ `
-   <button class = "delete_button" data-js="detail-delete-button">X</button>
-  <h3>Entry from ${element.date}, ${element.time}</h3>
-  <p class="task">Task: ${element.task} </p>
- 
-  
-  <button class="detail_button" data-js="detail-button">more details</button>
+    <button class = "delete_button" data-js="detail-delete-button">X</button>
+    <h3>${task}</h3>
+    <p class="date_time">  ${date}, ${formattedTime}</p>
+    <button class="detail_button" data-js="detail-button">more details</button>
   `;
 
   const deleteButton = listEntry.querySelector(
@@ -38,9 +40,6 @@ export default function ListEntry(element) {
       entryDetails.remove();
       detailButton.textContent = "more details";
     }
-    counter % 2 === 0
-      ? listEntry.append(EntryDetails(element))
-      : entryDetails.remove();
     ++counter;
   }
 

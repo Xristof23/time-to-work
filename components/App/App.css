@@ -1,7 +1,8 @@
 .app {
   background-color: var(--primary);
-  width: 80%;
+  width: 90%;
   min-width: 365px;
+  max-width: 800px;
   position: absolute;
   height: 90%;
   left: 0.5rem;

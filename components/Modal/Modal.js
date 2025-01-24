@@ -1,17 +1,19 @@
+import { reallyDeleteAll } from "../../modalContent.js";
 import { disappearListContainer } from "../../utils.js";
 
 export default function Modal(props, id) {
+  const { text, button1, button2, mode } = props;
   const modal = document.createElement("div");
   modal.classList.add("modal");
   modal.setAttribute("id", "modal1");
   const idText = id ? `${id}!` : "";
   modal.innerHTML = /*html*/ `
-    <p> ${props.text} ${idText}</p>
-      <button type="button" data-js="no-button" >
-    ${props.button1}
+    <p> ${text} ${idText}</p>
+    <button type="button" data-js="no-button" >
+    ${button1}
     </button>
     <button type="button" class="yes_button" data-js="yes-button">
-    ${props.button2}
+    ${button2}
     </button> 
     `;
 
@@ -23,8 +25,8 @@ export default function Modal(props, id) {
   !props.button2 && yesButton.classList.add("button--passive");
 
   function handleYes() {
-    props.mode === "delete" ? deleteEntry(id) : "reset" ? realReset() : null;
-    props.mode === "deleteAll" ? deleteAllEntries() : null;
+    mode === "delete" ? deleteEntry(id) : "reset" ? realReset() : null;
+    mode === "deleteAll" ? deleteAllEntries() : null;
   }
 
   function handleAbort() {

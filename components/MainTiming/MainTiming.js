@@ -1,8 +1,6 @@
 import { wantedReset, wantedSave, wantTest } from "../../modalContent.js";
 import { properTimeFormatter, createUID } from "../../utils.js";
-import AddControls from "../AddControls/AddControls.js";
 import ListContainer from "../ListContainer/ListContainer.js";
-import ListEntry from "../ListEntry/ListEntry.js";
 import Modal from "../Modal/Modal.js";
 
 //"modul globals"
@@ -11,8 +9,6 @@ let startValue;
 let timespan = 0;
 
 let timerRunning = false;
-
-let advancedCounter = 0;
 
 const today = new Date();
 
@@ -40,19 +36,18 @@ export default function MainTiming() {
 
   mainTiming.innerHTML = /*html*/ `
     <h2> 
-    New Entry
+    New task
     </h2>
     <p>Date:  <output data-js="date-output">${localDate}</output>
     </p>
     <p>Time: <output data-js="time-output">${localTime}</output> 
     </p> 
-    
+     <label for="task" class="label_standard">Task: 
+    <input class="input_text" name="task" id="task" required data-js="task"/> 
+    *</label> 
+     <br/>
     <label for="project" class="label_standard">Project: 
     <input class="input_text" name="project" id="project" required data-js="project" /> 
-    *</label> 
-    <br/>
-    <label for="task" class="label_standard">Task: 
-    <input class="input_text" name="task" id="task" required data-js="task"/> 
     *</label> 
      <br/>
      <label for="category" class="label_standard">Category: 
@@ -66,18 +61,16 @@ export default function MainTiming() {
     <button type="button" data-js="start-button">
     Start 
     </button>
-    <button type="button" class="stop_button" data-js="stop-button">
+    <button type="button" class="stop_button--passive" data-js="stop-button">
     Stop
     </button>
     <button type="submit" class="save_button" data-js="save-button">
     Save
     </button>
-    <button type="button" class="stop_button" data-js="reset-button">
+    <button type="button" class="stop_button--active" data-js="reset-button">
     Reset
     </button>
-        <button type="button" class="stop_button"  data-js="advanced-button">
-   More controls
-    </button>
+    
   `;
 
   const dateOutput = mainTiming.querySelector('[data-js="date-output"]');
@@ -91,16 +84,14 @@ export default function MainTiming() {
   const startButton = mainTiming.querySelector('[data-js="start-button"]');
   const stopButton = mainTiming.querySelector('[data-js="stop-button"]');
   const saveButton = mainTiming.querySelector('[data-js="save-button"]');
-  const advancedButton = mainTiming.querySelector(
-    '[data-js="advanced-button"]'
-  );
+
   startButton.addEventListener("click", handleStart);
   stopButton.addEventListener("click", handleStop);
   mainTiming.addEventListener("submit", checkBeforeSubmit);
-  advancedButton.addEventListener("click", handleAdvanced);
 
   function handleStart() {
     timerRunning = true;
+    stopButton.classList.toggle("stop_button--active");
     startValue = Date.now();
     const startDate = new Date(startValue);
     localDate = startDate.toLocaleDateString("en-EN", dateOptions);
@@ -112,23 +103,20 @@ export default function MainTiming() {
   }
 
   function handleStop() {
-    timerRunning = false;
-    saveButton.classList.add("save_button--active");
-    const endValue = Date.now();
-    timespan = endValue - startValue;
-    const formattedTimespan = properTimeFormatter(timespan);
-    const endDate = new Date(endValue);
-    const formattedEnd = endDate.toLocaleTimeString("en-EN", timeOptions);
-    endOutput.textContent = formattedEnd;
-    timespanOutput.textContent = formattedTimespan;
-  }
-
-  function handleAdvanced() {
-    const addControls = document.getElementById("add-controls1");
-    advancedCounter % 2 === 0
-      ? mainTiming.append(AddControls())
-      : addControls.remove();
-    ++advancedCounter;
+    if (timerRunning === false) {
+      alert("Press start first!");
+    } else {
+      saveButton.classList.add("save_button--active");
+      const endValue = Date.now();
+      timespan = endValue - startValue;
+      const formattedTimespan = properTimeFormatter(timespan);
+      const endDate = new Date(endValue);
+      const formattedEnd = endDate.toLocaleTimeString("en-EN", timeOptions);
+      endOutput.textContent = formattedEnd;
+      timespanOutput.textContent = formattedTimespan;
+      timerRunning = false;
+      stopButton.classList.toggle("stop_button--active");
+    }
   }
 
   function checkBeforeSubmit(event) {
