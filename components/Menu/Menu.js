@@ -1,7 +1,7 @@
 import What from "../What/What.js";
 import ListContainer from "../ListContainer/ListContainer.js";
 import MainTiming from "../MainTiming/MainTiming.js";
-import { noTasks, whatContent } from "../../textContent.js";
+import { noTasksContent, whatContent } from "../../textContent.js";
 
 export default function Menu() {
   const menu = document.createElement("nav");
@@ -26,11 +26,13 @@ export default function Menu() {
       text = target.id;
     const app = document.getElementById("app");
     const what = document.getElementById("what");
+    const noTasks = document.getElementById("noTasks");
     const newTask = document.getElementById("main-form");
     const listContainer = document.getElementById("list-container");
 
     switch (text) {
       case "what-button":
+        // noTasks && noTasks.remove();
         newTask && newTaskButton.classList.toggle("menu_button--active");
         newTask && newTask.remove();
         listContainer &&
@@ -40,6 +42,7 @@ export default function Menu() {
         !what && app.append(What(whatContent));
         break;
       case "new-task-button":
+        // noTasks && noTasks.remove();
         what && whatButton.classList.toggle("menu_button--active");
         what && what.remove();
         listContainer &&
@@ -57,11 +60,9 @@ export default function Menu() {
           JSON.parse(localStorage.getItem("RecordedTasks")) || [];
         if (listContainer) {
           null;
-        } else if (userEntries.length > 0) {
+        } else {
           doneTasksButton.classList.toggle("menu_button--active");
           app.append(ListContainer(userEntries));
-        } else {
-          app.append(What(noTasks));
         }
         break;
     }

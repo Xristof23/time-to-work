@@ -1,5 +1,6 @@
 export default function What(props) {
-  const { headline, id, paragraph1, paragraph2 } = props;
+  const { headline, id, paragraph1 } = props;
+  const paragraph2 = props.paragraph2 || "";
   const what = document.createElement("section");
   what.classList.add("what");
   what.setAttribute("id", `${id}`);

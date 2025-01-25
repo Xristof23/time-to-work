@@ -6,10 +6,11 @@ const whatContent = {
   paragraph2: "More functions on the way.",
 };
 
-const noTasks = {
+const noTasksContent = {
   headline: "No tasks",
-  id: "what",
-  paragraph1: "No saved tasks found. Press &quot;new task.&quot; to start one!",
+  id: "noTasks",
+  paragraph1:
+    "No saved tasks found. Press the &quot;new task&quot; button to start one!",
 };
 
-export { noTasks, whatContent };
+export { noTasksContent, whatContent };

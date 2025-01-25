@@ -24,8 +24,20 @@ export default function Modal(props, id) {
   !props.button2 && yesButton.classList.add("button--passive");
 
   function handleYes() {
-    mode === "delete" ? deleteEntry(id) : "reset" ? realReset() : null;
-    mode === "deleteAll" ? deleteAllEntries() : null;
+    switch (mode) {
+      case "reset":
+        realReset();
+        break;
+      case "delete":
+        deleteEntry(id);
+        break;
+      case "deleteAll":
+        console.log("reached deleteAll");
+        deleteAllEntries();
+        break;
+    }
+    // mode === "delete" ? deleteEntry(id) : "reset" ? realReset() : null;
+    // mode === "deleteAll" ? deleteAllEntries() : null;
   }
 
   function handleAbort() {

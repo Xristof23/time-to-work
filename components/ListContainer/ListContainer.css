@@ -17,5 +17,14 @@
   line-height: 0.5rem;
   border: 2px solid var(--red);
   background-color: var(--primary);
-  z-index: 3;
+  z-index: 32;
+}
+
+.backup_button {
+  position: absolute;
+  top: 0.2rem;
+  right: 6rem;
+  height: 1.5rem;
+  line-height: 0.5rem;
+  z-index: 2;
 }
