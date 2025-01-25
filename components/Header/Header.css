@@ -8,16 +8,21 @@
 
 header {
   background-color: var(--secondary);
-  height: 4.4rem;
+  height: 6rem;
   border-radius: 4px;
 }
-
+.logo {
+  margin: 0 0 0.5rem;
+  border-radius: 4px;
+  height: 90px;
+}
 .version {
   font-size: 0.8rem;
   line-height: 0.7rem;
   font-weight: 400;
-  position: relative;
-  top: 0;
+  position: absolute;
+  top: 0.8rem;
+  left: 312px;
   border: 1px solid red;
   z-index: 1;
   padding: 0.2rem;

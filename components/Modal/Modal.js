@@ -1,17 +1,19 @@
-import { disappearListContainer } from "../../utils.js";
+import { noTasksContent } from "../../textContent.js";
+import What from "../What/What.js";
 
 export default function Modal(props, id) {
+  const { text, button1, button2, mode } = props;
   const modal = document.createElement("div");
   modal.classList.add("modal");
   modal.setAttribute("id", "modal1");
   const idText = id ? `${id}!` : "";
   modal.innerHTML = /*html*/ `
-    <p> ${props.text} ${idText}</p>
-      <button type="button" data-js="no-button" >
-    ${props.button1}
+    <p> ${text} ${idText}</p>
+    <button type="button" data-js="no-button" >
+    ${button1}
     </button>
     <button type="button" class="yes_button" data-js="yes-button">
-    ${props.button2}
+    ${button2}
     </button> 
     `;
 
@@ -23,8 +25,18 @@ export default function Modal(props, id) {
   !props.button2 && yesButton.classList.add("button--passive");
 
   function handleYes() {
-    props.mode === "delete" ? deleteEntry(id) : "reset" ? realReset() : null;
-    props.mode === "deleteAll" ? deleteAllEntries() : null;
+    switch (mode) {
+      case "reset":
+        realReset();
+        break;
+      case "delete":
+        deleteEntry(id);
+        break;
+      case "deleteAll":
+        console.log("reached deleteAll");
+        deleteAllEntries();
+        break;
+    }
   }
 
   function handleAbort() {
@@ -35,10 +47,16 @@ export default function Modal(props, id) {
     const startOutput = document.querySelector('[data-js="start-output"]');
     const endOutput = document.querySelector('[data-js="end-output"]');
     const timeOutput = document.querySelector('[data-js="time-output"]');
+    const timespanOutput = document.querySelector(
+      '[data-js="timespan-output"]'
+    );
     startOutput.textContent = "";
     endOutput.textContent = "";
     timeOutput.textContent = "";
-    location.reload();
+    timespanOutput.textContent = "";
+    modal.remove();
+    const form = document.getElementById("main-form");
+    form.reset();
   }
   function deleteEntry(id) {
     const userEntries = JSON.parse(localStorage.getItem("RecordedTasks"));
@@ -47,13 +65,16 @@ export default function Modal(props, id) {
     entryToDelete.remove();
     localStorage.setItem("RecordedTasks", JSON.stringify(updatedEntries));
     modal.remove();
-    updatedEntries.length === 0 && disappearListContainer();
+    const listContainer = document.getElementById("list-container");
+    updatedEntries.length === 0 && listContainer.append(What(noTasksContent));
   }
 
   function deleteAllEntries() {
     const updatedEntries = [];
     localStorage.setItem("RecordedTasks", JSON.stringify(updatedEntries));
-    location.reload();
+    modal.remove();
+    const timeRecords = document.getElementById("time-records");
+    timeRecords.replaceWith(What(noTasksContent));
   }
 
   return modal;
