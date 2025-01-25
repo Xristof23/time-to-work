@@ -1,4 +1,5 @@
-import { disappearListContainer } from "../../utils.js";
+import { noTasksContent } from "../../textContent.js";
+import What from "../What/What.js";
 
 export default function Modal(props, id) {
   const { text, button1, button2, mode } = props;
@@ -36,8 +37,6 @@ export default function Modal(props, id) {
         deleteAllEntries();
         break;
     }
-    // mode === "delete" ? deleteEntry(id) : "reset" ? realReset() : null;
-    // mode === "deleteAll" ? deleteAllEntries() : null;
   }
 
   function handleAbort() {
@@ -48,7 +47,7 @@ export default function Modal(props, id) {
     const startOutput = document.querySelector('[data-js="start-output"]');
     const endOutput = document.querySelector('[data-js="end-output"]');
     const timeOutput = document.querySelector('[data-js="time-output"]');
-    const timespanOutput = mainTiming.querySelector(
+    const timespanOutput = document.querySelector(
       '[data-js="timespan-output"]'
     );
     startOutput.textContent = "";
@@ -66,14 +65,16 @@ export default function Modal(props, id) {
     entryToDelete.remove();
     localStorage.setItem("RecordedTasks", JSON.stringify(updatedEntries));
     modal.remove();
-    updatedEntries.length === 0 && disappearListContainer();
+    const listContainer = document.getElementById("list-container");
+    updatedEntries.length === 0 && listContainer.append(What(noTasksContent));
   }
 
   function deleteAllEntries() {
     const updatedEntries = [];
     localStorage.setItem("RecordedTasks", JSON.stringify(updatedEntries));
     modal.remove();
-    // const listContainer = document.getElementById
+    const timeRecords = document.getElementById("time-records");
+    timeRecords.replaceWith(What(noTasksContent));
   }
 
   return modal;
