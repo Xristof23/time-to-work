@@ -1,8 +1,7 @@
 .mainTiming {
-  position: relative;
-  top: 2rem;
+  display: block;
+  margin: 2.9rem 0 0 0.25rem;
   height: fit-content;
-  padding: 0.25rem;
 }
 
 .stop_button--passive {

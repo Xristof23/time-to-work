@@ -7,8 +7,8 @@ export default function Header(gloVars) {
 
   header.innerHTML = /* html */ `
 
-  <img class="logo" src="images/timetologo600.jpg" alt="Logo time to work or do what you want" />
-  <span class="version">v0.011</span>
+  <img class="logo" src="images/timetologo600neu.png" alt="Logo time to work or do what you want" />
+  <span class="version">v0.018</span>
   `;
   header.append(Menu());
   return header;

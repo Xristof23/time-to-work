@@ -1,5 +1,5 @@
 import { noTasksContent } from "../../textContent.js";
-import What from "../What/What.js";
+import Article from "../Article/Article.js";
 
 export default function Modal(props, id) {
   const { text, button1, button2, mode } = props;
@@ -33,7 +33,6 @@ export default function Modal(props, id) {
         deleteEntry(id);
         break;
       case "deleteAll":
-        console.log("reached deleteAll");
         deleteAllEntries();
         break;
     }
@@ -74,7 +73,7 @@ export default function Modal(props, id) {
     localStorage.setItem("RecordedTasks", JSON.stringify(updatedEntries));
     modal.remove();
     const timeRecords = document.getElementById("time-records");
-    timeRecords.replaceWith(What(noTasksContent));
+    timeRecords.replaceWith(Article(noTasksContent));
   }
 
   return modal;
