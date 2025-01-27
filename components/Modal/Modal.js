@@ -33,7 +33,6 @@ export default function Modal(props, id) {
         deleteEntry(id);
         break;
       case "deleteAll":
-        console.log("reached deleteAll");
         deleteAllEntries();
         break;
     }
