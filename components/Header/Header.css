@@ -12,7 +12,7 @@ header {
   border-radius: 4px;
 }
 .logo {
-  margin: 0 0 0.5rem;
+  margin: -15px 0 1rem;
   border-radius: 4px;
   height: 90px;
 }
@@ -21,8 +21,8 @@ header {
   line-height: 0.7rem;
   font-weight: 400;
   position: absolute;
-  top: 0.8rem;
-  left: 312px;
+  top: 2.9rem;
+  left: 284px;
   border: 1px solid red;
   z-index: 1;
   padding: 0.2rem;
