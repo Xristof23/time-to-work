@@ -1,7 +1,7 @@
+import Article from "../Article/Article.js";
 import TimeRecords from "../TimeRecords/TimeRecords.js";
-import { wantedDeleteAll } from "../../modalContent.js";
 import Modal from "../Modal/Modal.js";
-import What from "../What/What.js";
+import { wantedDeleteAll } from "../../modalContent.js";
 import { noTasksContent } from "../../textContent.js";
 
 export default function ListContainer(userEntries) {
@@ -20,7 +20,7 @@ export default function ListContainer(userEntries) {
 `;
   userEntries.length > 0
     ? listContainer.append(TimeRecords(userEntries))
-    : listContainer.append(What(noTasksContent));
+    : listContainer.appendChild(Article(noTasksContent));
 
   const deleteAllButton = listContainer.querySelector(
     '[data-js="delete-all-button"]'
