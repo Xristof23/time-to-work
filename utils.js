@@ -1,3 +1,27 @@
+const dateOptions = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+
+const timeOptions = {
+  hour12: false,
+  hour: "numeric",
+  minute: "numeric",
+  second: "numeric",
+};
+
+// max: max positiv integer
+function generateRandomInteger(max, min) {
+  const minNumber = Number(min) || 0;
+  const maxNumber = Number(max);
+  const range = Math.abs(Math.round(maxNumber - minNumber));
+  const withinRange = Math.ceil(Math.random() * range);
+  const randomInteger = minNumber + withinRange;
+  return randomInteger;
+}
+
 function properTimeFormatter(timeInMs, options) {
   const allSeconds = Math.round(timeInMs / 1000);
   const rawSeconds = Math.floor(allSeconds % 60);
@@ -47,4 +71,11 @@ function disappearListContainer() {
   listContainer.classList.add("list_container--passive");
 }
 
-export { properTimeFormatter, createUID, disappearListContainer };
+export {
+  properTimeFormatter,
+  createUID,
+  disappearListContainer,
+  dateOptions,
+  timeOptions,
+  generateRandomInteger,
+};
