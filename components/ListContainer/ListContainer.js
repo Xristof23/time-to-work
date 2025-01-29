@@ -3,7 +3,15 @@ import TimeRecords from "../TimeRecords/TimeRecords.js";
 import Modal from "../Modal/Modal.js";
 import { wantedDeleteAll } from "../../modalContent.js";
 import { noTasksContent } from "../../textContent.js";
-import { generateRandomInteger, properTimeFormatter } from "../../utils.js";
+import {
+  generateRandomInteger,
+  properTimeFormatter,
+  dateOptions,
+  timeOptions,
+} from "../../utils.js";
+import { coder } from "../../demoData.js";
+
+const daysBack = 2;
 
 export default function ListContainer(userEntries) {
   const listContainer = document.createElement("section");
@@ -40,52 +48,54 @@ export default function ListContainer(userEntries) {
   }
 
   const demoButton = listContainer.querySelector('[data-js="demo-button"]');
-  demoButton.addEventListener("click", divideRandomly);
+  demoButton.addEventListener("click", () => handleDemoMode(daysBack));
 
-  function divideRandomly() {
+  function generateFakeDay(unixTime) {
+    const workingHours = generateRandomInteger(8, 4);
+    // const numberOfTasks = workingHours + generateRandomInteger(2, -2);
+    const timeForTasks = Math.round(workingHours * 0.875 * 3600 * 1000);
+    const tasksOfTheDay = [];
+
     let timeTotal = 0;
     function addTo(a) {
       const result = timeTotal + a;
       return result;
     }
-    const testNumber = 1000;
 
-    while (timeTotal < testNumber - 100) {
-      const timeforTask = generateRandomInteger(testNumber / 4, 100);
-      timeTotal = addTo(timeforTask);
-      console.log("timefortask: ", timeforTask);
-      console.log("timeTotal: ", timeTotal);
-    }
-  }
+    while (timeTotal < timeForTasks - 180000) {
+      const timespan = generateRandomInteger(
+        timeForTasks / 4,
+        timeForTasks / 9
+      );
+      const timeSpent = properTimeFormatter(timespan);
+      const startValue = unixTime - timeTotal;
 
-  function generateFakeDay() {
-    const workingHours = generateRandomInteger(8, 4);
-    const numberOfTasks = workingHours + generateRandomInteger(2, -2);
-    const timeForTasks = Math.round(workingHours * 0.875 * 3600 * 1000);
-    let timeForChange = timeForTasks;
-    const tasksOfTheDay = [];
+      const startDate = new Date(startValue);
+      const date = startDate.toLocaleDateString("en-EN", dateOptions);
+      const time = startDate.toLocaleTimeString("en-EN", timeOptions);
 
-    //infinite loop?
-
-    // while (timeForChange > 0) {
-    //   const timespan = generateRandomInteger(5400000, 180000);
-    //   // const timeSpent = properTimeFormatter(timespan);
-    //   timeForChange = timeForTasks - timespan;
-    //   console.log(timespan);
-    //   // const task = "task " + i;
-    //   // const taskData = { i, task, timespan, timeSpent };
-    //   // tasksOfTheDay.unshift(taskData);
-    // }
-    // console.log("test", generateRandomInteger(1000));
-
-    for (let i = 1; i <= numberOfTasks; i++) {
-      const task = "task " + i;
-      const timeSpan = generateRandomInteger(5400000, 180000);
-      const taskData = { i, task, timeSpan };
-      tasksOfTheDay.unshift(taskData);
+      timeTotal = addTo(timespan);
+      const randomNr = generateRandomInteger(6);
+      const taskName = `${coder.tasks[randomNr]} ${generateRandomInteger(99)}`;
+      const taskData = {
+        startValue,
+        date,
+        taskName,
+        time,
+        timespan,
+        timeSpent,
+      };
+      tasksOfTheDay.push(taskData);
     }
 
-    // console.log(tasksOfTheDay);
+    // const allTasksOfDay = tasksOfTheDay.map((item, index) => {
+    //   const updatedTaskData = { ...item, taskName };
+    //   return updatedTaskData;
+    // });
+    // //need following line?
+    // const numberOfTasks = tasksOfTheDay.length;
+
+    console.log("tasks of the day: ", tasksOfTheDay);
     return tasksOfTheDay;
   }
 
@@ -95,16 +105,22 @@ export default function ListContainer(userEntries) {
     function fakeID(unixtime) {}
 
     const daysArray = [];
-    for (let i = 1; i < days; i++) {
+    for (let i = 1; i <= days; i++) {
       const thenUnixTime = currentUnixTime - (days - i) * 24 * 3600 * 1000;
-      const date = new Date(thenUnixTime);
-      const dayData = { i, date };
+      const thenDate = new Date(thenUnixTime);
+      const date = thenDate.toLocaleDateString("en-EN", dateOptions);
+      const dayData = { Nr: i, thenUnixTime, date };
       daysArray.unshift(dayData);
     }
-    return daysArray;
+    // console.log("daysArray", daysArray);
+    const demoData = daysArray.map((element) => {
+      const daysTasks = generateFakeDay(element.thenUnixTime);
+      const newObject = { ...element, ...daysTasks };
+      return newObject;
+    });
+    // console.log("demoData", demoData);
+    return demoData;
   }
-
-  // console.log(handleDemoMode(10));
 
   function handleDeleteAll() {
     listContainer.append(Modal(wantedDeleteAll));
