@@ -1,13 +1,14 @@
 import Article from "../Article/Article.js";
 import TimeRecords from "../TimeRecords/TimeRecords.js";
 import Modal from "../Modal/Modal.js";
-import { wantedDeleteAll } from "../../modalContent.js";
+import { wantedDeleteAll, chooseBackup } from "../../modalContent.js";
 import { noTasksContent } from "../../textContent.js";
 import {
   generateRandomInteger,
   properTimeFormatter,
   dateOptions,
   timeOptions,
+  createUnixTimeID,
 } from "../../utils.js";
 import { coder } from "../../demoData.js";
 
@@ -20,12 +21,17 @@ export default function ListContainer(userEntries) {
 
   listContainer.innerHTML = /*html*/ `
     <h2>Done tasks</h2>
-        <button type="button" class="demo_button" data-js="demo-button">
-   demo
-    </button>
-        <button type="button" class="backup_button" data-js="backup-button">
-   backup
-    </button>
+    <div>
+      <button type="button"  data-js="demo-button">
+        demo-mode
+      </button>
+      <button type="button" data-js="backup-button">
+        backup
+      </button>
+      <button type="button" data-js="load-backup-button">
+        load backup
+      </button>
+      </div>
     <button type="button" class="delete-all_button"  data-js="delete-all-button">
    delete all
     </button>
@@ -41,22 +47,32 @@ export default function ListContainer(userEntries) {
   deleteAllButton.addEventListener("click", handleDeleteAll);
 
   const backupButton = listContainer.querySelector('[data-js="backup-button"]');
-  backupButton.addEventListener("click", handleBackup);
+  backupButton.addEventListener("click", () => saveBackup(userEntries));
 
-  function handleBackup() {
-    localStorage.setItem("TasksBackup", JSON.stringify(userEntries));
+  function saveBackup(name, data) {
+    const backupName = name || "TasksBackup";
+    localStorage.setItem(backupName, JSON.stringify(data));
   }
 
   const demoButton = listContainer.querySelector('[data-js="demo-button"]');
   demoButton.addEventListener("click", () => handleDemoMode(daysBack));
 
+  const loadButton = listContainer.querySelector(
+    '[data-js="load-backup-button"]'
+  );
+  loadButton.addEventListener("click", handleLoadBackup);
+
+  function handleLoadBackup() {
+    listContainer.append(Modal(chooseBackup));
+  }
+
   function generateFakeDay(unixTime) {
     const workingHours = generateRandomInteger(8, 4);
-    // const numberOfTasks = workingHours + generateRandomInteger(2, -2);
     const timeForTasks = Math.round(workingHours * 0.875 * 3600 * 1000);
     const tasksOfTheDay = [];
 
     let timeTotal = 0;
+
     function addTo(a) {
       const result = timeTotal + a;
       return result;
@@ -75,25 +91,27 @@ export default function ListContainer(userEntries) {
       const time = startDate.toLocaleTimeString("en-EN", timeOptions);
 
       timeTotal = addTo(timespan);
-      const randomNr = generateRandomInteger(6);
-      const taskName = `${coder.tasks[randomNr]} ${generateRandomInteger(99)}`;
+
+      const taskName = `${
+        coder.tasks[generateRandomInteger(6)]
+      } ${generateRandomInteger(9)}`;
+      const project = `${
+        coder.project[generateRandomInteger(6)]
+      } v0.0${generateRandomInteger(49)}`;
+      const category = coder.category;
       const taskData = {
+        id: createUnixTimeID(startValue),
         startValue,
         date,
         taskName,
+        project,
+        category,
         time,
         timespan,
         timeSpent,
       };
       tasksOfTheDay.push(taskData);
     }
-
-    // const allTasksOfDay = tasksOfTheDay.map((item, index) => {
-    //   const updatedTaskData = { ...item, taskName };
-    //   return updatedTaskData;
-    // });
-    // //need following line?
-    // const numberOfTasks = tasksOfTheDay.length;
 
     console.log("tasks of the day: ", tasksOfTheDay);
     return tasksOfTheDay;
@@ -102,7 +120,7 @@ export default function ListContainer(userEntries) {
   function handleDemoMode(days) {
     const currentUnixTime = Date.now();
 
-    function fakeID(unixtime) {}
+    saveBackup("AutomaticBackup");
 
     const daysArray = [];
     for (let i = 1; i <= days; i++) {

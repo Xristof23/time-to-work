@@ -32,6 +32,14 @@ const wantedSave = {
   mode: "save",
 };
 
+const chooseBackup = {
+  text: "Choose the backup you want to load!",
+  button1: "No, cancel.",
+  button2: "TaskBackup",
+  button3: "AutomaticBackup",
+  mode: "chooseBackup",
+};
+
 const noEntries = {
   text: "There are no entries in this list",
   button1: "Ok",
@@ -59,4 +67,5 @@ export {
   wantedDeleteAll,
   reallyDeleteAll,
   noEntries,
+  chooseBackup,
 };

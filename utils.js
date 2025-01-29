@@ -12,7 +12,12 @@ const timeOptions = {
   second: "numeric",
 };
 
-// max: max positiv integer
+function saveToLocalStorage(name, data) {
+  const backupName = name || "TasksBackup";
+  localStorage.setItem(backupName, JSON.stringify(data));
+}
+
+// max: max positiv integer?
 function generateRandomInteger(max, min) {
   const minNumber = Number(min) || 0;
   const maxNumber = Number(max);
@@ -53,8 +58,8 @@ function properTimeFormatter(timeInMs, options) {
   return formattedTime;
 }
 
-function createUID() {
-  const unixDate = Date.now();
+function createUnixTimeID(unixTime) {
+  const unixDate = unixTime || Date.now();
   const firstNumber = Math.round(unixDate / 1000);
   const firstPart = firstNumber.toString().slice(3);
   const randomNr = Math.floor(Math.random() * 1000);
@@ -73,9 +78,10 @@ function disappearListContainer() {
 
 export {
   properTimeFormatter,
-  createUID,
+  createUnixTimeID,
   disappearListContainer,
   dateOptions,
   timeOptions,
   generateRandomInteger,
+  saveToLocalStorage,
 };

@@ -1,7 +1,7 @@
 import { wantedReset, wantedSave, wantedStart } from "../../modalContent.js";
 import {
   properTimeFormatter,
-  createUID,
+  createUnixTimeID,
   dateOptions,
   timeOptions,
 } from "../../utils.js";
@@ -148,7 +148,7 @@ export default function MainTiming() {
       JSON.parse(localStorage.getItem("RecordedTasks")) || [];
 
     const newEntry = {
-      id: createUID(),
+      id: createUnixTimeID(startValue),
       startValue,
       project: data.project,
       task: data.task,
