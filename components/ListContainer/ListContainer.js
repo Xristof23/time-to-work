@@ -9,6 +9,7 @@ import {
   dateOptions,
   timeOptions,
   createUnixTimeID,
+  saveToLocalStorage,
 } from "../../utils.js";
 import { coder } from "../../demoData.js";
 
@@ -47,12 +48,7 @@ export default function ListContainer(userEntries) {
   deleteAllButton.addEventListener("click", handleDeleteAll);
 
   const backupButton = listContainer.querySelector('[data-js="backup-button"]');
-  backupButton.addEventListener("click", () => saveBackup(userEntries));
-
-  function saveBackup(name, data) {
-    const backupName = name || "TasksBackup";
-    localStorage.setItem(backupName, JSON.stringify(data));
-  }
+  backupButton.addEventListener("click", () => saveToLocalStorage(userEntries));
 
   const demoButton = listContainer.querySelector('[data-js="demo-button"]');
   demoButton.addEventListener("click", () => handleDemoMode(daysBack));
@@ -67,7 +63,7 @@ export default function ListContainer(userEntries) {
   }
 
   function generateFakeDay(unixTime) {
-    const workingHours = generateRandomInteger(8, 4);
+    const workingHours = generateRandomInteger(9, 4);
     const timeForTasks = Math.round(workingHours * 0.875 * 3600 * 1000);
     const tasksOfTheDay = [];
 
@@ -78,13 +74,13 @@ export default function ListContainer(userEntries) {
       return result;
     }
 
-    while (timeTotal < timeForTasks - 180000) {
+    while (timeTotal < timeForTasks) {
       const timespan = generateRandomInteger(
         timeForTasks / 4,
         timeForTasks / 9
       );
       const timeSpent = properTimeFormatter(timespan);
-      const startValue = unixTime - timeTotal;
+      const startValue = unixTime + timeTotal;
 
       const startDate = new Date(startValue);
       const date = startDate.toLocaleDateString("en-EN", dateOptions);
@@ -92,9 +88,7 @@ export default function ListContainer(userEntries) {
 
       timeTotal = addTo(timespan);
 
-      const taskName = `${
-        coder.tasks[generateRandomInteger(6)]
-      } ${generateRandomInteger(9)}`;
+      const task = `${coder.tasks[generateRandomInteger(12)]}`;
       const project = `${
         coder.project[generateRandomInteger(6)]
       } v0.0${generateRandomInteger(49)}`;
@@ -103,41 +97,50 @@ export default function ListContainer(userEntries) {
         id: createUnixTimeID(startValue),
         startValue,
         date,
-        taskName,
+        task,
         project,
         category,
         time,
         timespan,
         timeSpent,
       };
-      tasksOfTheDay.push(taskData);
+      tasksOfTheDay.unshift(taskData);
     }
 
-    console.log("tasks of the day: ", tasksOfTheDay);
     return tasksOfTheDay;
   }
 
   function handleDemoMode(days) {
     const currentUnixTime = Date.now();
-
-    saveBackup("AutomaticBackup");
+    const fakeDate = new Date(currentUnixTime);
+    fakeDate.setHours(
+      generateRandomInteger(9, 7),
+      generateRandomInteger(59, 0),
+      generateRandomInteger(59, 0)
+    );
+    const correctedUnixTime = fakeDate.valueOf();
+    console.log(correctedUnixTime);
+    saveToLocalStorage(userEntries, "AutomaticBackup");
 
     const daysArray = [];
     for (let i = 1; i <= days; i++) {
-      const thenUnixTime = currentUnixTime - (days - i) * 24 * 3600 * 1000;
+      const thenUnixTime = correctedUnixTime - (days - i) * 24 * 3600 * 1000;
       const thenDate = new Date(thenUnixTime);
       const date = thenDate.toLocaleDateString("en-EN", dateOptions);
       const dayData = { Nr: i, thenUnixTime, date };
       daysArray.unshift(dayData);
     }
-    // console.log("daysArray", daysArray);
-    const demoData = daysArray.map((element) => {
+
+    const demoData = daysArray.flatMap((element) => {
       const daysTasks = generateFakeDay(element.thenUnixTime);
-      const newObject = { ...element, ...daysTasks };
-      return newObject;
+      const tasksArray = [...daysTasks];
+      return tasksArray;
     });
+
+    const timeRecords = document.getElementById("time-records");
     // console.log("demoData", demoData);
-    return demoData;
+    timeRecords.replaceWith(TimeRecords(demoData));
+    saveToLocalStorage(demoData, "RecordedTasks");
   }
 
   function handleDeleteAll() {

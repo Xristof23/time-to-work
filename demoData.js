@@ -17,7 +17,13 @@ const coder = {
     "Coding javascript",
     "Q. A.",
     "Debugging",
+    "Security update",
+    "Branch burger-menu",
+    "Branch accessibility",
+    "Solving git problems",
+    "Clean up code",
     "Backend",
+    "Rubberduck debugging",
   ],
 };
 

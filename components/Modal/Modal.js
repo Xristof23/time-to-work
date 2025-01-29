@@ -1,6 +1,7 @@
 import { noTasksContent } from "../../textContent.js";
 import { saveToLocalStorage } from "../../utils.js";
 import Article from "../Article/Article.js";
+import TimeRecords from "../TimeRecords/TimeRecords.js";
 
 export default function Modal(props, id) {
   const { text, button1, button2, button3, mode } = props;
@@ -48,16 +49,22 @@ export default function Modal(props, id) {
         deleteAllEntries();
         break;
       case "chooseBackup":
-        const userEntries = JSON.parse(localStorage.getItem("TaskBackup"));
-        saveToLocalStorage("RecordedTasks", userEntries);
+        const userEntries = JSON.parse(localStorage.getItem("TasksBackup"));
+        const timeRecords = document.getElementById("time-records");
+        timeRecords.replaceWith(TimeRecords(userEntries));
+        saveToLocalStorage(userEntries, "RecordedTasks");
+        modal.remove();
         console.log("choose TaskBU");
         break;
     }
   }
 
   function handleThird() {
-    const userEntries = JSON.parse(localStorage.getItem("AutomaticBackup"));
-    saveToLocalStorage("RecordedTasks", userEntries);
+    let userEntries = JSON.parse(localStorage.getItem("AutomaticBackup"));
+    saveToLocalStorage(userEntries, "RecordedTasks");
+    const timeRecords = document.getElementById("time-records");
+    timeRecords.replaceWith(TimeRecords(userEntries));
+    modal.remove();
     console.log(3);
   }
 
@@ -84,7 +91,8 @@ export default function Modal(props, id) {
     localStorage.setItem("RecordedTasks", JSON.stringify(updatedEntries));
     modal.remove();
     const listContainer = document.getElementById("list-container");
-    updatedEntries.length === 0 && listContainer.append(What(noTasksContent));
+    updatedEntries.length === 0 &&
+      listContainer.appendChild(Article(noTasksContent));
   }
 
   function deleteAllEntries() {

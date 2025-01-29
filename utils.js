@@ -12,7 +12,7 @@ const timeOptions = {
   second: "numeric",
 };
 
-function saveToLocalStorage(name, data) {
+function saveToLocalStorage(data, name) {
   const backupName = name || "TasksBackup";
   localStorage.setItem(backupName, JSON.stringify(data));
 }
@@ -22,7 +22,7 @@ function generateRandomInteger(max, min) {
   const minNumber = Number(min) || 0;
   const maxNumber = Number(max);
   const range = Math.abs(Math.round(maxNumber - minNumber));
-  const withinRange = Math.ceil(Math.random() * range);
+  const withinRange = Math.round(Math.random() * range);
   const randomInteger = minNumber + withinRange;
   return randomInteger;
 }
