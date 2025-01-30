@@ -36,6 +36,7 @@ export default function Clock() {
     <button class="big-hand_button" data-js="big-hand-button">set</button>
     <button data-js="second-button">start</button>
     <button data-js="third-button">stop</button>
+     <button data-js="fourth-button">1 sec</button>
     </div>
     `;
 
@@ -45,6 +46,8 @@ export default function Clock() {
   secondButton.addEventListener("click", updateClock);
   const thirdButton = clock.querySelector('[data-js="third-button"]');
   thirdButton.addEventListener("click", stopClock);
+  const fourthButton = clock.querySelector('[data-js="fourth-button"]');
+  fourthButton.addEventListener("click", () => handleSecondHand(1));
 
   let startSeconds = Math.round(Date.now() / 1000);
 
