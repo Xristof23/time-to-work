@@ -137,7 +137,10 @@ export default function ListContainer(userEntries) {
     });
 
     const timeRecords = document.getElementById("time-records");
-    timeRecords.replaceWith(TimeRecords(demoData));
+    const article = document.getElementById("noTasks");
+    timeRecords
+      ? timeRecords.replaceWith(TimeRecords(demoData))
+      : article.replaceWith(TimeRecords(demoData));
     saveToLocalStorage(demoData, "RecordedTasks");
   }
 

@@ -17,7 +17,6 @@ function saveToLocalStorage(data, name) {
   localStorage.setItem(backupName, JSON.stringify(data));
 }
 
-// max: max positiv integer?
 function generateRandomInteger(max, min) {
   const minNumber = Number(min) || 0;
   const maxNumber = Number(max);

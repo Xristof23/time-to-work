@@ -10,7 +10,7 @@ const noTasksContent = {
   headline: "No tasks",
   id: "noTasks",
   paragraph1:
-    "No saved tasks found. Press the &quot;new task&quot; button to start one!",
+    "No saved tasks found. Press the &quot;new task&quot; button to start one or use &quot;demo mode&quot; to generate examplary data!",
 };
 
 export { noTasksContent, whatContent };

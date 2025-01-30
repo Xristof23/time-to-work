@@ -52,18 +52,11 @@ const wantedStart = {
   mode: "save",
 };
 
-const wantTest = {
-  text: "This is only a test. Not much to see, huh?",
-  button1: "Ok",
-  mode: "test",
-};
-
 export {
   wantedDelete,
   wantedReset,
   wantedSave,
   wantedStart,
-  wantTest,
   wantedDeleteAll,
   reallyDeleteAll,
   noEntries,
