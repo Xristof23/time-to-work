@@ -119,7 +119,6 @@ export default function ListContainer(userEntries) {
       generateRandomInteger(59, 0)
     );
     const correctedUnixTime = fakeDate.valueOf();
-    console.log(correctedUnixTime);
     saveToLocalStorage(userEntries, "AutomaticBackup");
 
     const daysArray = [];
@@ -138,7 +137,6 @@ export default function ListContainer(userEntries) {
     });
 
     const timeRecords = document.getElementById("time-records");
-    // console.log("demoData", demoData);
     timeRecords.replaceWith(TimeRecords(demoData));
     saveToLocalStorage(demoData, "RecordedTasks");
   }

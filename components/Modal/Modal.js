@@ -54,7 +54,6 @@ export default function Modal(props, id) {
         timeRecords.replaceWith(TimeRecords(userEntries));
         saveToLocalStorage(userEntries, "RecordedTasks");
         modal.remove();
-        console.log("choose TaskBU");
         break;
     }
   }
@@ -65,7 +64,6 @@ export default function Modal(props, id) {
     const timeRecords = document.getElementById("time-records");
     timeRecords.replaceWith(TimeRecords(userEntries));
     modal.remove();
-    console.log(3);
   }
 
   function realReset() {
