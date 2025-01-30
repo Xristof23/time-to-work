@@ -36,8 +36,8 @@ export default function ListContainer(userEntries) {
     <button type="button" class="delete-all_button"  data-js="delete-all-button">
    delete all
     </button>
-
 `;
+
   userEntries.length > 0
     ? listContainer.append(TimeRecords(userEntries))
     : listContainer.appendChild(Article(noTasksContent));
@@ -61,6 +61,8 @@ export default function ListContainer(userEntries) {
   function handleLoadBackup() {
     listContainer.append(Modal(chooseBackup));
   }
+
+  //evtl auslagern ...
 
   function generateFakeDay(unixTime) {
     const workingHours = generateRandomInteger(9, 4);
@@ -137,10 +139,10 @@ export default function ListContainer(userEntries) {
     });
 
     const timeRecords = document.getElementById("time-records");
-    const article = document.getElementById("noTasks");
+    const articleToRemove = document.getElementById("noTasks");
     timeRecords
       ? timeRecords.replaceWith(TimeRecords(demoData))
-      : article.replaceWith(TimeRecords(demoData));
+      : articleToRemove.replaceWith(TimeRecords(demoData));
     saveToLocalStorage(demoData, "RecordedTasks");
   }
 

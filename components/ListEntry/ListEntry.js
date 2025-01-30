@@ -1,10 +1,13 @@
 import { wantedDelete } from "../../modalContent.js";
 import EntryDetails from "../EntryDetails/EntryDetails.js";
 import Modal from "../Modal/Modal.js";
-let counter = 0;
 
 export default function ListEntry(element) {
   const { date, time, task, id } = element;
+
+  //make id even for toggle counter
+  let counter = id % 2 != 0 ? id + 1 : id;
+
   const formattedTime = time.slice(0, 5);
 
   const listEntry = document.createElement("article");
@@ -33,6 +36,7 @@ export default function ListEntry(element) {
   function handleShowDetails() {
     const entryDetails = document.getElementById(`${element.id}d`);
     const detailButton = listEntry.querySelector('[data-js="detail-button"]');
+
     if (counter % 2 === 0) {
       listEntry.append(EntryDetails(element));
       detailButton.textContent = "close details";
