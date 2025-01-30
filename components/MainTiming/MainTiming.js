@@ -1,5 +1,10 @@
 import { wantedReset, wantedSave, wantedStart } from "../../modalContent.js";
-import { properTimeFormatter, createUID } from "../../utils.js";
+import {
+  properTimeFormatter,
+  createUnixTimeID,
+  dateOptions,
+  timeOptions,
+} from "../../utils.js";
 import ListContainer from "../ListContainer/ListContainer.js";
 import Modal from "../Modal/Modal.js";
 
@@ -11,20 +16,6 @@ let timespan = 0;
 let timerRunning = false;
 
 const today = new Date();
-
-const dateOptions = {
-  weekday: "long",
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-};
-
-const timeOptions = {
-  hour12: false,
-  hour: "numeric",
-  minute: "numeric",
-  second: "numeric",
-};
 
 let localDate = today.toLocaleDateString("en-EN", dateOptions);
 let localTime = today.toLocaleTimeString("en-EN", timeOptions);
@@ -55,7 +46,10 @@ export default function MainTiming() {
      <label for="category" class="label_standard">Category: 
     <input class="input_text" name="category" id="category" data-js="category"/> 
     </label> 
-    
+    <br/>
+     <label for="Note" class="label_standard">Note: 
+    <input class="input_text" name="note" id="note" data-js="note"/> 
+    </label> 
    <p>Start: <output data-js="start-output"></output></p> 
    <p>End: <output data-js="end-output"></output></p> 
    <p>Time spent: <output data-js="timespan-output"></output></p> 
@@ -154,11 +148,12 @@ export default function MainTiming() {
       JSON.parse(localStorage.getItem("RecordedTasks")) || [];
 
     const newEntry = {
-      id: createUID(),
+      id: createUnixTimeID(startValue),
       startValue,
       project: data.project,
       task: data.task,
       category: data.category,
+      note: data.note,
       date: localDate,
       time: localTime,
       timespan,

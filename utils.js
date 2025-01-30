@@ -1,3 +1,31 @@
+const dateOptions = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+
+const timeOptions = {
+  hour12: false,
+  hour: "numeric",
+  minute: "numeric",
+  second: "numeric",
+};
+
+function saveToLocalStorage(data, name) {
+  const backupName = name || "TasksBackup";
+  localStorage.setItem(backupName, JSON.stringify(data));
+}
+
+function generateRandomInteger(max, min) {
+  const minNumber = Number(min) || 0;
+  const maxNumber = Number(max);
+  const range = Math.abs(Math.round(maxNumber - minNumber));
+  const withinRange = Math.round(Math.random() * range);
+  const randomInteger = minNumber + withinRange;
+  return randomInteger;
+}
+
 function properTimeFormatter(timeInMs, options) {
   const allSeconds = Math.round(timeInMs / 1000);
   const rawSeconds = Math.floor(allSeconds % 60);
@@ -29,8 +57,8 @@ function properTimeFormatter(timeInMs, options) {
   return formattedTime;
 }
 
-function createUID() {
-  const unixDate = Date.now();
+function createUnixTimeID(unixTime) {
+  const unixDate = unixTime || Date.now();
   const firstNumber = Math.round(unixDate / 1000);
   const firstPart = firstNumber.toString().slice(3);
   const randomNr = Math.floor(Math.random() * 1000);
@@ -47,4 +75,12 @@ function disappearListContainer() {
   listContainer.classList.add("list_container--passive");
 }
 
-export { properTimeFormatter, createUID, disappearListContainer };
+export {
+  properTimeFormatter,
+  createUnixTimeID,
+  disappearListContainer,
+  dateOptions,
+  timeOptions,
+  generateRandomInteger,
+  saveToLocalStorage,
+};
