@@ -6,6 +6,7 @@ import {
   timeOptions,
 } from "../../utils.js";
 import Clock from "../Clock/Clock.js";
+import MiniClock from "../MiniClock/MiniClock.js";
 import ListContainer from "../ListContainer/ListContainer.js";
 import Modal from "../Modal/Modal.js";
 
@@ -22,6 +23,8 @@ let localDate = today.toLocaleDateString("en-EN", dateOptions);
 let localTime = today.toLocaleTimeString("en-EN", timeOptions);
 
 let intervalId;
+
+const clockProps = { start: false, test: "test" };
 
 export default function MainTiming() {
   const mainTiming = document.createElement("form");
@@ -67,7 +70,6 @@ export default function MainTiming() {
     <button type="button" class="stop_button--active" data-js="reset-button">
     Reset
     </button>
-    
   `;
 
   const dateOutput = mainTiming.querySelector('[data-js="date-output"]');
@@ -86,12 +88,16 @@ export default function MainTiming() {
   stopButton.addEventListener("click", handleStop);
   mainTiming.addEventListener("submit", checkBeforeSubmit);
 
-  mainTiming.appendChild(Clock());
+  mainTiming.appendChild(MiniClock(clockProps));
 
   function handleStart() {
     if (timerRunning) {
       mainTiming.append(Modal(wantedStart));
     } else {
+      clockProps.start = true;
+      const startTest = document.getElementById("123");
+      startTest.textContent = clockProps.start;
+      console.log(startTest);
       timerRunning = true;
       stopButton.classList.toggle("stop_button--active");
       startValue = Date.now();

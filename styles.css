@@ -9,6 +9,7 @@
 @import "./components/ListEntry/ListEntry.css";
 @import "./components/MainTiming/MainTiming.css";
 @import "./components/Menu/Menu.css";
+@import "./components/MiniClock/MiniClock.css";
 @import "./components/Modal/Modal.css";
 @import "./components/TimeRecords/TimeRecords.css";
 @import "./components/What/What.css";
