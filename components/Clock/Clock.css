@@ -32,6 +32,56 @@
   z-index: 5;
 }
 
+.second-hand {
+  background-color: var(--red);
+  border-radius: 3%;
+  position: absolute;
+  top: 0%;
+  height: 50%;
+  width: 2px;
+  z-index: 5;
+}
+
+.second-hand-mover {
+  border-radius: 20%;
+  position: absolute;
+  left: calc(50% - 1px);
+  height: 100%;
+  width: 2px;
+  z-index: 4;
+}
+
+.big-hand-mover {
+  border-radius: 50%;
+  position: absolute;
+  left: calc(50% - 2px);
+  height: 100%;
+  width: 6px;
+  z-index: 4;
+}
+
+.short-hand-mover {
+  border-radius: 50%;
+  position: absolute;
+
+  left: calc(50% - 1px);
+  height: 100%;
+  width: 6px;
+  z-index: 3;
+}
+
+.center-point {
+  background-color: black;
+  border-radius: 50%;
+  border: 1px solid black;
+  position: absolute;
+  top: calc(50% - 3px);
+  left: calc(50% - 5px);
+  height: 12px;
+  width: 12px;
+  z-index: 7;
+}
+
 .marker1,
 .marker2,
 .marker3,
@@ -117,38 +167,7 @@
 }
 
 .marker12 {
-  left: 50%;
-}
-
-.big-hand-mover {
-  border-radius: 50%;
-  position: absolute;
-  left: calc(50% - 2px);
-  height: 100%;
-  width: 6px;
-  z-index: 4;
-}
-
-.short-hand-mover {
-  border-radius: 50%;
-  position: absolute;
-
   left: calc(50% - 1px);
-  height: 100%;
-  width: 6px;
-  z-index: 3;
-}
-
-.center-point {
-  background-color: black;
-  border-radius: 50%;
-  border: 1px solid black;
-  position: absolute;
-  top: calc(50% - 3px);
-  left: calc(50% - 5px);
-  height: 12px;
-  width: 12px;
-  z-index: 7;
 }
 
 .sector-1 {

@@ -10,6 +10,9 @@ export default function Clock() {
     <div class="short-hand-mover" data-js="short-hand-mover">
          <div class="short-hand"></div>
     </div>
+       <div class="second-hand-mover" data-js="second-hand-mover">
+         <div class="second-hand"></div>
+    </div>
     
     <div class="center-point"></div>
     <div class="number-12">12</div>
@@ -47,12 +50,13 @@ export default function Clock() {
 
   let bigHandRotation = 0;
   let shortHandRotation = 0;
+  let secondHandRotation = 0;
   let intervalId;
   let clockIsSet = false;
 
   function updateClock() {
     if (!intervalId) {
-      intervalId = setInterval(moveClock, 2000);
+      intervalId = setInterval(moveClock, 1000);
     }
   }
 
@@ -61,13 +65,13 @@ export default function Clock() {
   function stopClock() {
     clearInterval(intervalId);
     intervalId = null;
-    console.log("clock stopped");
   }
 
   function moveClock() {
     const currentSeconds = Math.round(Date.now() / 1000);
     const moveSeconds = currentSeconds - startSeconds;
     const moveMinutes = moveSeconds / 60;
+    handleSecondHand(moveSeconds);
     moveBothHands(moveMinutes);
     startSeconds = currentSeconds;
   }
@@ -76,14 +80,23 @@ export default function Clock() {
     const date = new Date();
     const setHours = date.getHours() % 12;
     const setMinutes = setHours * 60 + date.getMinutes();
+    const setSeconds = date.getSeconds();
     moveBothHands(setMinutes);
+    handleSecondHand(setSeconds);
     clockIsSet = true;
   }
 
   function moveBothHands(timespan, options) {
-    //timespan in minutes for now
+    //timespan in minutes
     handleBigHand(timespan * 6);
     handleShortHand(timespan / 2);
+  }
+  function handleSecondHand(seconds) {
+    const secondHandMover = clock.querySelector(
+      '[data-js="second-hand-mover"]'
+    );
+    secondHandRotation = secondHandRotation + seconds * 6;
+    secondHandMover.style.transform = `rotate(${secondHandRotation}deg)`;
   }
 
   function handleBigHand(degrees) {
