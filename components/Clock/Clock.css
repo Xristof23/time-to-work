@@ -1,0 +1,209 @@
+.clock {
+  border: 2px solid var(--darkblue);
+  border-radius: 100%;
+  width: 200px;
+  height: 200px;
+  margin: 0.5rem;
+  background-color: var(--white);
+  position: relative;
+}
+
+.short-hand {
+  background-color: var(--secondary);
+  border: 1px solid var(--darkblue);
+  border-radius: 50%;
+  position: absolute;
+  top: 20%;
+  left: -2px;
+  height: 31%;
+  width: 8px;
+  z-index: 3;
+}
+
+.big-hand {
+  background-color: var(--darkblue);
+  border: 1px solid var(--black);
+  border-radius: 50%;
+  position: absolute;
+  top: 11%;
+  left: 1px;
+  height: 41%;
+  width: 4px;
+  z-index: 5;
+}
+
+.marker1,
+.marker2,
+.marker3,
+.marker4,
+.marker5,
+.marker6,
+.marker7,
+.marker8,
+.marker9,
+.marker10,
+.marker11,
+.marker12 {
+  border-radius: 2%;
+  background-color: rgb(44, 42, 42);
+  position: absolute;
+  height: 5%;
+  width: 2px;
+  z-index: 1;
+}
+
+.marker1 {
+  left: 74%;
+  top: 7%;
+  rotate: 30deg;
+}
+
+.marker2 {
+  left: 91%;
+  top: 23%;
+  rotate: 60deg;
+}
+
+.marker3 {
+  left: 97%;
+  top: 49%;
+  rotate: 90deg;
+}
+.marker4 {
+  left: 91.5%;
+  top: 71%;
+  rotate: 120deg;
+}
+
+.marker5 {
+  left: 74%;
+  top: 88%;
+  rotate: 150deg;
+}
+
+.marker6 {
+  left: 50%;
+  top: 95.5%;
+  rotate: 180deg;
+}
+
+.marker7 {
+  left: 26%;
+  top: 89%;
+  rotate: 210deg;
+}
+
+.marker8 {
+  left: 8%;
+  top: 71%;
+  rotate: 240deg;
+}
+.marker9 {
+  left: 2%;
+  top: 49%;
+  rotate: 270deg;
+}
+
+.marker10 {
+  left: 8%;
+  top: 24%;
+  rotate: 300deg;
+}
+
+.marker11 {
+  left: 26%;
+  top: 6%;
+  rotate: 330deg;
+}
+
+.marker12 {
+  left: 50%;
+}
+
+.big-hand-mover {
+  border-radius: 50%;
+  position: absolute;
+  left: calc(50% - 2px);
+  height: 100%;
+  width: 6px;
+  z-index: 4;
+}
+
+.short-hand-mover {
+  border-radius: 50%;
+  position: absolute;
+
+  left: calc(50% - 1px);
+  height: 100%;
+  width: 6px;
+  z-index: 3;
+}
+
+.center-point {
+  background-color: black;
+  border-radius: 50%;
+  border: 1px solid black;
+  position: absolute;
+  top: calc(50% - 3px);
+  left: calc(50% - 5px);
+  height: 12px;
+  width: 12px;
+  z-index: 7;
+}
+
+.sector-1 {
+  width: 200px; /* give it the desired width */
+  aspect-ratio: 1; /* make it square */
+  border-radius: 50%; /* round its corners to turn the square into a disc */
+  background: conic-gradient(
+    from var(--start, 22.5deg) /* specify the angle to start from */,
+    hotpink var(--angle, 75deg) /* specify the sector angle */,
+    #0000 0% /* abruptly switch to transparent after */
+  );
+}
+
+.number-3 {
+  position: absolute;
+  top: calc(50% - 0.7rem);
+  right: 0.4rem;
+}
+
+.number-6 {
+  position: absolute;
+  bottom: 0;
+  left: 94px;
+}
+
+.number-9 {
+  position: absolute;
+  top: calc(50% - 0.7rem);
+  left: 0.4rem;
+}
+
+.number-12 {
+  position: absolute;
+  top: 0;
+  left: 89px;
+}
+
+.number-3,
+.number-6,
+.number-9,
+.number-12 {
+  color: var(--darkblue);
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.button-wrapper {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  bottom: -4rem;
+}
+
+.big-hand_button {
+  background-color: var(--black);
+  color: var(--white);
+}

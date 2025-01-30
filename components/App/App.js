@@ -2,8 +2,6 @@ import Footer from "../Footer/Footer.js";
 import Header from "../Header/Header.js";
 import MainTiming from "../MainTiming/MainTiming.js";
 
-const userEntries = JSON.parse(localStorage.getItem("RecordedTasks")) || [];
-
 export default function App() {
   const app = document.createElement("main");
   app.setAttribute("id", "app");

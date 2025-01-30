@@ -5,6 +5,7 @@ import {
   dateOptions,
   timeOptions,
 } from "../../utils.js";
+import Clock from "../Clock/Clock.js";
 import ListContainer from "../ListContainer/ListContainer.js";
 import Modal from "../Modal/Modal.js";
 
@@ -84,6 +85,8 @@ export default function MainTiming() {
   startButton.addEventListener("click", handleStart);
   stopButton.addEventListener("click", handleStop);
   mainTiming.addEventListener("submit", checkBeforeSubmit);
+
+  mainTiming.appendChild(Clock());
 
   function handleStart() {
     if (timerRunning) {
