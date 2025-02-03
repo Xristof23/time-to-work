@@ -211,11 +211,12 @@
   text-align: center;
 }
 
-.button-wrapper {
+.mini-button-wrapper {
   display: flex;
   flex-direction: row;
   position: absolute;
-  bottom: -4rem;
+  left: 5%;
+  bottom: -30%;
 }
 
 .mini-button {
@@ -228,4 +229,8 @@
   width: 3rem;
   margin: 0.1rem;
   color: var(--white);
+}
+
+.mini-button--noDisplay {
+  display: none;
 }

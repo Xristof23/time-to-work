@@ -32,12 +32,12 @@ export default function MiniClock(props) {
     <div class="marker11"></div>
     <div class="marker12"></div>
    
-    <div class="button-wrapper">
-    <button class="mini-button" data-js="big-hand-button">set</button>
+    <div class="mini-button-wrapper">
+    <button class="mini-button--noDisplay" data-js="big-hand-button">set</button>
     <button  class="mini-button" data-js="second-button">start</button>
     <button  class="mini-button" data-js="third-button">stop</button>
-     <button  class="mini-button" data-js="fourth-button">1 sec</button>
-     <p id="123">${props.start}</p>
+     <button  class="mini-button--noDisplay" data-js="fourth-button">1 sec</button>
+     <p class="mini-button--noDisplay" id="123">${props.start}</p>
     </div>
     `;
 

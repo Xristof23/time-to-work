@@ -1,7 +1,7 @@
 import What from "../What/What.js";
 import ListContainer from "../ListContainer/ListContainer.js";
-import MainTiming from "../MainTiming/MainTiming.js";
-import { noTasksContent, whatContent } from "../../textContent.js";
+import { whatContent } from "../../textContent.js";
+import FormContainer from "../FormContainer/FormContainer.js";
 
 export default function Menu() {
   const menu = document.createElement("nav");
@@ -46,7 +46,7 @@ export default function Menu() {
           doneTasksButton.classList.toggle("menu_button--active");
         listContainer && listContainer.remove();
         !newTask && newTaskButton.classList.toggle("menu_button--active");
-        !newTask && app.append(MainTiming());
+        !newTask && app.append(FormContainer());
         break;
       case "done-tasks-button":
         what && whatButton.classList.toggle("menu_button--active");
