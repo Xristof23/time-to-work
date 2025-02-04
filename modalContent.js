@@ -71,14 +71,4 @@ const modalContentList = [
   chooseBackup,
 ];
 
-export {
-  modalContentList,
-  wantedDelete,
-  wantedReset,
-  wantedSave,
-  wantedStart,
-  wantedDeleteAll,
-  reallyDeleteAll,
-  noEntries,
-  chooseBackup,
-};
+export { modalContentList };

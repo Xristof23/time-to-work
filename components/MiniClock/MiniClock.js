@@ -10,8 +10,11 @@ export default function MiniClock(props) {
     <div class="mini-short-hand-mover" data-js="short-hand-mover">
          <div class="mini-short-hand"></div>
     </div>
-       <div class="second-hand-mover" data-js="second-hand-mover">
+    <div class="second-hand-mover" data-js="second-hand-mover">
          <div class="second-hand"></div>
+    </div>
+
+     <div class="sector_1" data-js="sector-1">
     </div>
     
     <div class="center-point"></div>
@@ -34,17 +37,17 @@ export default function MiniClock(props) {
    
     <div class="mini-button-wrapper">
     <button class="mini-button--noDisplay" data-js="big-hand-button">set</button>
-    <button  class="mini-button" data-js="second-button">start</button>
+    <button  class="mini-button" data-js="second-button">test</button>
     <button  class="mini-button" data-js="third-button">stop</button>
      <button  class="mini-button--noDisplay" data-js="fourth-button">1 sec</button>
-     <p class="mini-button--noDisplay" id="123">${props.start}</p>
+  
     </div>
     `;
 
   const bigHandButton = miniClock.querySelector('[data-js="big-hand-button"]');
   bigHandButton.addEventListener("click", setClock);
   const secondButton = miniClock.querySelector('[data-js="second-button"]');
-  secondButton.addEventListener("click", updateClock);
+  secondButton.addEventListener("click", transformSector);
   const thirdButton = miniClock.querySelector('[data-js="third-button"]');
   thirdButton.addEventListener("click", stopClock);
   const fourthButton = miniClock.querySelector('[data-js="fourth-button"]');
@@ -58,6 +61,15 @@ export default function MiniClock(props) {
   let intervalId;
   let clockIsSet = false;
 
+  function testSector() {
+    console.log("test");
+    const startgrad = "60";
+    const endgrad = "180deg";
+    const elem = miniClock.querySelector('[data-js="sector-1"]');
+    elem.style.background = `conic-gradient(from ${startgrad}deg, darkorange 90deg, #0000 0%)`;
+    elem.classList.toggle("sector_1b");
+  }
+
   function updateClock() {
     if (!intervalId) {
       intervalId = setInterval(moveClock, 1000);
@@ -70,6 +82,24 @@ export default function MiniClock(props) {
   function stopClock() {
     clearInterval(intervalId);
     intervalId = null;
+  }
+
+  function getAngle(timeStamp) {
+    const date = new Date(timeStamp);
+    const hours = date.getHours() % 12;
+    const rest = (date.getMinutes() * 60 + date.getSeconds()) / 3600;
+    const angle = (hours + rest) * 30;
+    return angle;
+  }
+
+  function transformSector(timeSpan) {
+    const startAngle = getAngle(timingProps.startValue);
+    console.log("startAngle", startAngle);
+    //endAngle not correct yet why
+    const endAngle = getAngle(timingProps.startValue + timingProps.timespan);
+    console.log("endAngle", endAngle);
+    const sector1 = miniClock.querySelector('[data-js="sector-1"]');
+    sector1.style.background = `conic-gradient(from ${startAngle}deg, darkorange ${endAngle}deg, #0000 0%)`;
   }
 
   function moveClock() {

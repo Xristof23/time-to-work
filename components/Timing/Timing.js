@@ -39,7 +39,6 @@ export default function Timing() {
     </button>
   `;
 
-  const dateOutput = timing.querySelector('[data-js="date-output"]');
   const startOutput = timing.querySelector('[data-js="start-output"]');
   const timespanOutput = timing.querySelector('[data-js="timespan-output"]');
   const endOutput = timing.querySelector('[data-js="end-output"]');
@@ -58,10 +57,9 @@ export default function Timing() {
     } else {
       timingProps.started = true;
       stopButton.classList.toggle("stop_button--active");
-      startValue = Date.now();
       timingProps.startValue = Date.now();
       handleUpdateTime();
-      const startDate = new Date(startValue);
+      const startDate = new Date(timingProps.startValue);
       localDate = startDate.toLocaleDateString("en-EN", dateOptions);
       localTime = startDate.toLocaleTimeString("en-EN", timeOptions);
 
@@ -79,7 +77,8 @@ export default function Timing() {
   }
 
   function updateTime() {
-    const updatedTime = Date.now() - startValue;
+    const updatedTime = Date.now() - timingProps.startValue;
+    timingProps.timespan = updatedTime;
     const formattedTime = properTimeFormatter(updatedTime);
     timespanOutput.textContent = formattedTime;
   }
@@ -91,14 +90,13 @@ export default function Timing() {
       const saveButton = document.querySelector('[data-js="save-button"]');
       saveButton.classList.add("save_button--active");
       const endValue = Date.now();
-      timespan = endValue - startValue;
-      timingProps.timespan = timespan;
-      const formattedTimespan = properTimeFormatter(timespan);
+      timingProps.timespan = endValue - timingProps.startValue;
+      const formattedTimespan = properTimeFormatter(timingProps.timespan);
       const endDate = new Date(endValue);
       const formattedEnd = endDate.toLocaleTimeString("en-EN", timeOptions);
       endOutput.textContent = formattedEnd;
       timespanOutput.textContent = formattedTimespan;
-      timerRunning = false;
+      timingProps.started = false;
       stopButton.classList.toggle("stop_button--active");
       clearInterval(intervalId);
       intervalId = null;

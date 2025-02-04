@@ -10,6 +10,29 @@
   top: 31%;
 }
 
+.sector_1 {
+  width: 136px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  /* background: conic-gradient(from 30deg, darkorange 60deg, #0000 0%); */
+  /* background-image: conic-gradient(red 45deg, yellow 90deg, green 210deg); */
+  position: absolute;
+}
+
+.sector_1b {
+  width: 136px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: conic-gradient(
+    from var(--start, 22.5deg) /* specify the angle to start from */,
+    hotpink var(--angle, 200deg) /* specify the sector angle */,
+    #0000 0% /* abruptly switch to transparent after */
+  );
+  position: absolute;
+  left: -0;
+  top: -0;
+}
+
 .mini-short-hand {
   background-color: var(--secondary);
   /* border: 1px solid var(--darkblue); */
@@ -166,17 +189,6 @@
 
 .marker12 {
   left: calc(50% - 1px);
-}
-
-.sector-1 {
-  width: 200px; /* give it the desired width */
-  aspect-ratio: 1; /* make it square */
-  border-radius: 50%; /* round its corners to turn the square into a disc */
-  background: conic-gradient(
-    from var(--start, 22.5deg) /* specify the angle to start from */,
-    hotpink var(--angle, 75deg) /* specify the sector angle */,
-    #0000 0% /* abruptly switch to transparent after */
-  );
 }
 
 .number-3 {

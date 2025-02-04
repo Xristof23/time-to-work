@@ -1,19 +1,14 @@
-import { wantedReset, wantedSave, wantedStart } from "../../modalContent.js";
 import {
   properTimeFormatter,
   createUnixTimeID,
   dateOptions,
   timeOptions,
+  timeReset,
 } from "../../utils.js";
 import ListContainer from "../ListContainer/ListContainer.js";
 import Modal from "../Modal/Modal.js";
 
 //"modul globals"
-let startValue;
-
-let timespan = 0;
-
-let timerRunning = false;
 
 const today = new Date();
 
@@ -62,7 +57,7 @@ export default function MainForm(props) {
   function checkBeforeSubmit(event) {
     event.preventDefault();
     timingProps.timespan === 0
-      ? mainForm.append(Modal(wantedSave))
+      ? mainForm.append(Modal("save"))
       : handleSubmit(event);
   }
 
@@ -75,16 +70,16 @@ export default function MainForm(props) {
       JSON.parse(localStorage.getItem("RecordedTasks")) || [];
 
     const newEntry = {
-      id: createUnixTimeID(startValue),
-      startValue,
+      id: createUnixTimeID(timingProps.startValue),
+      startValue: timingProps.startValue,
       project: data.project,
       task: data.task,
       category: data.category,
       note: data.note,
       date: localDate,
       time: localTime,
-      timespan,
-      timeSpent: properTimeFormatter(timespan),
+      timespan: timingProps.timespan,
+      timeSpent: properTimeFormatter(timingProps.timespan),
     };
     recordedTasks.unshift(newEntry);
     localStorage.setItem("RecordedTasks", JSON.stringify(recordedTasks));
@@ -102,19 +97,15 @@ export default function MainForm(props) {
       '[data-js="done-tasks-button"]'
     );
     doneTasksButton.classList.toggle("menu_button--active");
-    timespan = 0;
-    // dateOutput.textContent = localDate;
-    // timeOutput.textContent = localTime;
-    // startOutput.textContent = "";
-    // endOutput.textContent = "";
-    // timespanOutput.textContent = "";
+    timingProps.timespan = 0;
+    timeReset();
 
     event.target.reset();
     event.target.elements.project.focus();
   }
 
   function handleReset() {
-    mainForm.append(Modal(wantedReset));
+    mainForm.append(Modal("reset"));
   }
 
   return mainForm;

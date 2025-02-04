@@ -17,6 +17,15 @@ function saveToLocalStorage(data, name) {
   localStorage.setItem(backupName, JSON.stringify(data));
 }
 
+function timeReset() {
+  const startOutput = document.querySelector('[data-js="start-output"]');
+  const endOutput = document.querySelector('[data-js="end-output"]');
+  const timespanOutput = document.querySelector('[data-js="timespan-output"]');
+  startOutput.textContent = "";
+  endOutput.textContent = "";
+  timespanOutput.textContent = "";
+}
+
 function generateRandomInteger(max, min) {
   const minNumber = Number(min) || 0;
   const maxNumber = Number(max);
@@ -83,4 +92,5 @@ export {
   timeOptions,
   generateRandomInteger,
   saveToLocalStorage,
+  timeReset,
 };

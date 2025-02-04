@@ -10,7 +10,7 @@ let localDate = today.toLocaleDateString("en-EN", dateOptions);
 
 const formProps = { note: true };
 //globaltest
-window.timingProps = { started: false, startvalue: 0, timeSpan: 0 };
+window.timingProps = { started: false, startValue: 0, timespan: 0 };
 
 export default function FormContainer() {
   const formContainer = document.createElement("section");

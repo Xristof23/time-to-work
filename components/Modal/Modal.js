@@ -1,12 +1,11 @@
 import { modalContentList } from "../../modalContent.js";
 import { noTasksContent } from "../../textContent.js";
-import { saveToLocalStorage } from "../../utils.js";
+import { saveToLocalStorage, timeReset } from "../../utils.js";
 import Article from "../Article/Article.js";
 import TimeRecords from "../TimeRecords/TimeRecords.js";
 
 export default function Modal(keyWord, id) {
   const props = modalContentList.filter((el) => el.mode === keyWord);
-  console.log(props[0]);
   const { text, button1, button2, button3, mode } = props[0];
 
   const modal = document.createElement("div");
@@ -45,9 +44,10 @@ export default function Modal(keyWord, id) {
     switch (mode) {
       case "resetTime":
         timeReset();
+        modal.remove();
         break;
       case "reset":
-        realReset();
+        formReset();
         break;
       case "delete":
         deleteEntry(id);
@@ -73,19 +73,7 @@ export default function Modal(keyWord, id) {
     modal.remove();
   }
 
-  function timeReset() {
-    const startOutput = document.querySelector('[data-js="start-output"]');
-    const endOutput = document.querySelector('[data-js="end-output"]');
-    const timespanOutput = document.querySelector(
-      '[data-js="timespan-output"]'
-    );
-    startOutput.textContent = "";
-    endOutput.textContent = "";
-    timespanOutput.textContent = "";
-    modal.remove();
-  }
-
-  function realReset() {
+  function formReset() {
     const form = document.getElementById("main-form");
     form.reset();
     modal.remove();
