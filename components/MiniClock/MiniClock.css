@@ -1,12 +1,12 @@
 .miniClock {
   border: 2px solid var(--darkblue);
   border-radius: 100%;
-  width: 120px;
+  width: 140px;
   aspect-ratio: 1;
   margin: 0.5rem;
   background-color: var(--white);
   position: absolute;
-  left: 66%;
+  left: 61%;
   top: 31%;
 }
 

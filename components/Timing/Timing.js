@@ -1,21 +1,12 @@
-import { wantedReset, wantedSave, wantedStart } from "../../modalContent.js";
-import {
-  properTimeFormatter,
-  createUnixTimeID,
-  dateOptions,
-  timeOptions,
-} from "../../utils.js";
+import { properTimeFormatter, dateOptions, timeOptions } from "../../utils.js";
 
 import MiniClock from "../MiniClock/MiniClock.js";
-import ListContainer from "../ListContainer/ListContainer.js";
 import Modal from "../Modal/Modal.js";
 
 //"modul globals"
 let startValue;
 
 let timespan = 0;
-
-let timerRunning = false;
 
 const today = new Date();
 
@@ -32,9 +23,7 @@ export default function Timing() {
   timing.classList.add("timing");
 
   timing.innerHTML = /*html*/ `
-    <p>Time: <output data-js="time-output">${localTime}</output> 
-    </p> 
-   
+
    <p>Start: <output data-js="start-output"></output></p> 
    <p>End: <output data-js="end-output"></output></p> 
    <p>Time spent: <output data-js="timespan-output"></output></p> 
@@ -64,16 +53,19 @@ export default function Timing() {
   timing.appendChild(MiniClock(clockProps));
 
   function handleStart() {
-    if (timerRunning) {
-      timing.append(Modal(wantedStart));
+    if (timingProps.started) {
+      timing.append(Modal("noStart"));
     } else {
-      timerRunning = true;
+      timingProps.started = true;
       stopButton.classList.toggle("stop_button--active");
       startValue = Date.now();
+      timingProps.startValue = Date.now();
       handleUpdateTime();
       const startDate = new Date(startValue);
       localDate = startDate.toLocaleDateString("en-EN", dateOptions);
       localTime = startDate.toLocaleTimeString("en-EN", timeOptions);
+
+      const dateOutput = document.querySelector('[data-js="date-output"]');
       dateOutput.textContent = localDate;
       startOutput.textContent = localTime;
       endOutput.textContent = "time is running ...";
@@ -93,12 +85,14 @@ export default function Timing() {
   }
 
   function handleStop() {
-    if (timerRunning === false) {
-      timing.append(Modal(wantedSave));
+    if (timingProps.started === false) {
+      timing.append(Modal("save"));
     } else {
+      const saveButton = document.querySelector('[data-js="save-button"]');
       saveButton.classList.add("save_button--active");
       const endValue = Date.now();
       timespan = endValue - startValue;
+      timingProps.timespan = timespan;
       const formattedTimespan = properTimeFormatter(timespan);
       const endDate = new Date(endValue);
       const formattedEnd = endDate.toLocaleTimeString("en-EN", timeOptions);
@@ -112,7 +106,7 @@ export default function Timing() {
   }
 
   function handleReset() {
-    timing.append(Modal(wantedReset));
+    timing.append(Modal("resetTime"));
   }
 
   const resetButton = timing.querySelector('[data-js="reset-button"]');

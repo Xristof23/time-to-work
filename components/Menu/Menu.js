@@ -26,7 +26,7 @@ export default function Menu() {
       text = target.id;
     const app = document.getElementById("app");
     const what = document.getElementById("what");
-    const newTask = document.getElementById("main-form");
+    const newTask = document.getElementById("form-container");
     const listContainer = document.getElementById("list-container");
 
     switch (text) {

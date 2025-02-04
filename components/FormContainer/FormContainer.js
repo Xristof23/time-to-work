@@ -10,7 +10,7 @@ let localDate = today.toLocaleDateString("en-EN", dateOptions);
 
 const formProps = { note: true };
 //globaltest
-window.timingProps = { started: false, testTime: 0 };
+window.timingProps = { started: false, startvalue: 0, timeSpan: 0 };
 
 export default function FormContainer() {
   const formContainer = document.createElement("section");
@@ -19,15 +19,13 @@ export default function FormContainer() {
 
   formContainer.innerHTML = /*html*/ `
     <h2> 
-    New task (when shown?)
+    New task
     </h2>
     <p>Date:  <output data-js="date-output">${localDate}</output>
     </p>
   `;
   formContainer.appendChild(MainForm(formProps));
   formContainer.appendChild(Timing());
-  // needed here?
-  const dateOutput = formContainer.querySelector('[data-js="date-output"]');
 
   return formContainer;
 }

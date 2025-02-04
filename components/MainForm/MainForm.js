@@ -21,7 +21,6 @@ let localDate = today.toLocaleDateString("en-EN", dateOptions);
 let localTime = today.toLocaleTimeString("en-EN", timeOptions);
 
 export default function MainForm(props) {
-  console.log(timingProps);
   const mainForm = document.createElement("form");
   mainForm.setAttribute("id", "main-form");
   mainForm.classList.add("main_form");
@@ -44,7 +43,6 @@ export default function MainForm(props) {
     </label>
 <br/>
    <div class="form_buttons">
-   <p>Ok with your inputs?</p>
     <button type="submit" class="save_button" data-js="save-button">
     Save
     </button>
@@ -63,7 +61,9 @@ export default function MainForm(props) {
 
   function checkBeforeSubmit(event) {
     event.preventDefault();
-    timespan === 0 ? mainForm.append(Modal(wantedSave)) : handleSubmit(event);
+    timingProps.timespan === 0
+      ? mainForm.append(Modal(wantedSave))
+      : handleSubmit(event);
   }
 
   function handleSubmit(event) {
@@ -103,11 +103,11 @@ export default function MainForm(props) {
     );
     doneTasksButton.classList.toggle("menu_button--active");
     timespan = 0;
-    dateOutput.textContent = localDate;
-    timeOutput.textContent = localTime;
-    startOutput.textContent = "";
-    endOutput.textContent = "";
-    timespanOutput.textContent = "";
+    // dateOutput.textContent = localDate;
+    // timeOutput.textContent = localTime;
+    // startOutput.textContent = "";
+    // endOutput.textContent = "";
+    // timespanOutput.textContent = "";
 
     event.target.reset();
     event.target.elements.project.focus();

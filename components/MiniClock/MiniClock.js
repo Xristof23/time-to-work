@@ -1,6 +1,4 @@
 export default function MiniClock(props) {
-  console.log(props);
-  console.log(timingProps);
   const miniClock = document.createElement("section");
   miniClock.classList.add("miniClock");
   miniClock.setAttribute("id", "miniClock");

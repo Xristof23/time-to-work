@@ -6,8 +6,8 @@
 
 .form_buttons {
   position: absolute;
-  border: 1px solid red;
-  top: 55%;
+  top: 460px;
+  margin-bottom: 2rem;
 }
 .stop_button--passive {
   display: inline-block;

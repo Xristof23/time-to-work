@@ -4,6 +4,7 @@
 @import "./components/Clock/Clock.css";
 @import "./components/EntryDetails/EntryDetails.css";
 @import "./components/Footer/Footer.css";
+@import "./components/FormContainer/FormContainer.css";
 @import "./components/Header/Header.css";
 @import "./components/ListContainer/ListContainer.css";
 @import "./components/ListEntry/ListEntry.css";
