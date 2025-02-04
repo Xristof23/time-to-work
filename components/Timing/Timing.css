@@ -1,0 +1,18 @@
+.timing {
+  display: block;
+  margin: 2.9rem 0 0 0.25rem;
+  height: fit-content;
+}
+
+.stop_button--passive {
+  display: inline-block;
+  background-color: #a1acb0;
+  border: 2px solid #a1acb0;
+  color: #799970;
+}
+
+.stop_button--active {
+  border: 2px solid var(--red);
+  background-color: var(--primary);
+  color: var(--darkblue);
+}

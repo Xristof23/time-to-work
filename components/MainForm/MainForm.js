@@ -20,43 +20,44 @@ const today = new Date();
 let localDate = today.toLocaleDateString("en-EN", dateOptions);
 let localTime = today.toLocaleTimeString("en-EN", timeOptions);
 
-let intervalId;
-
-const clockProps = { start: false, test: "test" };
-
 export default function MainForm(props) {
-  console.log(props.timerRunning);
+  console.log(timingProps);
   const mainForm = document.createElement("form");
   mainForm.setAttribute("id", "main-form");
   mainForm.classList.add("main_form");
 
   mainForm.innerHTML = /*html*/ `
-     <label for="task" class="label_standard">Task: 
-    <input class="input_text" name="task" id="task" required data-js="task"/> 
-    *</label> 
+     <label for="task" class="label_standard">Task:
+    <input class="input_text" name="task" id="task" required data-js="task"/>
+    *</label>
      <br/>
-    <label for="project" class="label_standard">Project: 
-    <input class="input_text" name="project" id="project" required data-js="project" /> 
-    *</label> 
+    <label for="project" class="label_standard">Project:
+    <input class="input_text" name="project" id="project" required data-js="project" />
+    *</label>
      <br/>
-     <label for="category" class="label_standard">Category: 
-    <input class="input_text" name="category" id="category" data-js="category"/> 
-    </label> 
+     <label for="category" class="label_standard">Category:
+    <input class="input_text" name="category" id="category" data-js="category"/>
+    </label>
     <br/>
-     <label for="Note" class="label_standard">Note: 
-    <input class="input_text" name="note" id="note" data-js="note"/> 
-    </label> 
+     <label for="Note" class="label_standard">Note:
+    <input class="input_text" name="note" id="note" data-js="note"/>
+    </label>
 <br/>
-   
+   <div class="form_buttons">
+   <p>Ok with your inputs?</p>
     <button type="submit" class="save_button" data-js="save-button">
-    save
+    Save
     </button>
     <button type="button" class="stop_button--active" data-js="reset-button">
-    reset
+    Reset form
     </button>
+    </div>
   `;
 
   const saveButton = mainForm.querySelector('[data-js="save-button"]');
+
+  const resetButton = mainForm.querySelector('[data-js="reset-button"]');
+  resetButton.addEventListener("click", handleReset);
 
   mainForm.addEventListener("submit", checkBeforeSubmit);
 
@@ -115,9 +116,6 @@ export default function MainForm(props) {
   function handleReset() {
     mainForm.append(Modal(wantedReset));
   }
-
-  const resetButton = mainForm.querySelector('[data-js="reset-button"]');
-  resetButton.addEventListener("click", handleReset);
 
   return mainForm;
 }

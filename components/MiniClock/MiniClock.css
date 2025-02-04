@@ -5,7 +5,9 @@
   aspect-ratio: 1;
   margin: 0.5rem;
   background-color: var(--white);
-  position: relative;
+  position: absolute;
+  left: 66%;
+  top: 31%;
 }
 
 .mini-short-hand {

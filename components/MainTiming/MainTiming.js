@@ -1,3 +1,6 @@
+//maintiming will be replaced
+// this is only left to copy code
+
 import { wantedReset, wantedSave, wantedStart } from "../../modalContent.js";
 import {
   properTimeFormatter,
@@ -5,7 +8,7 @@ import {
   dateOptions,
   timeOptions,
 } from "../../utils.js";
-import Clock from "../Clock/Clock.js";
+
 import MiniClock from "../MiniClock/MiniClock.js";
 import ListContainer from "../ListContainer/ListContainer.js";
 import Modal from "../Modal/Modal.js";
