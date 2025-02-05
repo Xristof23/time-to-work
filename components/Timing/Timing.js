@@ -80,6 +80,7 @@ export default function Timing() {
     const updatedTime = Date.now() - timingProps.startValue;
     timingProps.timespan = updatedTime;
     const formattedTime = properTimeFormatter(updatedTime);
+    timingProps.formattedTimespan = formattedTime;
     timespanOutput.textContent = formattedTime;
   }
 
@@ -92,6 +93,7 @@ export default function Timing() {
       const endValue = Date.now();
       timingProps.timespan = endValue - timingProps.startValue;
       const formattedTimespan = properTimeFormatter(timingProps.timespan);
+      timingProps.formattedTimespan = formattedTimespan;
       const endDate = new Date(endValue);
       const formattedEnd = endDate.toLocaleTimeString("en-EN", timeOptions);
       endOutput.textContent = formattedEnd;
