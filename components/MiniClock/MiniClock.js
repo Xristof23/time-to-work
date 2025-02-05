@@ -53,12 +53,15 @@ export default function MiniClock(props) {
   const fourthButton = miniClock.querySelector('[data-js="fourth-button"]');
   fourthButton.addEventListener("click", () => handleSecondHand(1));
 
+  const { startValue, timespan } = window.timingProps;
+
   let startSeconds = Math.round(Date.now() / 1000);
 
   let bigHandRotation = 0;
   let shortHandRotation = 0;
   let secondHandRotation = 0;
   let intervalId;
+  let intervalId2;
   let clockIsSet = false;
 
   function testSector() {
@@ -70,10 +73,19 @@ export default function MiniClock(props) {
     elem.classList.toggle("sector_1b");
   }
 
+  let sectorUpdating = false;
+
   function updateClock() {
     if (!intervalId) {
       intervalId = setInterval(moveClock, 1000);
     }
+  }
+
+  function updateSector() {
+    if (!intervalId2) {
+      intervalId2 = setInterval(transformSector, 3000);
+    }
+    sectorUpdating = true;
   }
 
   !clockIsSet && setClock();
@@ -82,24 +94,26 @@ export default function MiniClock(props) {
   function stopClock() {
     clearInterval(intervalId);
     intervalId = null;
+    clearInterval(intervalId2);
+    intervalId2 = null;
+    sectorUpdating = false;
   }
 
-  function getAngle(timeStamp) {
+  function getAngle(timeStamp, factor) {
     const date = new Date(timeStamp);
     const hours = date.getHours() % 12;
     const rest = (date.getMinutes() * 60 + date.getSeconds()) / 3600;
-    const angle = (hours + rest) * 30;
+    const angle = (hours + rest) * factor;
     return angle;
   }
 
-  function transformSector(timeSpan) {
-    const startAngle = getAngle(timingProps.startValue);
-    console.log("startAngle", startAngle);
-    //endAngle not correct yet why
-    const endAngle = getAngle(timingProps.startValue + timingProps.timespan);
-    console.log("endAngle", endAngle);
+  function transformSector() {
+    const startAngle = getAngle(timingProps.startValue, 30);
+    const endPoint = timingProps.startValue + timingProps.timespan;
+    const shortHandAngle = getAngle(endPoint, 30) - startAngle;
+    const sectorAngle = shortHandAngle * 12;
     const sector1 = miniClock.querySelector('[data-js="sector-1"]');
-    sector1.style.background = `conic-gradient(from ${startAngle}deg, darkorange ${endAngle}deg, #0000 0%)`;
+    sector1.style.background = `conic-gradient(from ${startAngle}deg, darkorange ${sectorAngle}deg, #0000 0%)`;
   }
 
   function moveClock() {
@@ -109,6 +123,7 @@ export default function MiniClock(props) {
     handleSecondHand(moveSeconds);
     moveBothHands(moveMinutes);
     startSeconds = currentSeconds;
+    timingProps.started && !sectorUpdating ? updateSector() : null;
   }
 
   function setClock() {
