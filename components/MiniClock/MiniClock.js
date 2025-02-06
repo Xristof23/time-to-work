@@ -87,6 +87,12 @@ export default function MiniClock(props) {
     sectorUpdating = false;
   }
 
+  function stopSector() {
+    clearInterval(intervalId2);
+    intervalId2 = null;
+    sectorUpdating = false;
+  }
+
   function getHours(timeStamp) {
     const date = new Date(timeStamp);
     const hours = date.getHours() % 12;
@@ -104,13 +110,20 @@ export default function MiniClock(props) {
     const startAngle = getAngle(timingProps.startValue, 30);
     const endPoint = timingProps.startValue + timingProps.timespan;
     const shortHandAngle = getAngle(endPoint, 30) - startAngle;
-    const sectorAngle = shortHandAngle * 12;
+    const sectorAngle = (shortHandAngle * 12) % 360;
+    const testHours = timingProps.timespan / 3600000;
     const sector1 = miniClock.querySelector('[data-js="sector-1"]');
     sector1.style.background = `conic-gradient(from ${startAngle}deg, darkorange ${sectorAngle}deg, #0000 0%)`;
     const sector2 = miniClock.querySelector('[data-js="sector-2"]');
-    if (getHours(timingProps.timespan) >= 1) {
-      sector2.style.background = `conic-gradient(from ${startAngle}deg, darkgray ${shortHandAngle}deg, #0000 0%)`;
+
+    if (testHours > 1) {
+      sector1.style.background = `conic-gradient(from ${startAngle}deg, darkslategrey ${shortHandAngle}deg, #0000 0%)`;
+      const timespanOutput = document.querySelector(
+        '[data-js="timespan-output"]'
+      );
+      timespanOutput.classList.add("timespan_darkslategrey");
     }
+    timingProps.started === false && stopSector();
   }
 
   function moveClock() {

@@ -1,7 +1,21 @@
 .timing {
   display: block;
-  margin: 2.9rem 0 0 0.25rem;
+  margin: 0.6rem 0 0 0;
   height: fit-content;
+}
+
+.timespan_darkblue {
+  color: var(--darkblue);
+}
+
+.timespan_orange {
+  color: darkorange;
+  font-weight: 600;
+}
+
+.timespan_darkslategrey {
+  color: darkslategrey;
+  font-weight: 600;
 }
 
 .stop_button--passive {

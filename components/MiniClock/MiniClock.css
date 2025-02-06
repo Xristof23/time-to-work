@@ -24,6 +24,10 @@
   position: absolute;
 }
 
+.sector--passive {
+  display: none;
+}
+
 .mini-short-hand {
   background-color: var(--secondary);
   /* border: 1px solid var(--darkblue); */

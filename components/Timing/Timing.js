@@ -26,7 +26,7 @@ export default function Timing() {
 
    <p>Start: <output data-js="start-output"></output></p> 
    <p>End: <output data-js="end-output"></output></p> 
-   <p>Time spent: <output data-js="timespan-output"></output></p> 
+   <p>Time spent: <output class="timespan_orange" data-js="timespan-output"></output></p> 
    
     <button type="button" data-js="start-button">
    Start
