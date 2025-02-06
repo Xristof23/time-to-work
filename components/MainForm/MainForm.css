@@ -2,11 +2,12 @@
   display: block;
   margin: 2.9rem 0 0 0.25rem;
   height: fit-content;
+  font-size: 1.2rem;
 }
 
 .form_buttons {
   position: absolute;
-  top: 480px;
+  top: 500px;
   margin-bottom: 2rem;
 }
 .stop_button--passive {
@@ -42,5 +43,8 @@
 
 .input_text {
   border-radius: 4px;
+  font-size: 1.2rem;
+  height: 1.5rem;
+  max-width: 200px;
   margin: 0.25rem 0.5rem;
 }

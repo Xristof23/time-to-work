@@ -3,10 +3,12 @@
   padding: 0.25rem;
   font-size: 0.9rem;
   background-color: var(--secondary-light);
-  margin: 0.5rem 10rem 0.5rem 0;
+  margin: 0.5rem 0.5rem -0;
   position: fixed;
   height: fit-content;
-  top: 94%;
+
+  bottom: 0;
+
   display: block;
   bottom: 0.5rem;
   border-radius: 4px;
