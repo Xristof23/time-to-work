@@ -1,10 +1,13 @@
+import { modalContentList } from "../../modalContent.js";
 import { noTasksContent } from "../../textContent.js";
-import { saveToLocalStorage } from "../../utils.js";
+import { saveToLocalStorage, timeReset } from "../../utils.js";
 import Article from "../Article/Article.js";
 import TimeRecords from "../TimeRecords/TimeRecords.js";
 
-export default function Modal(props, id) {
-  const { text, button1, button2, button3, mode } = props;
+export default function Modal(keyWord, id) {
+  const props = modalContentList.filter((el) => el.mode === keyWord);
+  const { text, button1, button2, button3, mode } = props[0];
+
   const modal = document.createElement("div");
   modal.classList.add("modal");
   modal.setAttribute("id", "modal1");
@@ -30,8 +33,8 @@ export default function Modal(props, id) {
   const thirdButton = modal.querySelector('[data-js="third-button"');
   thirdButton.addEventListener("click", handleThird);
 
-  !props.button2 && yesButton.classList.add("button--passive");
-  !props.button3 && thirdButton.classList.add("button--passive");
+  !button2 && yesButton.classList.add("button--passive");
+  !button3 && thirdButton.classList.add("button--passive");
 
   function handleAbort() {
     modal.remove();
@@ -39,8 +42,12 @@ export default function Modal(props, id) {
 
   function handleYes() {
     switch (mode) {
+      case "resetTime":
+        timeReset();
+        modal.remove();
+        break;
       case "reset":
-        realReset();
+        formReset();
         break;
       case "delete":
         deleteEntry(id);
@@ -66,21 +73,12 @@ export default function Modal(props, id) {
     modal.remove();
   }
 
-  function realReset() {
-    const startOutput = document.querySelector('[data-js="start-output"]');
-    const endOutput = document.querySelector('[data-js="end-output"]');
-    const timeOutput = document.querySelector('[data-js="time-output"]');
-    const timespanOutput = document.querySelector(
-      '[data-js="timespan-output"]'
-    );
-    startOutput.textContent = "";
-    endOutput.textContent = "";
-    timeOutput.textContent = "";
-    timespanOutput.textContent = "";
-    modal.remove();
+  function formReset() {
     const form = document.getElementById("main-form");
     form.reset();
+    modal.remove();
   }
+
   function deleteEntry(id) {
     const userEntries = JSON.parse(localStorage.getItem("RecordedTasks"));
     const updatedEntries = userEntries.filter((entry) => entry.id != id);

@@ -1,0 +1,245 @@
+.miniClock {
+  border: 2px solid var(--darkblue);
+  border-radius: 100%;
+  width: 140px;
+  aspect-ratio: 1;
+  margin: 0.5rem;
+  background-color: var(--white);
+  position: absolute;
+  left: 61%;
+  top: 31%;
+}
+
+.sector_1 {
+  width: 136px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.sector_2 {
+  width: 136px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.sector--passive {
+  display: none;
+}
+
+.mini-short-hand {
+  background-color: var(--secondary);
+  /* border: 1px solid var(--darkblue); */
+  border-radius: 40%;
+  position: absolute;
+  top: 20%;
+  height: 31%;
+  width: 100%;
+  z-index: 3;
+}
+
+.mini-short-hand-mover {
+  border-radius: 5%;
+  position: absolute;
+  left: 47.5%;
+  height: 100%;
+  width: 5%;
+  z-index: 3;
+}
+
+.big-hand {
+  background-color: var(--darkblue);
+  border: 1px solid var(--black);
+  border-radius: 50%;
+  position: absolute;
+  top: 11%;
+  height: 41%;
+  width: 4px;
+  z-index: 5;
+}
+
+.big-hand-mover {
+  border-radius: 5%;
+  position: absolute;
+  left: calc(50% - 2px);
+  height: 100%;
+  width: 4px;
+  z-index: 4;
+}
+
+.second-hand {
+  background-color: var(--red);
+  border-radius: 3%;
+  position: absolute;
+  height: 50%;
+  width: 2px;
+  z-index: 5;
+}
+
+.second-hand-mover {
+  border-radius: 20%;
+  position: absolute;
+  left: calc(50% - 1px);
+  height: 100%;
+  width: 2px;
+  z-index: 4;
+}
+
+.center-point {
+  background-color: black;
+  border-radius: 50%;
+  position: absolute;
+  top: calc(50% - 6px);
+  left: calc(50% - 6px);
+
+  width: 12px;
+  aspect-ratio: 1;
+  z-index: 7;
+}
+
+.marker1,
+.marker2,
+.marker3,
+.marker4,
+.marker5,
+.marker6,
+.marker7,
+.marker8,
+.marker9,
+.marker10,
+.marker11,
+.marker12 {
+  border-radius: 2%;
+  background-color: rgb(44, 42, 42);
+  position: absolute;
+  height: 5%;
+  width: 2px;
+  z-index: 1;
+}
+
+.marker1 {
+  left: 73.5%;
+  top: 6.5%;
+  rotate: 30deg;
+}
+
+.marker2 {
+  left: 91%;
+  top: 23.5%;
+  rotate: 60deg;
+}
+
+.marker3 {
+  left: 97%;
+  top: 48%;
+  rotate: 90deg;
+}
+.marker4 {
+  left: 91%;
+  top: 71.5%;
+  rotate: 120deg;
+}
+
+.marker5 {
+  left: 73%;
+  top: 89%;
+  rotate: 150deg;
+}
+
+.marker6 {
+  left: calc(50% - 1px);
+  top: 95.5%;
+  rotate: 180deg;
+}
+
+.marker7 {
+  left: 26%;
+  top: 89%;
+  rotate: 210deg;
+}
+
+.marker8 {
+  left: 8%;
+  top: 71%;
+  rotate: 240deg;
+}
+.marker9 {
+  left: 2%;
+  top: 48%;
+  rotate: 270deg;
+}
+
+.marker10 {
+  left: 8%;
+  top: 24%;
+  rotate: 300deg;
+}
+
+.marker11 {
+  left: 26%;
+  top: 6%;
+  rotate: 330deg;
+}
+
+.marker12 {
+  left: calc(50% - 1px);
+}
+
+.number-3 {
+  position: absolute;
+  top: calc(50% - 0.9rem);
+  right: 0.6rem;
+}
+
+.number-6 {
+  position: absolute;
+  bottom: 0.2rem;
+  left: calc(50% - 0.35rem);
+}
+
+.number-9 {
+  position: absolute;
+  top: calc(50% - 0.9rem);
+  left: 0.6rem;
+}
+
+.number-12 {
+  position: absolute;
+  top: 0.25rem;
+  left: calc(50% - 0.7rem);
+}
+
+.number-3,
+.number-6,
+.number-9,
+.number-12 {
+  color: var(--darkblue);
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.mini-button-wrapper {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  left: 5%;
+  bottom: -30%;
+}
+
+.mini-button {
+  background-color: var(--black);
+  border-radius: 25%;
+  border: none;
+  font-size: 0.8rem;
+  line-height: 0.5rem;
+  height: 1.7rem;
+  width: 3rem;
+  margin: 0.1rem;
+  color: var(--white);
+}
+
+.mini-button--noDisplay {
+  display: none;
+}

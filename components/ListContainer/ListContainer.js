@@ -1,7 +1,6 @@
 import Article from "../Article/Article.js";
 import TimeRecords from "../TimeRecords/TimeRecords.js";
 import Modal from "../Modal/Modal.js";
-import { wantedDeleteAll, chooseBackup } from "../../modalContent.js";
 import { noTasksContent } from "../../textContent.js";
 import {
   generateRandomInteger,
@@ -59,7 +58,7 @@ export default function ListContainer(userEntries) {
   loadButton.addEventListener("click", handleLoadBackup);
 
   function handleLoadBackup() {
-    listContainer.append(Modal(chooseBackup));
+    listContainer.append(Modal("chooseBackup"));
   }
 
   //evtl auslagern ...
@@ -147,7 +146,7 @@ export default function ListContainer(userEntries) {
   }
 
   function handleDeleteAll() {
-    listContainer.append(Modal(wantedDeleteAll));
+    listContainer.append(Modal("reallyDeleteAll"));
   }
 
   return listContainer;

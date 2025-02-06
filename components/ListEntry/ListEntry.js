@@ -1,4 +1,3 @@
-import { wantedDelete } from "../../modalContent.js";
 import EntryDetails from "../EntryDetails/EntryDetails.js";
 import Modal from "../Modal/Modal.js";
 
@@ -30,7 +29,7 @@ export default function ListEntry(element) {
 
   function handleAreYouSure() {
     const id = element.id;
-    listEntry.append(Modal(wantedDelete, id));
+    listEntry.append(Modal("delete", id));
   }
 
   function handleShowDetails() {

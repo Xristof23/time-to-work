@@ -26,6 +26,13 @@ const wantedReset = {
   mode: "reset",
 };
 
+const resetTime = {
+  text: "Do you really want to reset? Your entry has not been saved yet! Press No, abort., if you are not sure!",
+  button1: "No, cancel.",
+  button2: "Yes, go on.",
+  mode: "resetTime",
+};
+
 const wantedSave = {
   text: "Please press the start button first!",
   button1: "Ok",
@@ -49,10 +56,11 @@ const noEntries = {
 const wantedStart = {
   text: "The timer is already running!",
   button1: "Ok",
-  mode: "save",
+  mode: "noStart",
 };
 
-export {
+const modalContentList = [
+  resetTime,
   wantedDelete,
   wantedReset,
   wantedSave,
@@ -61,4 +69,6 @@ export {
   reallyDeleteAll,
   noEntries,
   chooseBackup,
-};
+];
+
+export { modalContentList };

@@ -1,9 +1,14 @@
-.mainTiming {
+.mainForm {
   display: block;
   margin: 2.9rem 0 0 0.25rem;
   height: fit-content;
 }
 
+.form_buttons {
+  position: absolute;
+  top: 480px;
+  margin-bottom: 2rem;
+}
 .stop_button--passive {
   display: inline-block;
   background-color: #a1acb0;
