@@ -1,13 +1,17 @@
-.mainForm {
-  display: block;
-  margin: 2.9rem 0 0 0.25rem;
+.main_form {
+  display: grid;
+  grid-template-columns: 1fr 9fr;
+  gap: 10px;
+  grid-template-rows: minmax(30px, auto);
+  margin: 0.5rem 0 0 0;
+  width: 80%;
   height: fit-content;
   font-size: 1.2rem;
 }
 
 .form_buttons {
   position: absolute;
-  top: 500px;
+  top: 570px;
   margin-bottom: 2rem;
 }
 .stop_button--passive {
@@ -37,14 +41,62 @@
   color: black;
 }
 
-.label_standard {
+.label_standard_11,
+.label_standard_12,
+.label_standard_13,
+.label_standard_14 {
   margin-left: 0.25rem;
+  line-height: 2rem;
 }
 
-.input_text {
+.label_standard_11 {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.label_standard_12 {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.label_standard_13 {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.label_standard_14 {
+  grid-column: 1;
+  grid-row: 4;
+}
+
+.input_text_21,
+.input_text_22,
+.input_text_23,
+.input_text_24 {
   border-radius: 4px;
   font-size: 1.2rem;
-  height: 1.5rem;
-  max-width: 200px;
-  margin: 0.25rem 0.5rem;
+  height: 1.8rem;
+  min-width: 256px;
+  max-width: 280px;
+  margin: 0rem 0.25rem;
+}
+
+.input_text_21 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.input_text_22 {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.input_text_23 {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.input_text_24 {
+  grid-column: 2;
+  grid-row: 4;
 }

@@ -21,8 +21,9 @@
 .detail_button {
   position: absolute;
   background-color: var(--secondary-light);
-  bottom: 0.5rem;
-  right: 0.5rem;
+  bottom: 0.25rem;
+  height: 2rem;
+  right: 0.25rem;
   z-index: 2;
 }
 .delete_button {
@@ -31,8 +32,8 @@
   font-size: 0.8rem;
   font-weight: 700;
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+  top: 0.25rem;
+  right: 0.25rem;
   border: 2px solid var(--red);
   width: 1.6rem;
   height: 1.6rem;
