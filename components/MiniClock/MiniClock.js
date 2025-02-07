@@ -15,27 +15,32 @@ export default function MiniClock(props) {
     </div>
      <div class="sector_1" data-js="sector-1">
     </div>
-    <div class="sector_2" data-js="sector-2">
-    </div>
     
-    <div class="center-point"></div>
-    <div class="number-12">12</div>
-    <div class="number-9">9</div>
-    <div class="number-6">6</div>
-    <div class="number-3">3</div>
-    <div class="marker1"></div>
-    <div class="marker2"></div>
-    <div class="marker3"></div>
-    <div class="marker4"></div>
-    <div class="marker5"></div>
-    <div class="marker6"></div>
-    <div class="marker7"></div>
-    <div class="marker8"></div>
-    <div class="marker9"></div>
-    <div class="marker10"></div>
-    <div class="marker11"></div>
-    <div class="marker12"></div>
-   
+    <div class="center_point"></div>
+     <div class="circle_cover"></div>
+     <div class="number_1">1</div>
+     <div class="number_2">2</div>
+     <div class="number_3">3</div>
+     <div class="number_4">4</div>
+     <div class="number_5">5</div>
+       <div class="number_6">6</div>
+         <div class="number_7">7</div>
+           <div class="number_8">8</div>
+             <div class="number_9">9</div>
+  
+    <div class="number_10">10</div>
+    <div class="number_11">11</div>
+      <div class="number_12">12</div>
+    
+    
+    
+    <div class="marker_1_7"></div>
+    <div class="marker_2_8"></div>
+    <div class="marker_3_9"></div>
+    <div class="marker_4_10"></div>
+    <div class="marker_5_11"></div>
+    <div class="marker_6_12"></div>
+ 
     <div class="mini-button-wrapper">
     <button class="mini-button--noDisplay" data-js="first-button">first</button>
     <button  class="mini-button--noDisplay" data-js="second-button">stop</button>
@@ -71,7 +76,7 @@ export default function MiniClock(props) {
 
   function updateSector() {
     if (!intervalId2) {
-      intervalId2 = setInterval(transformSector, 3000);
+      intervalId2 = setInterval(transformSector, 1000);
     }
     sectorUpdating = true;
   }
@@ -110,19 +115,34 @@ export default function MiniClock(props) {
     const startAngle = getAngle(timingProps.startValue, 30);
     const endPoint = timingProps.startValue + timingProps.timespan;
     const shortHandAngle = getAngle(endPoint, 30) - startAngle;
+
     const sectorAngle = (shortHandAngle * 12) % 360;
+    const secondHandAngle = Math.round((shortHandAngle * 720) % 360);
     const testHours = timingProps.timespan / 3600000;
     const sector1 = miniClock.querySelector('[data-js="sector-1"]');
-    sector1.style.background = `conic-gradient(from ${startAngle}deg, darkorange ${sectorAngle}deg, #0000 0%)`;
-    const sector2 = miniClock.querySelector('[data-js="sector-2"]');
 
-    if (testHours > 1) {
+    if (testHours < 0.01667) {
+      sector1.style.background = `conic-gradient(from ${startAngle}deg, darkorange ${secondHandAngle}deg, #0000 0%)`;
+    } else if (testHours >= 0.01667 && testHours < 1) {
+      sector1.style.background = `conic-gradient(from ${startAngle}deg, #a7df92 ${sectorAngle}deg, #0000 0%)`;
+      const timespanOutput = document.querySelector(
+        '[data-js="timespan-output"]'
+      );
+      timespanOutput.classList.add("timespan_darkslategrey");
+    } else {
       sector1.style.background = `conic-gradient(from ${startAngle}deg, darkslategrey ${shortHandAngle}deg, #0000 0%)`;
       const timespanOutput = document.querySelector(
         '[data-js="timespan-output"]'
       );
       timespanOutput.classList.add("timespan_darkslategrey");
     }
+    // if (testHours > 1) {
+    //   sector1.style.background = `conic-gradient(from ${startAngle}deg, darkslategrey ${shortHandAngle}deg, #0000 0%)`;
+    //   const timespanOutput = document.querySelector(
+    //     '[data-js="timespan-output"]'
+    //   );
+    //   timespanOutput.classList.add("timespan_darkslategrey");
+    // }
     timingProps.started === false && stopSector();
   }
 

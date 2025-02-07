@@ -25,9 +25,7 @@ function timeReset() {
   endOutput.textContent = "";
   timespanOutput.textContent = "";
   const sector1 = document.querySelector('[data-js="sector-1"]');
-  const sector2 = document.querySelector('[data-js="sector-2"]');
   sector1.classList.toggle("sector--passive");
-  sector2.classList.toggle("sector--passive");
 }
 
 function generateRandomInteger(max, min) {
