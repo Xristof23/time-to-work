@@ -2,6 +2,7 @@ import { modalContentList } from "../../modalContent.js";
 import { noTasksContent } from "../../textContent.js";
 import { saveToLocalStorage, timeReset } from "../../utils.js";
 import Article from "../Article/Article.js";
+import ListContainer from "../ListContainer/ListContainer.js";
 import TimeRecords from "../TimeRecords/TimeRecords.js";
 
 export default function Modal(keyWord, id) {
@@ -49,6 +50,9 @@ export default function Modal(keyWord, id) {
       case "reset":
         formReset();
         break;
+      case "afterSave":
+        modal.remove();
+        break;
       case "delete":
         deleteEntry(id);
         break;
@@ -66,10 +70,15 @@ export default function Modal(keyWord, id) {
   }
 
   function handleThird() {
-    let userEntries = JSON.parse(localStorage.getItem("AutomaticBackup"));
-    saveToLocalStorage(userEntries, "RecordedTasks");
-    const timeRecords = document.getElementById("time-records");
-    timeRecords.replaceWith(TimeRecords(userEntries));
+    if (mode === "chooseBackup") {
+      //Why let here?
+      let userEntries = JSON.parse(localStorage.getItem("AutomaticBackup"));
+      saveToLocalStorage(userEntries, "RecordedTasks");
+      const timeRecords = document.getElementById("time-records");
+      timeRecords.replaceWith(TimeRecords(userEntries));
+    } else {
+      getToRecords();
+    }
     modal.remove();
   }
 
@@ -77,6 +86,20 @@ export default function Modal(keyWord, id) {
     const form = document.getElementById("main-form");
     form.reset();
     modal.remove();
+  }
+
+  function getToRecords() {
+    const app = document.getElementById("app");
+    const newTask = document.getElementById("form-container");
+    newTask.remove();
+    const userEntries = JSON.parse(localStorage.getItem("RecordedTasks"));
+    app.append(ListContainer(userEntries));
+    const doneTasksButton = document.querySelector(
+      '[data-js="done-tasks-button"]'
+    );
+    doneTasksButton.classList.toggle("menu_button--active");
+    const newTaskButton = document.querySelector('[data-js="new-task-button"]');
+    newTaskButton.classList.toggle("menu_button--active");
   }
 
   function deleteEntry(id) {

@@ -44,6 +44,7 @@ export default function MainForm(props) {
     </div>
   `;
 
+  //need this line?
   const saveButton = mainForm.querySelector('[data-js="save-button"]');
 
   const resetButton = mainForm.querySelector('[data-js="reset-button"]');
@@ -81,24 +82,26 @@ export default function MainForm(props) {
     recordedTasks.unshift(newEntry);
     localStorage.setItem("RecordedTasks", JSON.stringify(recordedTasks));
 
-    const app = document.getElementById("app");
-    const listContainer = document.getElementById("list-container");
-    if (!listContainer) {
-      app.append(ListContainer(recordedTasks));
-    } else {
-      listContainer.remove();
-      app.append(ListContainer(recordedTasks));
-    }
+    // const app = document.getElementById("app");
+    // const listContainer = document.getElementById("list-container");
+    // if (!listContainer) {
+    //   app.append(ListContainer(recordedTasks));
+    // } else {
+    //   listContainer.remove();
+    //   app.append(ListContainer(recordedTasks));
+    // }
 
-    const doneTasksButton = document.querySelector(
-      '[data-js="done-tasks-button"]'
-    );
-    doneTasksButton.classList.toggle("menu_button--active");
+    // const doneTasksButton = document.querySelector(
+    //   '[data-js="done-tasks-button"]'
+    // );
+    // doneTasksButton.classList.toggle("menu_button--active");
+
     timingProps.timespan = 0;
     timeReset();
 
     event.target.reset();
     event.target.elements.project.focus();
+    mainForm.append(Modal("afterSave"));
   }
 
   function handleReset() {

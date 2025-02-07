@@ -53,6 +53,14 @@ const noEntries = {
   mode: "noEntries",
 };
 
+const afterSave = {
+  text: "Your entry has been saved. What do you want to do next? (If you're working, you might want to take a break ...)",
+  button1: "Nothing.",
+  button2: "Stay here and start the next task.",
+  button3: "Take me to the done tasks.",
+  mode: "afterSave",
+};
+
 const wantedStart = {
   text: "The timer is already running!",
   button1: "Ok",
@@ -60,6 +68,7 @@ const wantedStart = {
 };
 
 const modalContentList = [
+  afterSave,
   resetTime,
   wantedDelete,
   wantedReset,

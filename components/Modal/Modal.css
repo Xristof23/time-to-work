@@ -6,7 +6,8 @@
   border-radius: 4px;
   position: absolute;
   top: 20%;
-  height: 10rem;
+  min-height: 10rem;
+  height: fit-content;
   left: 0rem;
   width: 100%;
   z-index: 4;

@@ -102,7 +102,7 @@ export default function MiniClock(props) {
     const date = new Date(timeStamp);
     const hours = date.getHours() % 12;
     const rest = (date.getMinutes() * 60 + date.getSeconds()) / 3600;
-    const timeInHours = hours + rest;
+    const timeInHours = Math.fround(hours + rest);
     return timeInHours;
   }
 
@@ -112,18 +112,27 @@ export default function MiniClock(props) {
   }
 
   function transformSector() {
-    const startAngle = getAngle(timingProps.startValue, 30);
+    const rawStartAngle = getAngle(timingProps.startValue, 30);
+    console.log("rawstartangle", rawStartAngle);
+    const startAngle =
+      rawStartAngle % 6 > 3
+        ? rawStartAngle - (rawStartAngle % 6) + 6
+        : rawStartAngle - (rawStartAngle % 6);
+
     const endPoint = timingProps.startValue + timingProps.timespan;
-    const shortHandAngle = getAngle(endPoint, 30) - startAngle;
+    const shortHandAngle = getAngle(endPoint, 30) - rawStartAngle;
 
     const sectorAngle = (shortHandAngle * 12) % 360;
     const secondHandAngle = Math.round((shortHandAngle * 720) % 360);
+    console.log(secondHandAngle);
     const testHours = timingProps.timespan / 3600000;
+    // console.log(testHours);
     const sector1 = miniClock.querySelector('[data-js="sector-1"]');
+    testHours < 0.0005 && sector1.classList.remove("sector--passive");
 
-    if (testHours < 0.01667) {
+    if (testHours <= 0.0166666) {
       sector1.style.background = `conic-gradient(from ${startAngle}deg, darkorange ${secondHandAngle}deg, #0000 0%)`;
-    } else if (testHours >= 0.01667 && testHours < 1) {
+    } else if (testHours > 0.0166666 && testHours < 1) {
       sector1.style.background = `conic-gradient(from ${startAngle}deg, #a7df92 ${sectorAngle}deg, #0000 0%)`;
       const timespanOutput = document.querySelector(
         '[data-js="timespan-output"]'
