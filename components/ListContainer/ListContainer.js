@@ -146,7 +146,7 @@ export default function ListContainer(userEntries) {
   }
 
   function handleDeleteAll() {
-    listContainer.append(Modal("reallyDeleteAll"));
+    listContainer.append(Modal("deleteAll"));
   }
 
   return listContainer;

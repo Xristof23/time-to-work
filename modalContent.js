@@ -12,13 +12,6 @@ const wantedDeleteAll = {
   mode: "deleteAll",
 };
 
-const reallyDeleteAll = {
-  text: "Really delete? THIS IS NOT REVERSIBLE! Press &quot;No, cancel.&quot;, if you are not sure!",
-  button1: "No, cancel.",
-  button2: "Yes, really delete ALL tasks.",
-  mode: "reallyDeleteAll",
-};
-
 const wantedReset = {
   text: "Do you really want to reset? Your entry has not been saved yet! Press No, abort., if you are not sure!",
   button1: "No, cancel.",
@@ -75,7 +68,6 @@ const modalContentList = [
   wantedSave,
   wantedStart,
   wantedDeleteAll,
-  reallyDeleteAll,
   noEntries,
   chooseBackup,
 ];
