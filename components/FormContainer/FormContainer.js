@@ -2,14 +2,13 @@ import { dateOptions, timeOptions } from "../../utils.js";
 import MainForm from "../MainForm/MainForm.js";
 import Timing from "../Timing/Timing.js";
 
-//"modul globals"
-
 const today = new Date();
 
 let localDate = today.toLocaleDateString("en-EN", dateOptions);
 
 const formProps = { note: true };
-//globaltest
+
+//globalvars
 window.timingProps = { started: false, startValue: 0, timespan: 0 };
 
 export default function FormContainer() {
