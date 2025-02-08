@@ -113,7 +113,6 @@ export default function MiniClock(props) {
 
   function transformSector() {
     const rawStartAngle = getAngle(timingProps.startValue, 30);
-    console.log("rawstartangle", rawStartAngle);
     const startAngle =
       rawStartAngle % 6 > 3
         ? rawStartAngle - (rawStartAngle % 6) + 6
@@ -124,9 +123,7 @@ export default function MiniClock(props) {
 
     const sectorAngle = (shortHandAngle * 12) % 360;
     const secondHandAngle = Math.round((shortHandAngle * 720) % 360);
-    console.log(secondHandAngle);
     const testHours = timingProps.timespan / 3600000;
-    // console.log(testHours);
     const sector1 = miniClock.querySelector('[data-js="sector-1"]');
     testHours < 0.0005 && sector1.classList.remove("sector--passive");
 
@@ -145,13 +142,7 @@ export default function MiniClock(props) {
       );
       timespanOutput.classList.add("timespan_darkslategrey");
     }
-    // if (testHours > 1) {
-    //   sector1.style.background = `conic-gradient(from ${startAngle}deg, darkslategrey ${shortHandAngle}deg, #0000 0%)`;
-    //   const timespanOutput = document.querySelector(
-    //     '[data-js="timespan-output"]'
-    //   );
-    //   timespanOutput.classList.add("timespan_darkslategrey");
-    // }
+
     timingProps.started === false && stopSector();
   }
 
