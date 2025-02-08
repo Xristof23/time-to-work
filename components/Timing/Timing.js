@@ -24,10 +24,10 @@ export default function Timing() {
 
   timing.innerHTML = /*html*/ `
 
-   <p>Start: <output data-js="start-output"></output></p> 
-   <p>End: <output data-js="end-output"></output></p> 
-   <p>Time spent: <output class="timespan_orange" data-js="timespan-output"></output></p> 
-   
+   <p class="timing_paragraph">Start: <output data-js="start-output"></output></p>
+   <p>End: <output data-js="end-output"></output></p>
+   <p>Time spent: <output class="timespan_orange" data-js="timespan-output"></output></p>
+   <div class="timing_buttons">
     <button type="button" data-js="start-button">
    Start
     </button>
@@ -35,8 +35,9 @@ export default function Timing() {
     Stop
     </button>
     <button type="button" class="stop_button--active" data-js="reset-button">
-    Reset Time
+    Reset
     </button>
+    </div>
   `;
 
   const startOutput = timing.querySelector('[data-js="start-output"]');

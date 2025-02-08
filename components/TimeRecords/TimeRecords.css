@@ -1,7 +1,7 @@
 .time-records {
-  padding: 0.25rem;
+  padding-top: 0.25rem;
   margin-top: 0.25rem;
-  background-color: var(--secondary-light);
+  /* background-color: yellow; */
   border-radius: 4px;
 }
 .time-records--active {

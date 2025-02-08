@@ -1,10 +1,12 @@
 .listEntry {
-  margin: 0.5rem;
+  margin: 0.5rem 0.5rem 0.5rem 0.25rem;
   padding: 0.25rem;
+  width: calc(100% - 0.75rem);
   position: relative;
   border-radius: 4px;
-  background-color: var(--primary);
+  background-color: var(--white);
   min-height: 7rem;
+  border: 1px solid var(--secondary);
 }
 
 .flex-row {
@@ -18,8 +20,10 @@
 }
 .detail_button {
   position: absolute;
-  bottom: 0.5rem;
-  right: 0.5rem;
+  background-color: var(--secondary-light);
+  bottom: 0.25rem;
+  height: 2rem;
+  right: 0.25rem;
   z-index: 2;
 }
 .delete_button {
@@ -28,8 +32,8 @@
   font-size: 0.8rem;
   font-weight: 700;
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+  top: 0.25rem;
+  right: 0.25rem;
   border: 2px solid var(--red);
   width: 1.6rem;
   height: 1.6rem;

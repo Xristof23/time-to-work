@@ -19,10 +19,9 @@ export default function Menu() {
   newTaskButton.addEventListener("click", handleClick, false);
   doneTasksButton.addEventListener("click", handleClick, false);
 
-  function handleClick(e) {
-    e = e || window.event;
-    const target = e.target || e.srcElement,
-      // text = target.textContent || target.innerText;
+  function handleClick(element) {
+    element = element || window.event;
+    const target = element.target || element.srcElement,
       text = target.id;
     const app = document.getElementById("app");
     const what = document.getElementById("what");

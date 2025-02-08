@@ -1,7 +1,12 @@
 .timing {
   display: block;
-  margin: 0.6rem 0 0 0;
+  margin: 1rem 0 0 0;
   height: fit-content;
+  font-size: 1.2rem;
+}
+
+.timing_buttons {
+  margin-top: 0.25rem;
 }
 
 .timespan_darkblue {

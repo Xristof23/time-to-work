@@ -21,22 +21,19 @@ export default function MainForm(props) {
   mainForm.classList.add("main_form");
 
   mainForm.innerHTML = /*html*/ `
-     <label for="task" class="label_standard">Task:
-    <input class="input_text" name="task" id="task" required data-js="task"/>
-    *</label>
-     <br/>
-    <label for="project" class="label_standard">Project:
-    <input class="input_text" name="project" id="project" required data-js="project" />
-    *</label>
-     <br/>
-     <label for="category" class="label_standard">Category:
-    <input class="input_text" name="category" id="category" data-js="category"/>
+     <label for="task" class="label_standard_11">Task:*
     </label>
-    <br/>
-     <label for="Note" class="label_standard">Note:
-    <input class="input_text" name="note" id="note" data-js="note"/>
+    <input class="input_text_21" name="task" id="task" required data-js="task"/>
+   
+    <label for="project" class="label_standard_12">Project:*
     </label>
-<br/>
+     <input class="input_text_22" name="project" id="project" required data-js="project" />
+     <label for="category" class="label_standard_13">Category:
+      </label>
+    <input class="input_text_23" name="category" id="category" data-js="category"/>
+  <label for="Note" class="label_standard_14">Note:
+    </label>
+ <input class="input_text_24" name="note" id="note" data-js="note"/>
    <div class="form_buttons">
     <button type="submit" class="save_button" data-js="save-button">
     Save
@@ -47,6 +44,7 @@ export default function MainForm(props) {
     </div>
   `;
 
+  //need this line?
   const saveButton = mainForm.querySelector('[data-js="save-button"]');
 
   const resetButton = mainForm.querySelector('[data-js="reset-button"]');
@@ -84,24 +82,26 @@ export default function MainForm(props) {
     recordedTasks.unshift(newEntry);
     localStorage.setItem("RecordedTasks", JSON.stringify(recordedTasks));
 
-    const app = document.getElementById("app");
-    const listContainer = document.getElementById("list-container");
-    if (!listContainer) {
-      app.append(ListContainer(recordedTasks));
-    } else {
-      listContainer.remove();
-      app.append(ListContainer(recordedTasks));
-    }
+    // const app = document.getElementById("app");
+    // const listContainer = document.getElementById("list-container");
+    // if (!listContainer) {
+    //   app.append(ListContainer(recordedTasks));
+    // } else {
+    //   listContainer.remove();
+    //   app.append(ListContainer(recordedTasks));
+    // }
 
-    const doneTasksButton = document.querySelector(
-      '[data-js="done-tasks-button"]'
-    );
-    doneTasksButton.classList.toggle("menu_button--active");
+    // const doneTasksButton = document.querySelector(
+    //   '[data-js="done-tasks-button"]'
+    // );
+    // doneTasksButton.classList.toggle("menu_button--active");
+
     timingProps.timespan = 0;
     timeReset();
 
     event.target.reset();
     event.target.elements.project.focus();
+    mainForm.append(Modal("afterSave"));
   }
 
   function handleReset() {

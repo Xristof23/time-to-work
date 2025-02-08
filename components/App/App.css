@@ -1,11 +1,10 @@
 .app {
   background-color: var(--primary);
-  width: 90%;
+  margin: 0 -0.25rem;
   min-width: 365px;
+  width: 100%;
   max-width: 800px;
   position: absolute;
-  height: 95%;
-  max-height: 99%;
-  left: 0.5rem;
+  height: 100%;
   border-radius: 4px;
 }

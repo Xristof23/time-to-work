@@ -1,16 +1,22 @@
 .nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 0.5rem;
   background-color: var(--secondary);
   position: relative;
-  top: -1rem;
+  top: -1.25rem;
   padding: 0.25rem;
+  height: 3.5rem;
+  width: 100%;
 }
 
 .menu_button {
-  height: 1.9rem;
+  height: 2.5rem;
+  width: 7rem;
 }
 
 .menu_button--active {
-  height: 1.9rem;
   font-weight: 600;
   background-color: var(--primary);
   border: none;

@@ -39,7 +39,7 @@ h2 {
 }
 
 h3 {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   margin: 0.25rem 0 0;
   padding: 0.25rem;
@@ -52,13 +52,15 @@ body {
 }
 
 button {
-  font-size: 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
   line-height: 0.9rem;
   font-family: var(--ff-primary);
   color: var(--darkblue);
   padding: 0.4rem;
   margin: 0.25rem;
   min-height: fit-content;
+  height: 2.5rem;
   border: 2px solid var(--secondary-light);
   background-color: var(--secondary-light);
   border-radius: 4px;
