@@ -40,6 +40,12 @@ const chooseBackup = {
   mode: "chooseBackup",
 };
 
+const madeBackup = {
+  text: "Backup successfully saved.",
+  button1: "Ok",
+  mode: "madeBackup",
+};
+
 const noEntries = {
   text: "There are no entries in this list",
   button1: "Ok",
@@ -69,6 +75,7 @@ const modalContentList = [
   wantedStart,
   wantedDeleteAll,
   noEntries,
+  madeBackup,
   chooseBackup,
 ];
 

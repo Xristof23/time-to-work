@@ -47,7 +47,7 @@ export default function ListContainer(userEntries) {
   deleteAllButton.addEventListener("click", handleDeleteAll);
 
   const backupButton = listContainer.querySelector('[data-js="backup-button"]');
-  backupButton.addEventListener("click", () => saveToLocalStorage(userEntries));
+  backupButton.addEventListener("click", handleBackup);
 
   const demoButton = listContainer.querySelector('[data-js="demo-button"]');
   demoButton.addEventListener("click", () => handleDemoMode(daysBack));
@@ -56,6 +56,11 @@ export default function ListContainer(userEntries) {
     '[data-js="load-backup-button"]'
   );
   loadButton.addEventListener("click", handleLoadBackup);
+
+  function handleBackup() {
+    saveToLocalStorage(userEntries);
+    listContainer.append(Modal("madeBackup"));
+  }
 
   function handleLoadBackup() {
     listContainer.append(Modal("chooseBackup"));
