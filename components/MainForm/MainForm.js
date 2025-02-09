@@ -5,10 +5,8 @@ import {
   timeOptions,
   timeReset,
 } from "../../utils.js";
-import ListContainer from "../ListContainer/ListContainer.js";
-import Modal from "../Modal/Modal.js";
 
-//"modul globals"
+import Modal from "../Modal/Modal.js";
 
 const today = new Date();
 
@@ -44,9 +42,6 @@ export default function MainForm(props) {
     </div>
   `;
 
-  //need this line?
-  const saveButton = mainForm.querySelector('[data-js="save-button"]');
-
   const resetButton = mainForm.querySelector('[data-js="reset-button"]');
   resetButton.addEventListener("click", handleReset);
 
@@ -81,21 +76,6 @@ export default function MainForm(props) {
     };
     recordedTasks.unshift(newEntry);
     localStorage.setItem("RecordedTasks", JSON.stringify(recordedTasks));
-
-    // const app = document.getElementById("app");
-    // const listContainer = document.getElementById("list-container");
-    // if (!listContainer) {
-    //   app.append(ListContainer(recordedTasks));
-    // } else {
-    //   listContainer.remove();
-    //   app.append(ListContainer(recordedTasks));
-    // }
-
-    // const doneTasksButton = document.querySelector(
-    //   '[data-js="done-tasks-button"]'
-    // );
-    // doneTasksButton.classList.toggle("menu_button--active");
-
     timingProps.timespan = 0;
     timeReset();
 

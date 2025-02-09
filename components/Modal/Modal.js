@@ -71,8 +71,7 @@ export default function Modal(keyWord, id) {
 
   function handleThird() {
     if (mode === "chooseBackup") {
-      //Why let here?
-      let userEntries = JSON.parse(localStorage.getItem("AutomaticBackup"));
+      const userEntries = JSON.parse(localStorage.getItem("AutomaticBackup"));
       saveToLocalStorage(userEntries, "RecordedTasks");
       const timeRecords = document.getElementById("time-records");
       timeRecords.replaceWith(TimeRecords(userEntries));

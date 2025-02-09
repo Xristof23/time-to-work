@@ -3,11 +3,6 @@ import { properTimeFormatter, dateOptions, timeOptions } from "../../utils.js";
 import MiniClock from "../MiniClock/MiniClock.js";
 import Modal from "../Modal/Modal.js";
 
-//"modul globals"
-let startValue;
-
-let timespan = 0;
-
 const today = new Date();
 
 let localDate = today.toLocaleDateString("en-EN", dateOptions);

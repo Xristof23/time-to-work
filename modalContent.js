@@ -12,13 +12,6 @@ const wantedDeleteAll = {
   mode: "deleteAll",
 };
 
-const reallyDeleteAll = {
-  text: "Really delete? THIS IS NOT REVERSIBLE! Press &quot;No, cancel.&quot;, if you are not sure!",
-  button1: "No, cancel.",
-  button2: "Yes, really delete ALL tasks.",
-  mode: "reallyDeleteAll",
-};
-
 const wantedReset = {
   text: "Do you really want to reset? Your entry has not been saved yet! Press No, abort., if you are not sure!",
   button1: "No, cancel.",
@@ -45,6 +38,12 @@ const chooseBackup = {
   button2: "TaskBackup",
   button3: "AutomaticBackup",
   mode: "chooseBackup",
+};
+
+const madeBackup = {
+  text: "Backup successfully saved.",
+  button1: "Ok",
+  mode: "madeBackup",
 };
 
 const noEntries = {
@@ -75,8 +74,8 @@ const modalContentList = [
   wantedSave,
   wantedStart,
   wantedDeleteAll,
-  reallyDeleteAll,
   noEntries,
+  madeBackup,
   chooseBackup,
 ];
 
