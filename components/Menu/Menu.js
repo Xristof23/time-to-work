@@ -65,13 +65,14 @@ export default function Menu() {
         what && what.remove();
         newTask && newTaskButton.classList.toggle("menu_button--active");
         newTask && newTask.remove();
-        // const userEntries =
-        //   JSON.parse(localStorage.getItem("RecordedTasks")) || [];
-        if (listContainer) {
-          null;
+        const newUserEntries =
+          JSON.parse(localStorage.getItem("RecordedTasks")) || [];
+        if (listContainer && newUserEntries.length != userEntries.length) {
+          remove.listContainer;
+          app.append(ListContainer(newUserEntries));
         } else {
           doneTasksButton.classList.toggle("menu_button--active");
-          app.append(ListContainer(userEntries));
+          app.append(ListContainer(newUserEntries));
         }
         break;
       case "analysis-button":

@@ -6,8 +6,40 @@
 }
 
 .analysed_container {
+  font-size: 1.2rem;
   margin-top: 1rem;
-  border: 1px solid var(--secondary);
+  padding: 0.25rem;
+  /* border: 1px solid var(--secondary); */
+  background-color: var(--white);
   border-radius: 4px;
   width: calc(100% - 0.5rem);
+}
+
+.analysed_part {
+  padding: 0.25rem;
+  line-height: 1.1rem;
+}
+
+.button_container {
+  font-size: 1.2rem;
+  padding: 0.25rem;
+}
+
+.label_standard {
+  font-size: 1.2rem;
+  margin: 0.25rem 0 0 0.25rem;
+  line-height: 2rem;
+}
+
+.select_standard {
+  font-size: 1.2rem;
+  background-color: var(--secondary-light);
+  border-radius: 4px;
+  appearance: none;
+  margin-top: 0.25rem;
+  height: 2.4rem;
+}
+
+.button--active {
+  background-color: var(--primary);
 }
