@@ -24,11 +24,13 @@ export default function Analysis(userEntries) {
     <button type="button" data-js="yesterday">
        Yesterday
       </button>
-      <button type="button" data-js="test-options">
-       test options
-      </button>
       </div>
-      <label class="label_standard" for="project-select">Choose a project:</label>
+      <label class="label_standard" for="task-select">Choose a task:</label>
+        <select class="select_standard" name="task-select" id="task-select" data-js="task-select">
+     <option>task</option>
+        </select>
+        <br />
+          <label class="label_standard" for="project-select">Choose a project:</label>
         <select class="select_standard" name="project-select" id="project-select" data-js="project-select">
      <option>project</option>
         </select>
@@ -48,6 +50,13 @@ export default function Analysis(userEntries) {
       </div>
 `;
 
+  function testThis() {
+    console.log(projectSelect.value);
+  }
+
+  const projectSelect = analysis.querySelector('[data-js="project-select"]');
+  projectSelect.addEventListener("change", filterAndUpdate);
+
   const allButton = analysis.querySelector('[data-js="all"]');
   allButton.addEventListener("click", () => filterAndUpdate("all"));
 
@@ -57,17 +66,19 @@ export default function Analysis(userEntries) {
   const yesterdayButton = analysis.querySelector('[data-js="yesterday"]');
   yesterdayButton.addEventListener("click", () => filterAndUpdate("yesterday"));
 
-  const testButton = analysis.querySelector('[data-js="test-options"]');
-  testButton.addEventListener("click", populateOptions);
-
-  // let res = document.getElementById('GFG');
-
   // options select logic
   function populateOptions() {
+    const taskSelect = analysis.querySelector('[data-js="task-select"]');
+    const tasks = getOptionsFromEntries(userEntries, "task");
+    tasks.forEach((task) => {
+      const element = document.createElement("option");
+      element.textContent = task;
+      element.value = task;
+      taskSelect.appendChild(element);
+    });
     const projectSelect = analysis.querySelector('[data-js="project-select"]');
     const projects = getOptionsFromEntries(userEntries, "project");
     projects.forEach((project) => {
-      //   const option = project;
       const element = document.createElement("option");
       element.textContent = project;
       element.value = project;
@@ -99,10 +110,6 @@ export default function Analysis(userEntries) {
     return options;
   }
 
-  //   console.log("categories: ", getOptionsFromEntries(userEntries, "category"));
-
-  console.log("tasks: ", getOptionsFromEntries(userEntries, "task"));
-
   function filterEntriesBy(array, chosenKey, criterium) {
     const filteredEntries = array.filter(
       (entry) => entry[chosenKey] === criterium
@@ -117,12 +124,17 @@ export default function Analysis(userEntries) {
     return filteredEntries;
   }
 
-  function filterAndUpdate(datestring) {
+  function filterAndUpdate(dateString) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     let left = 0;
     let right = Date.now();
-    switch (datestring) {
+
+    switch (dateString) {
+      case false:
+        left = 0;
+        console.log("dateString: ", dateString);
+        break;
       case "all":
         left = 0;
         break;
@@ -136,6 +148,18 @@ export default function Analysis(userEntries) {
     }
     const filteredEntries = filterEntriesByDate(userEntries, left, right);
     console.log(filteredEntries);
+
+    console.log("value: ", projectSelect.value);
+
+    const entriesFilteredByProject = filterEntriesBy(
+      filteredEntries,
+      "project",
+      projectSelect.value
+    );
+
+    console.log("filtered by project: ", entriesFilteredByProject);
+
+    //update stuff
     const updatedNumberOfTasks = filteredEntries.length;
     const updatedTimeSum = getSummedTimespan(filteredEntries);
     const numberOfTasksOutput = analysis.querySelector(
