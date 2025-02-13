@@ -23,6 +23,12 @@
 .button_container {
   font-size: 1.2rem;
   padding: 0.25rem;
+  margin-top: -0.25rem;
+}
+
+.button--active {
+  background-color: var(--white);
+  border: 2px solid var(--red);
 }
 
 .label_standard {

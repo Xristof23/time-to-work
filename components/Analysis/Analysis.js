@@ -1,11 +1,9 @@
-import Modal from "../Modal/Modal.js";
 import { properTimeFormatter, removeDuplicates } from "../../utils.js";
 
-const filterRules = {};
+let dateFilter = "all";
 
 export default function Analysis(userEntries) {
-  // here will be filter functions
-  console.log("userEntries:  ", userEntries);
+  let filteredEntries = userEntries;
   const accumulatedTime = getSummedTimespan(userEntries);
   const analysis = document.createElement("section");
   analysis.classList.add("analysis");
@@ -14,7 +12,7 @@ export default function Analysis(userEntries) {
   analysis.innerHTML = /*html*/ `
     <h2>Analysis</h2>
     <div class="button_container">
-    Filter:
+    Date:
       <button type="button" data-js="all">
       All
       </button>
@@ -25,14 +23,20 @@ export default function Analysis(userEntries) {
        Yesterday
       </button>
       </div>
-      <label class="label_standard" for="task-select">Choose a task:</label>
-        <select class="select_standard" name="task-select" id="task-select" data-js="task-select">
-     <option>task</option>
+
+    <label class="label_standard" for="category-select">Filter by:</label>
+        <select class="select_standard" name="category-select" id="category-select" data-js="category-select">
+            <option>category</option>
         </select>
-        <br />
-          <label class="label_standard" for="project-select">Choose a project:</label>
+    <br />
+    <label class="label_standard" for="project-select">Filter by:</label>
         <select class="select_standard" name="project-select" id="project-select" data-js="project-select">
-     <option>project</option>
+            <option>project</option>
+        </select>
+    <br />
+    <label class="label_standard" for="task-select">Filter by:</label>
+        <select class="select_standard" name="task-select" id="task-select" data-js="task-select">
+            <option>task</option>
         </select>
        
        <div class="analysed_container"> 
@@ -50,24 +54,73 @@ export default function Analysis(userEntries) {
       </div>
 `;
 
-  function testThis() {
-    console.log(projectSelect.value);
-  }
+  const categorySelect = analysis.querySelector('[data-js="category-select"]');
+  categorySelect.addEventListener("change", getCriteriumAndUpdate);
 
   const projectSelect = analysis.querySelector('[data-js="project-select"]');
-  projectSelect.addEventListener("change", filterAndUpdate);
+  projectSelect.addEventListener("change", getCriteriumAndUpdate);
+
+  const taskSelect = analysis.querySelector('[data-js="task-select"]');
+  taskSelect.addEventListener("change", getCriteriumAndUpdate);
 
   const allButton = analysis.querySelector('[data-js="all"]');
-  allButton.addEventListener("click", () => filterAndUpdate("all"));
+  allButton.addEventListener("click", () => {
+    dateFilter != "all" && allButton.classList.toggle("button--active");
+    dateFilter === "today" && todayButton.classList.toggle("button--active");
+    dateFilter === "yesterday" &&
+      yesterdayButton.classList.toggle("button--active");
+    dateFilter = "all";
+    filterAndUpdate("all");
+  });
 
   const todayButton = analysis.querySelector('[data-js="today"]');
-  todayButton.addEventListener("click", () => filterAndUpdate("today"));
+  todayButton.addEventListener("click", () => {
+    dateFilter != "today" && todayButton.classList.toggle("button--active");
+    dateFilter === "all" && allButton.classList.toggle("button--active");
+    dateFilter === "yesterday" &&
+      yesterdayButton.classList.toggle("button--active");
+    dateFilter = "today";
+    filterAndUpdate("today");
+  });
 
   const yesterdayButton = analysis.querySelector('[data-js="yesterday"]');
-  yesterdayButton.addEventListener("click", () => filterAndUpdate("yesterday"));
+  yesterdayButton.addEventListener("click", () => {
+    dateFilter != "yesterday" &&
+      yesterdayButton.classList.toggle("button--active");
+    dateFilter === "all" && allButton.classList.toggle("button--active");
+    dateFilter === "today" && todayButton.classList.toggle("button--active");
+    dateFilter = "yesterday";
+    filterAndUpdate("yesterday");
+  });
 
-  // options select logic
+  // helper (move out later) does not work
+  function getIdfromClick(element) {
+    element = element || window.event;
+    const target = element.target || element.srcElement,
+      text = target.id;
+    console.log("idText: ", text);
+    return text;
+  }
+
+  function getStarted() {
+    const allButton = analysis.querySelector('[data-js="all"]');
+    allButton.classList.toggle("button--active");
+    dateFilter = "all";
+  }
+  getStarted();
+  // options prep
   function populateOptions() {
+    const categorySelect = analysis.querySelector(
+      '[data-js="category-select"]'
+    );
+    const categories = getOptionsFromEntries(userEntries, "category");
+    categories.forEach((category) => {
+      const element = document.createElement("option");
+      element.textContent = category;
+      element.value = category;
+      categorySelect.appendChild(element);
+    });
+
     const taskSelect = analysis.querySelector('[data-js="task-select"]');
     const tasks = getOptionsFromEntries(userEntries, "task");
     tasks.forEach((task) => {
@@ -87,17 +140,6 @@ export default function Analysis(userEntries) {
   }
   populateOptions();
 
-  function updateCategories(entries) {
-    const categoriesRaw = removeDuplicates(
-      entries.map((entry) => entry.category)
-    );
-    const categories = categoriesRaw.map((cat) => {
-      const newCategory = cat === "" ? "no category assigned" : cat;
-      return newCategory;
-    });
-    return categories;
-  }
-
   function getOptionsFromEntries(array, chosenKey) {
     const optionsRaw = removeDuplicates(array.map((entry) => entry[chosenKey]));
     const options =
@@ -108,6 +150,22 @@ export default function Analysis(userEntries) {
           })
         : optionsRaw;
     return options;
+  }
+
+  //filters
+  function getCriteriumAndUpdate(element) {
+    element = element || window.event;
+    const target = element.target || element.srcElement,
+      text = target.id;
+    const chosenkey = text.slice(0, -7);
+    const criterium =
+      chosenkey === "task"
+        ? taskSelect.value
+        : chosenkey === "project"
+        ? projectSelect.value
+        : categorySelect.value;
+    filteredEntries = filterEntriesBy(filteredEntries, chosenkey, criterium);
+    updateAnalysis();
   }
 
   function filterEntriesBy(array, chosenKey, criterium) {
@@ -124,7 +182,7 @@ export default function Analysis(userEntries) {
     return filteredEntries;
   }
 
-  function filterAndUpdate(dateString) {
+  function filterAndUpdate(dateString, criterium) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     let left = 0;
@@ -146,20 +204,12 @@ export default function Analysis(userEntries) {
         right = today.valueOf();
         break;
     }
-    const filteredEntries = filterEntriesByDate(userEntries, left, right);
-    console.log(filteredEntries);
+    filteredEntries = filterEntriesByDate(userEntries, left, right);
 
-    console.log("value: ", projectSelect.value);
+    updateAnalysis();
+  }
 
-    const entriesFilteredByProject = filterEntriesBy(
-      filteredEntries,
-      "project",
-      projectSelect.value
-    );
-
-    console.log("filtered by project: ", entriesFilteredByProject);
-
-    //update stuff
+  function updateAnalysis() {
     const updatedNumberOfTasks = filteredEntries.length;
     const updatedTimeSum = getSummedTimespan(filteredEntries);
     const numberOfTasksOutput = analysis.querySelector(
@@ -175,6 +225,7 @@ export default function Analysis(userEntries) {
     averageTimeOutput.textContent = getAverageTimespan(filteredEntries);
   }
 
+  //Analysis functions
   function getAverageTimespan(entries) {
     const average = getSummedTimespan(entries) / entries.length;
     const formattedAverage =
