@@ -2,8 +2,10 @@ import { properTimeFormatter, removeDuplicates } from "../../utils.js";
 
 let dateFilter = "all";
 
+let otherFilters = [];
+
 export default function Analysis(userEntries) {
-  let filteredEntries = userEntries;
+  let shownEntries = userEntries;
   const accumulatedTime = getSummedTimespan(userEntries);
   const analysis = document.createElement("section");
   analysis.classList.add("analysis");
@@ -40,14 +42,14 @@ export default function Analysis(userEntries) {
         </select>
        
        <div class="analysed_container"> 
-        <p class="analysis_part" >Number of Tasks: 
+        <p class="analysis_part" >Number of tasks: 
             <output data-js="number-of-tasks">${userEntries.length} </output>
-        <p class="analysis_part" >Accumulated Time:
+        <p class="analysis_part" >Accumulated time:
         	<output data-js="time-sum" >${properTimeFormatter(
             accumulatedTime
           )}</output>
         </p>
-        <p class="analysis_part" >Average Time:
+        <p class="analysis_part" >Average time:
         <output data-js="time-average">${getAverageTimespan(
           userEntries
         )}</output></p>
@@ -70,7 +72,7 @@ export default function Analysis(userEntries) {
     dateFilter === "yesterday" &&
       yesterdayButton.classList.toggle("button--active");
     dateFilter = "all";
-    filterAndUpdate("all");
+    oneFilterFunctionToRule(userEntries);
   });
 
   const todayButton = analysis.querySelector('[data-js="today"]');
@@ -80,7 +82,7 @@ export default function Analysis(userEntries) {
     dateFilter === "yesterday" &&
       yesterdayButton.classList.toggle("button--active");
     dateFilter = "today";
-    filterAndUpdate("today");
+    oneFilterFunctionToRule(userEntries);
   });
 
   const yesterdayButton = analysis.querySelector('[data-js="yesterday"]');
@@ -90,10 +92,10 @@ export default function Analysis(userEntries) {
     dateFilter === "all" && allButton.classList.toggle("button--active");
     dateFilter === "today" && todayButton.classList.toggle("button--active");
     dateFilter = "yesterday";
-    filterAndUpdate("yesterday");
+    oneFilterFunctionToRule(userEntries);
   });
 
-  // helper (move out later) does not work
+  // helper (move out later) does not work may delete
   function getIdfromClick(element) {
     element = element || window.event;
     const target = element.target || element.srcElement,
@@ -108,6 +110,7 @@ export default function Analysis(userEntries) {
     dateFilter = "all";
   }
   getStarted();
+
   // options prep
   function populateOptions() {
     const categorySelect = analysis.querySelector(
@@ -153,19 +156,54 @@ export default function Analysis(userEntries) {
   }
 
   //filters
+  function oneFilterFunctionToRule(array) {
+    const dateFilteredEntries = filterByDate(array, dateFilter);
+    let tempEntries = dateFilteredEntries;
+    otherFilters.length > 0 &&
+      otherFilters.forEach((filter) => {
+        tempEntries = filterEntriesBy(
+          tempEntries,
+          filter.chosenKey,
+          filter.criterium
+        );
+      });
+    updateAnalysis(tempEntries);
+  }
+
+  //rename function (lose update part)
   function getCriteriumAndUpdate(element) {
     element = element || window.event;
     const target = element.target || element.srcElement,
       text = target.id;
-    const chosenkey = text.slice(0, -7);
+    const chosenSelect = document.getElementById(text);
+    const chosenKey = text.slice(0, -7);
+
     const criterium =
-      chosenkey === "task"
+      chosenKey === "task"
         ? taskSelect.value
-        : chosenkey === "project"
+        : chosenKey === "project"
         ? projectSelect.value
         : categorySelect.value;
-    filteredEntries = filterEntriesBy(filteredEntries, chosenkey, criterium);
-    updateAnalysis();
+
+    const filterObject = { chosenKey, criterium };
+    otherFilters = otherFilters.map((object) => {
+      const newObject = object.chosenKey === chosenKey ? filterObject : object;
+      return newObject;
+    });
+    const test = otherFilters.filter(
+      (object) => object.chosenKey === chosenKey
+    );
+    test.length === 0 && otherFilters.push(filterObject);
+
+    if (criterium != chosenKey) {
+      chosenSelect.classList.add("select--active");
+    } else {
+      chosenSelect.classList.remove("select--active");
+      otherFilters = otherFilters.filter(
+        (object) => object.chosenKey != chosenKey
+      );
+    }
+    oneFilterFunctionToRule(userEntries);
   }
 
   function filterEntriesBy(array, chosenKey, criterium) {
@@ -175,16 +213,16 @@ export default function Analysis(userEntries) {
     return filteredEntries;
   }
 
-  function filterEntriesByDate(array, left, right) {
-    const filteredEntries = array.filter(
-      (entry) => entry.startValue >= left && entry.startValue <= right
-    );
-    return filteredEntries;
-  }
+  function filterByDate(array, dateString) {
+    function filterByBorders(array, left, right) {
+      const filteredEntries = array.filter(
+        (entry) => entry.startValue >= left && entry.startValue <= right
+      );
+      return filteredEntries;
+    }
 
-  function filterAndUpdate(dateString, criterium) {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const todayDate = new Date();
+    todayDate.setHours(0, 0, 0, 0);
     let left = 0;
     let right = Date.now();
 
@@ -197,32 +235,30 @@ export default function Analysis(userEntries) {
         left = 0;
         break;
       case "today":
-        left = today.valueOf();
+        left = todayDate.valueOf();
         break;
       case "yesterday":
-        left = today.valueOf() - 24 * 3600 * 1000;
-        right = today.valueOf();
+        left = todayDate.valueOf() - 24 * 3600 * 1000;
+        right = todayDate.valueOf();
         break;
     }
-    filteredEntries = filterEntriesByDate(userEntries, left, right);
-
-    updateAnalysis();
+    const entriesFilteredByDate = filterByBorders(array, left, right);
+    return entriesFilteredByDate;
   }
 
-  function updateAnalysis() {
-    const updatedNumberOfTasks = filteredEntries.length;
-    const updatedTimeSum = getSummedTimespan(filteredEntries);
+  function updateAnalysis(array) {
+    const updatedNumberOfTasks = array.length;
+    const updatedTimeSum = getSummedTimespan(array);
     const numberOfTasksOutput = analysis.querySelector(
       '[data-js="number-of-tasks"]'
     );
-
     numberOfTasksOutput.textContent = updatedNumberOfTasks;
     const timeSumOutput = analysis.querySelector('[data-js="time-sum"]');
     timeSumOutput.textContent = properTimeFormatter(updatedTimeSum);
     const averageTimeOutput = analysis.querySelector(
       '[data-js="time-average"]'
     );
-    averageTimeOutput.textContent = getAverageTimespan(filteredEntries);
+    averageTimeOutput.textContent = getAverageTimespan(array);
   }
 
   //Analysis functions

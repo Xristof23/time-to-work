@@ -84,7 +84,11 @@ export default function Menu() {
           doneTasksButton.classList.toggle("menu_button--active");
         listContainer && listContainer.remove();
         !analysis && analysisButton.classList.toggle("menu_button--active");
-        !analysis && app.append(Analysis(userEntries));
+        const myUserEntries =
+          JSON.parse(localStorage.getItem("RecordedTasks")) || [];
+        if (!analysis && myUserEntries.length != userEntries.length) {
+        }
+        app.append(Analysis(myUserEntries));
         break;
     }
   }

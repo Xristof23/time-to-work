@@ -46,6 +46,12 @@
   height: 2.4rem;
 }
 
-.button--active {
-  background-color: var(--primary);
+.select--active {
+  font-size: 1.2rem;
+  background-color: var(--white);
+  border: 2px solid var(--red);
+  border-radius: 4px;
+  appearance: none;
+  margin-top: 0.25rem;
+  height: 2.4rem;
 }
