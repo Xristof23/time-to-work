@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  gap: 0.5rem;
+  gap: 0.25rem;
   background-color: var(--secondary);
   position: relative;
   top: -1.25rem;
@@ -13,10 +13,14 @@
 
 .menu_button {
   height: 2.5rem;
-  width: 7rem;
+  width: 5.5rem;
+  font-weight: 500;
+  border: none;
 }
 
 .menu_button--active {
+  height: 2.5rem;
+  width: 5.5rem;
   font-weight: 600;
   background-color: var(--primary);
   border: none;

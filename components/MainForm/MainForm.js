@@ -59,8 +59,9 @@ export default function MainForm(props) {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    const recordedTasks =
-      JSON.parse(localStorage.getItem("RecordedTasks")) || [];
+    const currentDate = new Date();
+    localDate = currentDate.toLocaleDateString("en-EN", dateOptions);
+    localTime = currentDate.toLocaleTimeString("en-EN", timeOptions);
 
     const newEntry = {
       id: createUnixTimeID(timingProps.startValue),
@@ -74,11 +75,13 @@ export default function MainForm(props) {
       timespan: timingProps.timespan,
       timeSpent: properTimeFormatter(timingProps.timespan),
     };
+    const recordedTasks =
+      JSON.parse(localStorage.getItem("RecordedTasks")) || [];
     recordedTasks.unshift(newEntry);
     localStorage.setItem("RecordedTasks", JSON.stringify(recordedTasks));
+
     timingProps.timespan = 0;
     timeReset();
-
     event.target.reset();
     event.target.elements.project.focus();
     mainForm.append(Modal("afterSave"));

@@ -12,6 +12,10 @@ const timeOptions = {
   second: "numeric",
 };
 
+function removeDuplicates(array) {
+  return [...new Set(array)];
+}
+
 function saveToLocalStorage(data, name) {
   const backupName = name || "TasksBackup";
   localStorage.setItem(backupName, JSON.stringify(data));
@@ -93,6 +97,7 @@ export {
   dateOptions,
   timeOptions,
   generateRandomInteger,
+  removeDuplicates,
   saveToLocalStorage,
   timeReset,
 };

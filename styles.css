@@ -1,4 +1,5 @@
 @import "./global.css";
+@import "./components/Analysis/Analysis.css";
 @import "./components/Article/Article.css";
 @import "./components/App/App.css";
 @import "./components/Clock/Clock.css";
