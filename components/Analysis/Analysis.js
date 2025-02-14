@@ -57,13 +57,13 @@ export default function Analysis(userEntries) {
 `;
 
   const categorySelect = analysis.querySelector('[data-js="category-select"]');
-  categorySelect.addEventListener("change", getCriteriumAndUpdate);
+  categorySelect.addEventListener("change", getCriteriumAndSetFilter);
 
   const projectSelect = analysis.querySelector('[data-js="project-select"]');
-  projectSelect.addEventListener("change", getCriteriumAndUpdate);
+  projectSelect.addEventListener("change", getCriteriumAndSetFilter);
 
   const taskSelect = analysis.querySelector('[data-js="task-select"]');
-  taskSelect.addEventListener("change", getCriteriumAndUpdate);
+  taskSelect.addEventListener("change", getCriteriumAndSetFilter);
 
   const allButton = analysis.querySelector('[data-js="all"]');
   allButton.addEventListener("click", () => {
@@ -94,15 +94,6 @@ export default function Analysis(userEntries) {
     dateFilter = "yesterday";
     oneFilterFunctionToRule(userEntries);
   });
-
-  // helper (move out later) does not work may delete
-  function getIdfromClick(element) {
-    element = element || window.event;
-    const target = element.target || element.srcElement,
-      text = target.id;
-    console.log("idText: ", text);
-    return text;
-  }
 
   function getStarted() {
     const allButton = analysis.querySelector('[data-js="all"]');
@@ -157,21 +148,20 @@ export default function Analysis(userEntries) {
 
   //filters
   function oneFilterFunctionToRule(array) {
-    const dateFilteredEntries = filterByDate(array, dateFilter);
-    let tempEntries = dateFilteredEntries;
+    let filteredEntries = filterByDate(array, dateFilter);
     otherFilters.length > 0 &&
       otherFilters.forEach((filter) => {
-        tempEntries = filterEntriesBy(
-          tempEntries,
+        filteredEntries = filterEntriesBy(
+          filteredEntries,
           filter.chosenKey,
           filter.criterium
         );
       });
-    updateAnalysis(tempEntries);
+    updateAnalysis(filteredEntries);
   }
 
   //rename function (lose update part)
-  function getCriteriumAndUpdate(element) {
+  function getCriteriumAndSetFilter(element) {
     element = element || window.event;
     const target = element.target || element.srcElement,
       text = target.id;
@@ -229,7 +219,6 @@ export default function Analysis(userEntries) {
     switch (dateString) {
       case false:
         left = 0;
-        console.log("dateString: ", dateString);
         break;
       case "all":
         left = 0;
