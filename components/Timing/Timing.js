@@ -47,13 +47,24 @@ export default function Timing() {
 
   timing.appendChild(MiniClock(clockProps));
 
+  //may add destructure later
+  const continueProps = JSON.parse(localStorage.getItem("continueProps")) || {};
+
+  // continue restart
+  if (timingProps.started && continueProps.started) {
+    handleStart();
+  }
+
   function handleStart() {
-    if (timingProps.started) {
+    if (timingProps.started && !continueProps.started) {
       timing.append(Modal("noStart"));
     } else {
       timingProps.started = true;
       stopButton.classList.toggle("stop_button--active");
-      timingProps.startValue = Date.now();
+      timingProps.startValue = continueProps.startValue
+        ? continueProps.startValue
+        : Date.now();
+      localStorage.setItem("continueProps", JSON.stringify(timingProps));
       handleUpdateTime();
       const startDate = new Date(timingProps.startValue);
       localDate = startDate.toLocaleDateString("en-EN", dateOptions);
@@ -98,6 +109,8 @@ export default function Timing() {
       stopButton.classList.toggle("stop_button--active");
       clearInterval(intervalId);
       intervalId = null;
+      //reset "memory"
+      localStorage.setItem("continueProps", JSON.stringify({}));
     }
   }
 

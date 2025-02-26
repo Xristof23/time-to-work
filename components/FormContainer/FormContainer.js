@@ -1,4 +1,4 @@
-import { dateOptions, timeOptions } from "../../utils.js";
+import { dateOptions } from "../../utils.js";
 import MainForm from "../MainForm/MainForm.js";
 import Timing from "../Timing/Timing.js";
 
@@ -9,7 +9,12 @@ let localDate = today.toLocaleDateString("en-EN", dateOptions);
 const formProps = { note: true };
 
 //globalvars
-window.timingProps = { started: false, startValue: 0, timespan: 0 };
+window.timingProps = {
+  started: false,
+  haltTimer: false,
+  startValue: 0,
+  timespan: 0,
+};
 
 export default function FormContainer() {
   const formContainer = document.createElement("section");

@@ -5,7 +5,6 @@ let dateFilter = "all";
 let otherFilters = [];
 
 export default function Analysis(userEntries) {
-  let shownEntries = userEntries;
   const accumulatedTime = getSummedTimespan(userEntries);
   const analysis = document.createElement("section");
   analysis.classList.add("analysis");

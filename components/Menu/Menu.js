@@ -39,8 +39,8 @@ export default function Menu() {
       case "what-button":
         analysis && analysisButton.classList.toggle("menu_button--active");
         analysis && analysis.remove();
-        newTask && newTaskButton.classList.toggle("menu_button--active");
-        newTask && newTask.remove();
+        newTaskButton.classList.remove("menu_button--active");
+        newTask.classList.add("form_container--noDisplay");
         listContainer &&
           doneTasksButton.classList.toggle("menu_button--active");
         listContainer && listContainer.remove();
@@ -55,16 +55,16 @@ export default function Menu() {
         listContainer &&
           doneTasksButton.classList.toggle("menu_button--active");
         listContainer && listContainer.remove();
-        !newTask && newTaskButton.classList.toggle("menu_button--active");
-        !newTask && app.append(FormContainer());
+        newTaskButton.classList.add("menu_button--active");
+        newTask.classList.remove("form_container--noDisplay");
         break;
       case "done-tasks-button":
         analysis && analysisButton.classList.toggle("menu_button--active");
         analysis && analysis.remove();
         what && whatButton.classList.toggle("menu_button--active");
         what && what.remove();
-        newTask && newTaskButton.classList.toggle("menu_button--active");
-        newTask && newTask.remove();
+        newTaskButton.classList.remove("menu_button--active");
+        newTask.classList.add("form_container--noDisplay");
         const newUserEntries =
           JSON.parse(localStorage.getItem("RecordedTasks")) || [];
         if (listContainer && newUserEntries.length != userEntries.length) {
@@ -78,8 +78,8 @@ export default function Menu() {
       case "analysis-button":
         what && whatButton.classList.toggle("menu_button--active");
         what && what.remove();
-        newTask && newTaskButton.classList.toggle("menu_button--active");
-        newTask && newTask.remove();
+        newTaskButton.classList.remove("menu_button--active");
+        newTask.classList.add("form_container--noDisplay");
         listContainer &&
           doneTasksButton.classList.toggle("menu_button--active");
         listContainer && listContainer.remove();

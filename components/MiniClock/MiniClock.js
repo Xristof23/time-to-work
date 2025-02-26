@@ -130,13 +130,13 @@ export default function MiniClock(props) {
     if (testHours <= 0.0166666) {
       sector1.style.background = `conic-gradient(from ${startAngle}deg, darkorange ${secondHandAngle}deg, #0000 0%)`;
     } else if (testHours > 0.0166666 && testHours < 1) {
-      sector1.style.background = `conic-gradient(from ${startAngle}deg, #a7df92 ${sectorAngle}deg, #0000 0%)`;
+      sector1.style.background = `conic-gradient(from ${startAngle}deg, darkslategrey ${sectorAngle}deg, #0000 0%)`;
       const timespanOutput = document.querySelector(
         '[data-js="timespan-output"]'
       );
       timespanOutput.classList.add("timespan_darkslategrey");
     } else {
-      sector1.style.background = `conic-gradient(from ${startAngle}deg, darkslategrey ${shortHandAngle}deg, #0000 0%)`;
+      sector1.style.background = `conic-gradient(from ${startAngle}deg, #a7df92 ${shortHandAngle}deg, #0000 0%)`;
       const timespanOutput = document.querySelector(
         '[data-js="timespan-output"]'
       );
