@@ -28,6 +28,7 @@ function timeReset() {
   startOutput.textContent = "";
   endOutput.textContent = "";
   timespanOutput.textContent = "";
+  timingProps = {};
   const sector1 = document.querySelector('[data-js="sector-1"]');
   sector1.classList.add("sector--passive");
 }

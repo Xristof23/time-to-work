@@ -47,13 +47,26 @@ export default function Timing() {
 
   timing.appendChild(MiniClock(clockProps));
 
+  //may add destructure later
+  const continueProps = JSON.parse(localStorage.getItem("continueProps")) || {};
+  console.log("timingprops.started: ", timingProps.started);
+  console.log("continueProps.started: ", continueProps.started);
+  // continue restart
+  if (timingProps.started && continueProps.started) {
+    handleStart();
+  }
+
   function handleStart() {
-    if (timingProps.started) {
+    if (timingProps.started && !continueProps.started) {
       timing.append(Modal("noStart"));
     } else {
       timingProps.started = true;
       stopButton.classList.toggle("stop_button--active");
-      timingProps.startValue = Date.now();
+      timingProps.startValue = continueProps.startValue
+        ? continueProps.startValue
+        : Date.now();
+      console.log("timingprops: ", timingProps);
+      localStorage.setItem("continueProps", JSON.stringify(timingProps));
       handleUpdateTime();
       const startDate = new Date(timingProps.startValue);
       localDate = startDate.toLocaleDateString("en-EN", dateOptions);
@@ -78,6 +91,24 @@ export default function Timing() {
     const formattedTime = properTimeFormatter(updatedTime);
     timingProps.formattedTimespan = formattedTime;
     timespanOutput.textContent = formattedTime;
+    if (timingProps.haltTimer === true) {
+      autoStop();
+    }
+  }
+
+  function autoStop() {
+    console.log("stopped");
+    const endValue = Date.now();
+    timingProps.timespan = endValue - timingProps.startValue;
+    const formattedTimespan = properTimeFormatter(timingProps.timespan);
+    timingProps.formattedTimespan = formattedTimespan;
+    const endDate = new Date(endValue);
+    const formattedEnd = endDate.toLocaleTimeString("en-EN", timeOptions);
+    //  endOutput.textContent = formattedEnd;
+    timespanOutput.textContent = formattedTimespan;
+    stopButton.classList.toggle("stop_button--active");
+    clearInterval(intervalId);
+    intervalId = null;
   }
 
   function handleStop() {
@@ -98,6 +129,8 @@ export default function Timing() {
       stopButton.classList.toggle("stop_button--active");
       clearInterval(intervalId);
       intervalId = null;
+      //reset "memory"
+      localStorage.setItem("continueProps", JSON.stringify({}));
     }
   }
 

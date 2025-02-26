@@ -35,17 +35,27 @@ export default function Menu() {
     const listContainer = document.getElementById("list-container");
     const analysis = document.getElementById("analysis");
 
+    const menuDelay = timingProps.started ? 900 : 0;
+
     switch (text) {
       case "what-button":
-        analysis && analysisButton.classList.toggle("menu_button--active");
-        analysis && analysis.remove();
-        newTask && newTaskButton.classList.toggle("menu_button--active");
-        newTask && newTask.remove();
-        listContainer &&
-          doneTasksButton.classList.toggle("menu_button--active");
-        listContainer && listContainer.remove();
-        !what && whatButton.classList.toggle("menu_button--active");
-        !what && app.append(What(whatContent));
+        if (timingProps.started) {
+          console.log("timingProps from menu", timingProps);
+          timingProps.haltTimer = true;
+        }
+
+        setTimeout(() => {
+          analysis && analysisButton.classList.toggle("menu_button--active");
+          analysis && analysis.remove();
+          newTask && newTaskButton.classList.toggle("menu_button--active");
+          newTask && newTask.remove();
+          listContainer &&
+            doneTasksButton.classList.toggle("menu_button--active");
+          listContainer && listContainer.remove();
+          !what && whatButton.classList.toggle("menu_button--active");
+          !what && app.append(What(whatContent));
+        }, menuDelay);
+
         break;
       case "new-task-button":
         analysis && analysisButton.classList.toggle("menu_button--active");
