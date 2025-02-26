@@ -1,4 +1,4 @@
-import { dateOptions, timeOptions } from "../../utils.js";
+import { dateOptions } from "../../utils.js";
 import MainForm from "../MainForm/MainForm.js";
 import Timing from "../Timing/Timing.js";
 
