@@ -60,35 +60,9 @@ export default function EditForm(entryToEdit) {
     editForm.appendChild(Modal("edit", id, entryToEdit));
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-
-    const currentDate = new Date();
-    const localTime = currentDate.toLocaleTimeString("en-EN", timeOptions);
-
-    const changedEntry = {
-      ...entryToEdit,
-      project: data.project,
-      task: data.task,
-      category: data.category,
-      note: data.note,
-      timeOfChange: localTime,
-      timeSpent: data.timeSpent,
-    };
-    console.log(changedEntry);
-    // const recordedTasks =
-    //   JSON.parse(localStorage.getItem("RecordedTasks")) || [];
-    // recordedTasks.map((entry) => (entry.id === id ? changedEntry : entry));
-    // localStorage.setItem("RecordedTasks", JSON.stringify(recordedTasks));
-
-    // editForm.append(Modal("afterSave"));
-  }
-
   function handleEditReset(event) {
     // event.target.reset();
-    // event.target.elements.project.focus();
+    // event.target.elements.task.focus();
     console.log("edit reset");
   }
 

@@ -1,6 +1,11 @@
 import { modalContentList } from "../../modalContent.js";
 import { noTasksContent } from "../../textContent.js";
-import { saveToLocalStorage, timeOptions, timeReset } from "../../utils.js";
+import {
+  saveToLocalStorage,
+  dateOptions,
+  timeOptions,
+  timeReset,
+} from "../../utils.js";
 import Article from "../Article/Article.js";
 import FormContainer from "../FormContainer/FormContainer.js";
 import ListContainer from "../ListContainer/ListContainer.js";
@@ -26,6 +31,8 @@ export default function Modal(keyWord, id, entryToEdit) {
     ${button3}
     </button> 
     `;
+
+  const userEntries = JSON.parse(localStorage.getItem("RecordedTasks"));
 
   const noButton = modal.querySelector('[data-js="no-button"]');
   noButton.addEventListener("click", handleAbort);
@@ -87,7 +94,6 @@ export default function Modal(keyWord, id, entryToEdit) {
     const data = Object.fromEntries(formData);
 
     const currentDate = new Date();
-    const localTime = currentDate.toLocaleTimeString("en-EN", timeOptions);
 
     //needs converting from timespent to tmespan(ms) but not striytly necessary now
     const changedEntry = {
@@ -96,12 +102,11 @@ export default function Modal(keyWord, id, entryToEdit) {
       task: data.task,
       category: data.category,
       note: data.note,
-      timeOfChange: localTime,
+      changeDate: currentDate,
       timeSpent: data.timeSpent,
     };
-    const recordedTasks =
-      JSON.parse(localStorage.getItem("RecordedTasks")) || [];
-    const editedTasks = recordedTasks.map((entry) =>
+    console.log("changedEntry", changedEntry);
+    const editedTasks = userEntries.map((entry) =>
       entry.id === id ? changedEntry : entry
     );
     localStorage.setItem("RecordedTasks", JSON.stringify(editedTasks));
@@ -148,8 +153,15 @@ export default function Modal(keyWord, id, entryToEdit) {
     newTaskButton.classList.toggle("menu_button--active");
   }
 
+  function switchToAnalysis() {
+    const app = document.getElementById("app");
+    app.append(FormContainer());
+    app.append(Analysis());
+    const newTaskButton = document.querySelector('[data-js="new-task-button"]');
+    newTaskButton.classList.toggle("menu_button--active");
+  }
+
   function deleteEntry(id) {
-    const userEntries = JSON.parse(localStorage.getItem("RecordedTasks"));
     const updatedEntries = userEntries.filter((entry) => entry.id != id);
     const entryToDelete = document.getElementById(`${id}`);
     entryToDelete.remove();

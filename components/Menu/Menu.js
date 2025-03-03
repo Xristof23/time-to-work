@@ -2,7 +2,6 @@ import What from "../What/What.js";
 import { whatContent } from "../../textContent.js";
 import ListContainer from "../ListContainer/ListContainer.js";
 import Analysis from "../Analysis/Analysis.js";
-import FormContainer from "../FormContainer/FormContainer.js";
 
 export default function Menu() {
   const menu = document.createElement("nav");
@@ -25,6 +24,29 @@ export default function Menu() {
 
   const userEntries = JSON.parse(localStorage.getItem("RecordedTasks")) || [];
 
+  function removeAndHideEverything() {
+    const what = document.getElementById("what");
+    const newTask = document.getElementById("form-container");
+    const edit = document.getElementById("edit-container");
+    const listContainer = document.getElementById("list-container");
+    const analysis = document.getElementById("analysis");
+    analysis && analysis.remove();
+    listContainer && listContainer.remove();
+    what && what.remove();
+    edit && edit.remove();
+    newTask.classList.add("form_container--noDisplay");
+  }
+
+  function deActivate() {
+    const testElements = menu.getElementsByClassName("menu_button--active");
+    const testButtons = Array.prototype.filter.call(
+      testElements,
+      (testElement) => testElement.nodeName === "BUTTON"
+    );
+    const testButton = testButtons[0];
+    testButton.classList.toggle("menu_button--active");
+  }
+
   function handleClick(element) {
     element = element || window.event;
     const target = element.target || element.srcElement,
@@ -34,37 +56,18 @@ export default function Menu() {
     const newTask = document.getElementById("form-container");
     const listContainer = document.getElementById("list-container");
     const analysis = document.getElementById("analysis");
-
+    removeAndHideEverything();
+    deActivate();
     switch (text) {
       case "what-button":
-        analysis && analysisButton.classList.toggle("menu_button--active");
-        analysis && analysis.remove();
-        newTaskButton.classList.remove("menu_button--active");
-        newTask.classList.add("form_container--noDisplay");
-        listContainer &&
-          doneTasksButton.classList.toggle("menu_button--active");
-        listContainer && listContainer.remove();
         !what && whatButton.classList.toggle("menu_button--active");
         !what && app.append(What(whatContent));
         break;
       case "new-task-button":
-        analysis && analysisButton.classList.toggle("menu_button--active");
-        analysis && analysis.remove();
-        what && whatButton.classList.toggle("menu_button--active");
-        what && what.remove();
-        listContainer &&
-          doneTasksButton.classList.toggle("menu_button--active");
-        listContainer && listContainer.remove();
         newTaskButton.classList.add("menu_button--active");
         newTask.classList.remove("form_container--noDisplay");
         break;
       case "done-tasks-button":
-        analysis && analysisButton.classList.toggle("menu_button--active");
-        analysis && analysis.remove();
-        what && whatButton.classList.toggle("menu_button--active");
-        what && what.remove();
-        newTaskButton.classList.remove("menu_button--active");
-        newTask.classList.add("form_container--noDisplay");
         const newUserEntries =
           JSON.parse(localStorage.getItem("RecordedTasks")) || [];
         if (listContainer && newUserEntries.length != userEntries.length) {
@@ -76,13 +79,6 @@ export default function Menu() {
         }
         break;
       case "analysis-button":
-        what && whatButton.classList.toggle("menu_button--active");
-        what && what.remove();
-        newTaskButton.classList.remove("menu_button--active");
-        newTask.classList.add("form_container--noDisplay");
-        listContainer &&
-          doneTasksButton.classList.toggle("menu_button--active");
-        listContainer && listContainer.remove();
         !analysis && analysisButton.classList.toggle("menu_button--active");
         const myUserEntries =
           JSON.parse(localStorage.getItem("RecordedTasks")) || [];
