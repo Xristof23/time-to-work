@@ -2,7 +2,8 @@
 @import "./components/Analysis/Analysis.css";
 @import "./components/Article/Article.css";
 @import "./components/App/App.css";
-@import "./components/Clock/Clock.css";
+@import "./components/Edit/Edit.css";
+@import "./components/Edit/EditForm.css";
 @import "./components/EntryDetails/EntryDetails.css";
 @import "./components/Footer/Footer.css";
 @import "./components/FormContainer/FormContainer.css";

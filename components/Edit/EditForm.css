@@ -1,0 +1,104 @@
+.edit_form {
+  display: grid;
+  grid-template-columns: 1fr 9fr;
+  gap: 10px;
+  grid-template-rows: minmax(30px, auto);
+  margin: 0.5rem 0 0 0;
+  width: 80%;
+  height: fit-content;
+  font-size: 1.2rem;
+}
+
+.edit-form_buttons {
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: row;
+}
+.stop_button--passive {
+  display: inline-block;
+  background-color: #a1acb0;
+  border: 2px solid #a1acb0;
+  color: #799970;
+}
+
+.stop_button--active {
+  border: 2px solid var(--red);
+  background-color: var(--primary);
+  color: var(--darkblue);
+}
+
+.save_button {
+  display: inline-block;
+  background-color: #a1acb0;
+  border: 2px solid #a1acb0;
+  color: #799970;
+}
+
+.save_button--active {
+  display: inline-block;
+  background-color: var(--secondary-light);
+  border: 2px solid var(--secondary-light);
+  color: black;
+}
+
+.label_standard_11,
+.label_standard_12,
+.label_standard_13,
+.label_standard_14,
+.label_standard_15 {
+  margin-left: 0.25rem;
+  line-height: 2rem;
+  grid-column: 1;
+}
+
+.label_standard_11 {
+  grid-row: 1;
+}
+
+.label_standard_12 {
+  grid-row: 2;
+}
+
+.label_standard_13 {
+  grid-row: 3;
+}
+
+.label_standard_14 {
+  grid-row: 4;
+}
+.label_standard_14 {
+  grid-row: 5;
+}
+.input_text_21,
+.input_text_22,
+.input_text_23,
+.input_text_24,
+.input_text_25 {
+  border-radius: 4px;
+  font-size: 1.2rem;
+  height: 1.8rem;
+  min-width: 256px;
+  max-width: 280px;
+  margin: 0rem 0.25rem;
+  grid-column: 2;
+}
+
+.input_text_21 {
+  grid-row: 1;
+}
+
+.input_text_22 {
+  grid-row: 2;
+}
+
+.input_text_23 {
+  grid-row: 3;
+}
+
+.input_text_24 {
+  grid-row: 4;
+}
+
+.input_text_25 {
+  grid-row: 5;
+}

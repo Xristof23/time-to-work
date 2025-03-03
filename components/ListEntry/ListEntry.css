@@ -23,9 +23,19 @@
   background-color: var(--secondary-light);
   bottom: 0.25rem;
   height: 2rem;
+  right: 3.6rem;
+  z-index: 2;
+}
+
+.edit_button {
+  position: absolute;
+  background-color: var(--secondary-light);
+  bottom: 0.25rem;
+  height: 2rem;
   right: 0.25rem;
   z-index: 2;
 }
+
 .delete_button {
   color: var(--red);
   padding: 0.2rem;

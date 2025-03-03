@@ -1,18 +1,19 @@
 import { modalContentList } from "../../modalContent.js";
 import { noTasksContent } from "../../textContent.js";
-import { saveToLocalStorage, timeReset } from "../../utils.js";
+import { saveToLocalStorage, timeOptions, timeReset } from "../../utils.js";
 import Article from "../Article/Article.js";
+import FormContainer from "../FormContainer/FormContainer.js";
 import ListContainer from "../ListContainer/ListContainer.js";
 import TimeRecords from "../TimeRecords/TimeRecords.js";
 
-export default function Modal(keyWord, id) {
+export default function Modal(keyWord, id, entryToEdit) {
   const props = modalContentList.filter((el) => el.mode === keyWord);
   const { text, button1, button2, button3, mode } = props[0];
 
   const modal = document.createElement("div");
   modal.classList.add("modal");
   modal.setAttribute("id", "modal1");
-  const idText = id ? `${id}!` : "";
+  const idText = id && mode === "delete" ? `${id}!` : "";
   modal.innerHTML = /*html*/ `
     <p> ${text} ${idText}</p>
     <button type="button" data-js="no-button" >
@@ -38,6 +39,7 @@ export default function Modal(keyWord, id) {
   !button3 && thirdButton.classList.add("button--passive");
 
   function handleAbort() {
+    mode === "afterEdit" && getToRecords();
     modal.remove();
   }
 
@@ -66,7 +68,45 @@ export default function Modal(keyWord, id) {
         saveToLocalStorage(userEntries, "RecordedTasks");
         modal.remove();
         break;
+      case "edit":
+        handleSubmit();
+        modal.remove();
+        const app = document.getElementById("app");
+        app.append(Modal("afterEdit"));
+        break;
+      case "afterEdit":
+        modal.remove();
+        switchToNewTask();
+        break;
     }
+  }
+
+  function handleSubmit() {
+    const editForm = document.getElementById("edit-form");
+    const formData = new FormData(editForm);
+    const data = Object.fromEntries(formData);
+
+    const currentDate = new Date();
+    const localTime = currentDate.toLocaleTimeString("en-EN", timeOptions);
+
+    //needs converting from timespent to tmespan(ms) but not striytly necessary now
+    const changedEntry = {
+      ...entryToEdit,
+      project: data.project,
+      task: data.task,
+      category: data.category,
+      note: data.note,
+      timeOfChange: localTime,
+      timeSpent: data.timeSpent,
+    };
+    const recordedTasks =
+      JSON.parse(localStorage.getItem("RecordedTasks")) || [];
+    const editedTasks = recordedTasks.map((entry) =>
+      entry.id === id ? changedEntry : entry
+    );
+    localStorage.setItem("RecordedTasks", JSON.stringify(editedTasks));
+    const edit = document.getElementById("edit-container");
+    edit.remove();
   }
 
   function handleThird() {
@@ -97,6 +137,13 @@ export default function Modal(keyWord, id) {
       '[data-js="done-tasks-button"]'
     );
     doneTasksButton.classList.toggle("menu_button--active");
+    const newTaskButton = document.querySelector('[data-js="new-task-button"]');
+    newTaskButton.classList.toggle("menu_button--active");
+  }
+
+  function switchToNewTask() {
+    const app = document.getElementById("app");
+    app.append(FormContainer());
     const newTaskButton = document.querySelector('[data-js="new-task-button"]');
     newTaskButton.classList.toggle("menu_button--active");
   }

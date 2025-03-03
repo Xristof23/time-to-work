@@ -13,7 +13,7 @@ const today = new Date();
 let localDate = today.toLocaleDateString("en-EN", dateOptions);
 let localTime = today.toLocaleTimeString("en-EN", timeOptions);
 
-export default function MainForm(props) {
+export default function MainForm() {
   const mainForm = document.createElement("form");
   mainForm.setAttribute("id", "main-form");
   mainForm.classList.add("main_form");
