@@ -1,11 +1,7 @@
+import { removeAndHideEverything, deActivate } from "../../menuLogic.js";
 import { modalContentList } from "../../modalContent.js";
 import { noTasksContent } from "../../textContent.js";
-import {
-  saveToLocalStorage,
-  dateOptions,
-  timeOptions,
-  timeReset,
-} from "../../utils.js";
+import { saveToLocalStorage, timeReset } from "../../utils.js";
 import Article from "../Article/Article.js";
 import FormContainer from "../FormContainer/FormContainer.js";
 import ListContainer from "../ListContainer/ListContainer.js";
@@ -105,7 +101,6 @@ export default function Modal(keyWord, id, entryToEdit) {
       changeDate: currentDate,
       timeSpent: data.timeSpent,
     };
-    console.log("changedEntry", changedEntry);
     const editedTasks = userEntries.map((entry) =>
       entry.id === id ? changedEntry : entry
     );
@@ -133,30 +128,21 @@ export default function Modal(keyWord, id, entryToEdit) {
   }
 
   function getToRecords() {
+    removeAndHideEverything();
     const app = document.getElementById("app");
-    const newTask = document.getElementById("form-container");
-    newTask.remove();
     const userEntries = JSON.parse(localStorage.getItem("RecordedTasks"));
     app.append(ListContainer(userEntries));
     const doneTasksButton = document.querySelector(
       '[data-js="done-tasks-button"]'
     );
-    doneTasksButton.classList.toggle("menu_button--active");
-    const newTaskButton = document.querySelector('[data-js="new-task-button"]');
-    newTaskButton.classList.toggle("menu_button--active");
+    doneTasksButton.classList.add("menu_button--active");
   }
 
   function switchToNewTask() {
+    removeAndHideEverything();
+    deActivate();
     const app = document.getElementById("app");
     app.append(FormContainer());
-    const newTaskButton = document.querySelector('[data-js="new-task-button"]');
-    newTaskButton.classList.toggle("menu_button--active");
-  }
-
-  function switchToAnalysis() {
-    const app = document.getElementById("app");
-    app.append(FormContainer());
-    app.append(Analysis());
     const newTaskButton = document.querySelector('[data-js="new-task-button"]');
     newTaskButton.classList.toggle("menu_button--active");
   }
