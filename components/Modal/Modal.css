@@ -24,6 +24,13 @@
   background-color: var(--red);
 }
 
+.no-button {
+  font-weight: 500;
+  color: var(--darkblue);
+  border: 2px solid var(--secondary-light);
+  background-color: var(--secondary-light);
+}
+
 .button--passive {
   display: none;
 }

@@ -2,6 +2,7 @@ import { removeAndHideEverything, deActivate } from "../../menuLogic.js";
 import { modalContentList } from "../../modalContent.js";
 import { noTasksContent } from "../../textContent.js";
 import { saveToLocalStorage, timeReset } from "../../utils.js";
+import Analysis from "../Analysis/Analysis.js";
 import Article from "../Article/Article.js";
 import FormContainer from "../FormContainer/FormContainer.js";
 import ListContainer from "../ListContainer/ListContainer.js";
@@ -41,8 +42,13 @@ export default function Modal(keyWord, id, entryToEdit) {
   !button2 && yesButton.classList.add("button--passive");
   !button3 && thirdButton.classList.add("button--passive");
 
+  if (mode === "afterEdit") {
+    yesButton.classList.add("no-button");
+    thirdButton.classList.add("no-button");
+  }
+
   function handleAbort() {
-    mode === "afterEdit" && getToRecords();
+    mode === "afterEdit" && switchToAnalysis();
     modal.remove();
   }
 
@@ -145,6 +151,19 @@ export default function Modal(keyWord, id, entryToEdit) {
     app.append(FormContainer());
     const newTaskButton = document.querySelector('[data-js="new-task-button"]');
     newTaskButton.classList.toggle("menu_button--active");
+  }
+
+  function switchToAnalysis() {
+    removeAndHideEverything();
+    deActivate();
+    const app = document.getElementById("app");
+    const analysisButton = document.querySelector(
+      '[data-js="analysis-button"]'
+    );
+    analysisButton.classList.add("menu_button--active");
+    const myUserEntries =
+      JSON.parse(localStorage.getItem("RecordedTasks")) || [];
+    app.append(Analysis(myUserEntries));
   }
 
   function deleteEntry(id) {
