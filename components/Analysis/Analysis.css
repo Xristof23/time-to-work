@@ -26,9 +26,14 @@
   margin-top: -0.25rem;
 }
 
-.button--active {
+.analysis_button {
+  width: fit-content;
+}
+
+.analysis_button--active {
   background-color: var(--white);
   border: 2px solid var(--red);
+  width: fit-content;
 }
 
 .label_standard {

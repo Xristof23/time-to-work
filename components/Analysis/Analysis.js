@@ -20,7 +20,7 @@ export default function Analysis(userEntries) {
       <button type="button" data-js="today">
        Today
       </button>
-    <button type="button" data-js="yesterday">
+    <button type="button" class="analysis_button" data-js="yesterday">
        Yesterday
       </button>
       </div>

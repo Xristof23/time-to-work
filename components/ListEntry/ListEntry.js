@@ -20,7 +20,7 @@ export default function ListEntry(element) {
     <h3>${task}</h3>
     <p class="date_time">  ${date}, ${formattedTime}</p>
     <button class="edit_button" data-js="edit-button">edit</button>
-    <button class="detail_button" data-js="detail-button">more details</button>
+    <button class="detail_button" data-js="detail-button">details</button>
   `;
 
   const editButton = listEntry.querySelector('[data-js="edit-button"]');
@@ -50,10 +50,10 @@ export default function ListEntry(element) {
 
     if (counter % 2 === 0) {
       listEntry.append(EntryDetails(element));
-      detailButton.textContent = "close details";
+      detailButton.textContent = "close";
     } else {
       entryDetails.remove();
-      detailButton.textContent = "more details";
+      detailButton.textContent = "details";
     }
     ++counter;
   }

@@ -9,7 +9,7 @@ export default function Menu() {
   menu.classList.add("nav");
   menu.innerHTML = /*html*/ `
     <button id="what-button" class="menu_button" data-js="what-button">What?</button>
-    <button id="new-task-button" class="menu_button--active" data-js="new-task-button">New</button>
+    <button id="new-task-button" class="menu_button--active" data-js="new-task-button"> New </button>
     <button id="done-tasks-button" class="menu_button" data-js="done-tasks-button">Done</button>
     <button id="analysis-button" class="menu_button" data-js="analysis-button">Analysis</button>
 `;

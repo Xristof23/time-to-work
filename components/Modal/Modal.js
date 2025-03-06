@@ -122,7 +122,7 @@ export default function Modal(keyWord, id, entryToEdit) {
       const timeRecords = document.getElementById("time-records");
       timeRecords.replaceWith(TimeRecords(userEntries));
     } else {
-      getToRecords();
+      switchToDone();
     }
     modal.remove();
   }
@@ -133,8 +133,9 @@ export default function Modal(keyWord, id, entryToEdit) {
     modal.remove();
   }
 
-  function getToRecords() {
+  function switchToDone() {
     removeAndHideEverything();
+    deActivate();
     const app = document.getElementById("app");
     const userEntries = JSON.parse(localStorage.getItem("RecordedTasks"));
     app.append(ListContainer(userEntries));
@@ -150,7 +151,7 @@ export default function Modal(keyWord, id, entryToEdit) {
     const app = document.getElementById("app");
     app.append(FormContainer());
     const newTaskButton = document.querySelector('[data-js="new-task-button"]');
-    newTaskButton.classList.toggle("menu_button--active");
+    newTaskButton.classList.add("menu_button--active");
   }
 
   function switchToAnalysis() {

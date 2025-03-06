@@ -36,7 +36,7 @@ export default function MainForm() {
     <button type="submit" class="save_button" data-js="save-button">
     Save
     </button>
-    <button type="button" class="stop_button--active" data-js="reset-button">
+    <button type="button" class="reset_button--form" data-js="reset-button">
     Reset form
     </button>
     </div>
