@@ -10,7 +10,6 @@ function removeAndHideEverything() {
   edit && edit.remove();
   !newTask.classList.contains("form_container--noDisplay") &&
     newTask.classList.add("form_container--noDisplay");
-  console.log(newTask.classList.contains("form_container--noDisplay"));
 }
 
 function deActivate() {

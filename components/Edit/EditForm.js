@@ -60,10 +60,9 @@ export default function EditForm(entryToEdit) {
     editForm.appendChild(Modal("edit", id, entryToEdit));
   }
 
-  function handleEditReset(event) {
-    // event.target.reset();
-    // event.target.elements.task.focus();
-    console.log("edit reset");
+  function handleEditReset() {
+    editForm.reset();
+    editForm.task.focus();
   }
 
   return editForm;
