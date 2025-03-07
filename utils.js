@@ -21,6 +21,22 @@ function saveToLocalStorage(data, name) {
   localStorage.setItem(backupName, JSON.stringify(data));
 }
 
+function formReset() {
+  const form = document.getElementById("main-form");
+  form.reset();
+}
+
+function deleteEntry(id) {
+  const userEntries = JSON.parse(localStorage.getItem("RecordedTasks"));
+  const updatedEntries = userEntries.filter((entry) => entry.id != id);
+  const entryToDelete = document.getElementById(`${id}`);
+  entryToDelete.remove();
+  localStorage.setItem("RecordedTasks", JSON.stringify(updatedEntries));
+  const listContainer = document.getElementById("list-container");
+  updatedEntries.length === 0 &&
+    listContainer.appendChild(Article(noTasksContent));
+}
+
 function timeReset() {
   const startOutput = document.querySelector('[data-js="start-output"]');
   const endOutput = document.querySelector('[data-js="end-output"]');
@@ -86,6 +102,7 @@ function createUnixTimeID(unixTime) {
   return newId;
 }
 
+//needed?
 function disappearListContainer() {
   const listContainer = document.getElementById("list-container");
   listContainer.classList.add("list_container--passive");
@@ -94,11 +111,13 @@ function disappearListContainer() {
 export {
   properTimeFormatter,
   createUnixTimeID,
+  deleteEntry,
   disappearListContainer,
   dateOptions,
   timeOptions,
   generateRandomInteger,
   removeDuplicates,
   saveToLocalStorage,
+  formReset,
   timeReset,
 };

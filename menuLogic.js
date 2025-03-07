@@ -22,4 +22,15 @@ function deActivate() {
   testButton.classList.toggle("menu_button--active");
 }
 
-export { removeAndHideEverything, deActivate };
+function switchToAnalysis() {
+  removeAndHideEverything();
+  deActivate();
+  const app = document.getElementById("app");
+  const analysis = document.getElementById("analysis");
+  const analysisButton = document.querySelector('[data-js="analysis-button"]');
+  analysisButton.classList.add("menu_button--active");
+  const myUserEntries = JSON.parse(localStorage.getItem("RecordedTasks")) || [];
+  app.append(analysis(myUserEntries));
+}
+
+export { removeAndHideEverything, deActivate, switchToAnalysis };
