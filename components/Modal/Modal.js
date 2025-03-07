@@ -148,8 +148,8 @@ export default function Modal(keyWord, id, entryToEdit) {
   function switchToNewTask() {
     removeAndHideEverything();
     deActivate();
-    const app = document.getElementById("app");
-    app.append(FormContainer());
+    const newTask = document.getElementById("form-container");
+    newTask.classList.replace("form_container--noDisplay", "form_container");
     const newTaskButton = document.querySelector('[data-js="new-task-button"]');
     newTaskButton.classList.add("menu_button--active");
   }
