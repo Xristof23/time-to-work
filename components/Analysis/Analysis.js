@@ -14,10 +14,10 @@ export default function Analysis(userEntries) {
     <h2>Analysis</h2>
     <div class="button_container">
     Date:
-      <button type="button" data-js="all">
+      <button type="button" class="analysis_button" data-js="all">
       All
       </button>
-      <button type="button" data-js="today">
+      <button type="button" class="analysis_button" data-js="today">
        Today
       </button>
     <button type="button" class="analysis_button" data-js="yesterday">
@@ -66,20 +66,24 @@ export default function Analysis(userEntries) {
 
   const allButton = analysis.querySelector('[data-js="all"]');
   allButton.addEventListener("click", () => {
-    dateFilter != "all" && allButton.classList.toggle("button--active");
-    dateFilter === "today" && todayButton.classList.toggle("button--active");
+    dateFilter != "all" &&
+      allButton.classList.toggle("analysis_button--active");
+    dateFilter === "today" &&
+      todayButton.classList.toggle("analysis_button--active");
     dateFilter === "yesterday" &&
-      yesterdayButton.classList.toggle("button--active");
+      yesterdayButton.classList.toggle("analysis_button--active");
     dateFilter = "all";
     oneFilterFunctionToRule(userEntries);
   });
 
   const todayButton = analysis.querySelector('[data-js="today"]');
   todayButton.addEventListener("click", () => {
-    dateFilter != "today" && todayButton.classList.toggle("button--active");
-    dateFilter === "all" && allButton.classList.toggle("button--active");
+    dateFilter != "today" &&
+      todayButton.classList.toggle("analysis_button--active");
+    dateFilter === "all" &&
+      allButton.classList.toggle("analysis_button--active");
     dateFilter === "yesterday" &&
-      yesterdayButton.classList.toggle("button--active");
+      yesterdayButton.classList.toggle("analysis_button--active");
     dateFilter = "today";
     oneFilterFunctionToRule(userEntries);
   });
@@ -87,16 +91,18 @@ export default function Analysis(userEntries) {
   const yesterdayButton = analysis.querySelector('[data-js="yesterday"]');
   yesterdayButton.addEventListener("click", () => {
     dateFilter != "yesterday" &&
-      yesterdayButton.classList.toggle("button--active");
-    dateFilter === "all" && allButton.classList.toggle("button--active");
-    dateFilter === "today" && todayButton.classList.toggle("button--active");
+      yesterdayButton.classList.toggle("analysis_button--active");
+    dateFilter === "all" &&
+      allButton.classList.toggle("analysis_button--active");
+    dateFilter === "today" &&
+      todayButton.classList.toggle("analysis_button--active");
     dateFilter = "yesterday";
     oneFilterFunctionToRule(userEntries);
   });
 
   function getStarted() {
     const allButton = analysis.querySelector('[data-js="all"]');
-    allButton.classList.toggle("button--active");
+    allButton.classList.toggle("analysis_button--active");
     dateFilter = "all";
   }
   getStarted();

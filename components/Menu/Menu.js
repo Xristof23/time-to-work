@@ -46,11 +46,11 @@ export default function Menu() {
       case "done-tasks-button":
         const newUserEntries =
           JSON.parse(localStorage.getItem("RecordedTasks")) || [];
+        doneTasksButton.classList.add("menu_button--active");
         if (listContainer && newUserEntries.length != userEntries.length) {
           remove.listContainer;
           app.append(ListContainer(newUserEntries));
         } else {
-          doneTasksButton.classList.toggle("menu_button--active");
           app.append(ListContainer(newUserEntries));
         }
         break;
