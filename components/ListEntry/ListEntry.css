@@ -20,12 +20,26 @@
 }
 .detail_button {
   position: absolute;
+  font-size: 1rem;
   background-color: var(--secondary-light);
   bottom: 0.25rem;
   height: 2rem;
+  width: 4rem;
+  right: 3.35rem;
+  z-index: 2;
+}
+
+.edit_button {
+  position: absolute;
+  font-size: 1rem;
+  background-color: var(--secondary-light);
+  bottom: 0.25rem;
+  height: 2rem;
+  width: 2.5rem;
   right: 0.25rem;
   z-index: 2;
 }
+
 .delete_button {
   color: var(--red);
   padding: 0.2rem;

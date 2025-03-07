@@ -1,5 +1,7 @@
 import EntryDetails from "../EntryDetails/EntryDetails.js";
 import Modal from "../Modal/Modal.js";
+import FormContainer from "../FormContainer/FormContainer.js";
+import Edit from "../Edit/Edit.js";
 
 export default function ListEntry(element) {
   const { date, time, task, id } = element;
@@ -17,15 +19,25 @@ export default function ListEntry(element) {
     <button class = "delete_button" data-js="detail-delete-button">X</button>
     <h3>${task}</h3>
     <p class="date_time">  ${date}, ${formattedTime}</p>
-    <button class="detail_button" data-js="detail-button">more details</button>
+    <button class="edit_button" data-js="edit-button">edit</button>
+    <button class="detail_button" data-js="detail-button">details</button>
   `;
 
+  const editButton = listEntry.querySelector('[data-js="edit-button"]');
+  editButton.addEventListener("click", handleEdit);
   const deleteButton = listEntry.querySelector(
     '[data-js="detail-delete-button"]'
   );
   deleteButton.addEventListener("click", handleAreYouSure);
   const detailButton = listEntry.querySelector('[data-js="detail-button"]');
   detailButton.addEventListener("click", handleShowDetails);
+
+  function handleEdit() {
+    const id = element.id;
+    const listContainer = document.getElementById("list-container");
+    listContainer.remove();
+    app.append(Edit(id));
+  }
 
   function handleAreYouSure() {
     const id = element.id;
@@ -38,10 +50,10 @@ export default function ListEntry(element) {
 
     if (counter % 2 === 0) {
       listEntry.append(EntryDetails(element));
-      detailButton.textContent = "close details";
+      detailButton.textContent = "close";
     } else {
       entryDetails.remove();
-      detailButton.textContent = "more details";
+      detailButton.textContent = "details";
     }
     ++counter;
   }

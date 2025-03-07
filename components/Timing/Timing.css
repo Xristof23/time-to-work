@@ -23,15 +23,20 @@
   font-weight: 600;
 }
 
+.start_button {
+  width: 4rem;
+}
+
 .stop_button--passive {
-  display: inline-block;
   background-color: #a1acb0;
   border: 2px solid #a1acb0;
+  width: 4rem;
   color: #799970;
 }
 
 .stop_button--active {
   border: 2px solid var(--red);
   background-color: var(--primary);
+  width: 4rem;
   color: var(--darkblue);
 }

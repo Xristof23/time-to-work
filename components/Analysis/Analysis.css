@@ -1,7 +1,7 @@
 .analysis {
   display: block;
   border-radius: 4px;
-  margin: 2.9rem 0 0 0.25rem;
+  margin: 0.5rem 0 0 0.25rem;
   position: relative;
 }
 
@@ -23,12 +23,16 @@
 .button_container {
   font-size: 1.2rem;
   padding: 0.25rem;
-  margin-top: -0.25rem;
 }
 
-.button--active {
+.analysis_button {
+  width: fit-content;
+}
+
+.analysis_button--active {
   background-color: var(--white);
   border: 2px solid var(--red);
+  width: fit-content;
 }
 
 .label_standard {

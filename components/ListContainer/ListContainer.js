@@ -21,14 +21,14 @@ export default function ListContainer(userEntries) {
 
   listContainer.innerHTML = /*html*/ `
     <h2>Done tasks</h2>
-    <div>
-      <button type="button"  data-js="demo-button">
-        demo-mode
+    <div class="backup_button--container">
+      <button type="button" class="backup_button" data-js="demo-button">
+        demo
       </button>
-      <button type="button" data-js="backup-button">
+      <button type="button" class="backup_button" data-js="backup-button">
         backup
       </button>
-      <button type="button" data-js="load-backup-button">
+      <button type="button" class="backup_button" data-js="load-backup-button">
         load backup
       </button>
       </div>

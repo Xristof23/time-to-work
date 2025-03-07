@@ -1,27 +1,35 @@
 .nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 0.25rem;
-  background-color: var(--secondary);
   position: relative;
-  top: -1.25rem;
-  padding: 0.25rem;
+  top: -1rem;
+  padding: 0;
   height: 3.5rem;
-  width: 100%;
+  width: 360px;
+  margin: 0 0.25rem;
 }
 
-.menu_button {
+.menu_button,
+.menu_button--active {
   height: 2.5rem;
-  width: 5.5rem;
+  min-width: 80px;
+  width: 80px;
   font-weight: 500;
   border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 0.9rem;
+  font-family: var(--ff-primary);
+  color: var(--darkblue);
+  padding: 0.4rem;
+  margin: 0.25rem;
+  height: 2.5rem;
+  background-color: var(--secondary-light);
 }
 
 .menu_button--active {
-  height: 2.5rem;
-  width: 5.5rem;
   font-weight: 600;
   background-color: var(--primary);
-  border: none;
 }

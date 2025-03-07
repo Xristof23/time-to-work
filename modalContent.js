@@ -32,6 +32,21 @@ const wantedSave = {
   mode: "save",
 };
 
+const editContent = {
+  text: "Do you really want to save your changes?",
+  button1: "No, keep editing.",
+  button2: "Ok, save.",
+  mode: "edit",
+};
+
+const afterEditContent = {
+  text: "Your entry has been saved. What do you want to do next?",
+  button1: "Go to analysis.",
+  button2: "Start a new task.",
+  button3: "Back to the done tasks.",
+  mode: "afterEdit",
+};
+
 const chooseBackup = {
   text: "Choose the backup you want to load!",
   button1: "No, cancel.",
@@ -67,6 +82,8 @@ const wantedStart = {
 };
 
 const modalContentList = [
+  afterEditContent,
+  editContent,
   afterSave,
   resetTime,
   wantedDelete,

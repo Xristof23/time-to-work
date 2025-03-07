@@ -1,18 +1,21 @@
+import { removeAndHideEverything, deActivate } from "../../menuLogic.js";
 import { modalContentList } from "../../modalContent.js";
 import { noTasksContent } from "../../textContent.js";
 import { saveToLocalStorage, timeReset } from "../../utils.js";
+import Analysis from "../Analysis/Analysis.js";
 import Article from "../Article/Article.js";
+import FormContainer from "../FormContainer/FormContainer.js";
 import ListContainer from "../ListContainer/ListContainer.js";
 import TimeRecords from "../TimeRecords/TimeRecords.js";
 
-export default function Modal(keyWord, id) {
+export default function Modal(keyWord, id, entryToEdit) {
   const props = modalContentList.filter((el) => el.mode === keyWord);
   const { text, button1, button2, button3, mode } = props[0];
 
   const modal = document.createElement("div");
   modal.classList.add("modal");
   modal.setAttribute("id", "modal1");
-  const idText = id ? `${id}!` : "";
+  const idText = id && mode === "delete" ? `${id}!` : "";
   modal.innerHTML = /*html*/ `
     <p> ${text} ${idText}</p>
     <button type="button" data-js="no-button" >
@@ -26,6 +29,8 @@ export default function Modal(keyWord, id) {
     </button> 
     `;
 
+  const userEntries = JSON.parse(localStorage.getItem("RecordedTasks"));
+
   const noButton = modal.querySelector('[data-js="no-button"]');
   noButton.addEventListener("click", handleAbort);
   const yesButton = modal.querySelector('[data-js="yes-button"]');
@@ -37,7 +42,13 @@ export default function Modal(keyWord, id) {
   !button2 && yesButton.classList.add("button--passive");
   !button3 && thirdButton.classList.add("button--passive");
 
+  if (mode === "afterEdit") {
+    yesButton.classList.add("no-button");
+    thirdButton.classList.add("no-button");
+  }
+
   function handleAbort() {
+    mode === "afterEdit" && switchToAnalysis();
     modal.remove();
   }
 
@@ -66,7 +77,42 @@ export default function Modal(keyWord, id) {
         saveToLocalStorage(userEntries, "RecordedTasks");
         modal.remove();
         break;
+      case "edit":
+        handleSubmit();
+        modal.remove();
+        const app = document.getElementById("app");
+        app.append(Modal("afterEdit"));
+        break;
+      case "afterEdit":
+        modal.remove();
+        switchToNewTask();
+        break;
     }
+  }
+
+  function handleSubmit() {
+    const editForm = document.getElementById("edit-form");
+    const formData = new FormData(editForm);
+    const data = Object.fromEntries(formData);
+
+    const currentDate = new Date();
+
+    //needs converting from timespent to tmespan(ms) but not striytly necessary now
+    const changedEntry = {
+      ...entryToEdit,
+      project: data.project,
+      task: data.task,
+      category: data.category,
+      note: data.note,
+      changeDate: currentDate,
+      timeSpent: data.timeSpent,
+    };
+    const editedTasks = userEntries.map((entry) =>
+      entry.id === id ? changedEntry : entry
+    );
+    localStorage.setItem("RecordedTasks", JSON.stringify(editedTasks));
+    const edit = document.getElementById("edit-container");
+    edit.remove();
   }
 
   function handleThird() {
@@ -76,7 +122,7 @@ export default function Modal(keyWord, id) {
       const timeRecords = document.getElementById("time-records");
       timeRecords.replaceWith(TimeRecords(userEntries));
     } else {
-      getToRecords();
+      switchToDone();
     }
     modal.remove();
   }
@@ -87,22 +133,41 @@ export default function Modal(keyWord, id) {
     modal.remove();
   }
 
-  function getToRecords() {
+  function switchToDone() {
+    removeAndHideEverything();
+    deActivate();
     const app = document.getElementById("app");
-    const newTask = document.getElementById("form-container");
-    newTask.remove();
     const userEntries = JSON.parse(localStorage.getItem("RecordedTasks"));
     app.append(ListContainer(userEntries));
     const doneTasksButton = document.querySelector(
       '[data-js="done-tasks-button"]'
     );
-    doneTasksButton.classList.toggle("menu_button--active");
+    doneTasksButton.classList.add("menu_button--active");
+  }
+
+  function switchToNewTask() {
+    removeAndHideEverything();
+    deActivate();
+    const newTask = document.getElementById("form-container");
+    newTask.classList.replace("form_container--noDisplay", "form_container");
     const newTaskButton = document.querySelector('[data-js="new-task-button"]');
-    newTaskButton.classList.toggle("menu_button--active");
+    newTaskButton.classList.add("menu_button--active");
+  }
+
+  function switchToAnalysis() {
+    removeAndHideEverything();
+    deActivate();
+    const app = document.getElementById("app");
+    const analysisButton = document.querySelector(
+      '[data-js="analysis-button"]'
+    );
+    analysisButton.classList.add("menu_button--active");
+    const myUserEntries =
+      JSON.parse(localStorage.getItem("RecordedTasks")) || [];
+    app.append(Analysis(myUserEntries));
   }
 
   function deleteEntry(id) {
-    const userEntries = JSON.parse(localStorage.getItem("RecordedTasks"));
     const updatedEntries = userEntries.filter((entry) => entry.id != id);
     const entryToDelete = document.getElementById(`${id}`);
     entryToDelete.remove();

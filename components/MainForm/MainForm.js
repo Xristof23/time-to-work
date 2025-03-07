@@ -13,7 +13,7 @@ const today = new Date();
 let localDate = today.toLocaleDateString("en-EN", dateOptions);
 let localTime = today.toLocaleTimeString("en-EN", timeOptions);
 
-export default function MainForm(props) {
+export default function MainForm() {
   const mainForm = document.createElement("form");
   mainForm.setAttribute("id", "main-form");
   mainForm.classList.add("main_form");
@@ -36,7 +36,7 @@ export default function MainForm(props) {
     <button type="submit" class="save_button" data-js="save-button">
     Save
     </button>
-    <button type="button" class="stop_button--active" data-js="reset-button">
+    <button type="button" class="reset_button--form" data-js="reset-button">
     Reset form
     </button>
     </div>

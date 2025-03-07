@@ -16,14 +16,14 @@ window.timingProps = {
   timespan: 0,
 };
 
-export default function FormContainer() {
+export default function FormContainer(edit) {
   const formContainer = document.createElement("section");
   formContainer.setAttribute("id", "form-container");
   formContainer.classList.add("form_container");
 
   formContainer.innerHTML = /*html*/ `
     <h2> 
-    New task
+   New task
     </h2>
     <p>Date:  <output data-js="date-output">${localDate}</output>
     </p>
