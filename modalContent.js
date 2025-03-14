@@ -1,5 +1,12 @@
 import { switchToAnalysis } from "./menuLogic.js";
-import { deleteEntry, formReset, timeReset } from "./utils.js";
+import {
+  deleteEntry,
+  deleteAllEntries,
+  formReset,
+  timeReset,
+  loadBackup,
+  handleEdit,
+} from "./utils.js";
 
 const wantedDelete = {
   text: "Do you really want to delete this entry? This is not reversible! Press &quot;No, cancel.&quot;, if you are not sure to delete entry with id ",
@@ -8,8 +15,6 @@ const wantedDelete = {
   style1: "modal_button--green",
   style2: "modal_button--red",
   secondFunction: deleteEntry,
-  argument: true,
-  mode: "reset",
   mode: "delete",
 };
 
@@ -19,6 +24,7 @@ const wantedDeleteAll = {
   button2: "Yes, go on.",
   style1: "modal_button--green",
   style2: "modal_button--red",
+  secondFunction: deleteAllEntries,
   mode: "deleteAll",
 };
 
@@ -54,6 +60,7 @@ const editContent = {
   button2: "Ok, save.",
   style1: "modal_button--green",
   style2: "modal_button--red",
+  secondFunction: handleEdit,
   mode: "edit",
 };
 
@@ -72,6 +79,7 @@ const chooseBackup = {
   button1: "No, cancel.",
   button2: "TaskBackup",
   button3: "AutomaticBackup",
+  secondFunction: loadBackup,
   mode: "chooseBackup",
 };
 

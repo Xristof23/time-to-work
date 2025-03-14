@@ -1,8 +1,4 @@
-import { dateOptions } from "../../utils.js";
 import EditForm from "./EditForm.js";
-
-const today = new Date();
-let localDate = today.toLocaleDateString("en-EN", dateOptions);
 
 export default function Edit(id) {
   const editContainer = document.createElement("section");

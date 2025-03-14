@@ -1,3 +1,5 @@
+import ListContainer from "../components/ListContainer/ListContainer.js";
+
 function removeAndHideEverything() {
   const what = document.getElementById("what");
   const newTask = document.getElementById("form-container");
@@ -33,4 +35,31 @@ function switchToAnalysis() {
   app.append(analysis(myUserEntries));
 }
 
-export { removeAndHideEverything, deActivate, switchToAnalysis };
+function switchToDone() {
+  removeAndHideEverything();
+  deActivate();
+  const app = document.getElementById("app");
+  const userEntries = JSON.parse(localStorage.getItem("RecordedTasks"));
+  app.append(ListContainer(userEntries));
+  const doneTasksButton = document.querySelector(
+    '[data-js="done-tasks-button"]'
+  );
+  doneTasksButton.classList.add("menu_button--active");
+}
+
+function switchToNewTask() {
+  removeAndHideEverything();
+  deActivate();
+  const newTask = document.getElementById("form-container");
+  newTask.classList.replace("form_container--noDisplay", "form_container");
+  const newTaskButton = document.querySelector('[data-js="new-task-button"]');
+  newTaskButton.classList.add("menu_button--active");
+}
+
+export {
+  removeAndHideEverything,
+  deActivate,
+  switchToAnalysis,
+  switchToDone,
+  switchToNewTask,
+};
