@@ -1,4 +1,5 @@
 import Modal from "./components/Modal/Modal.js";
+import TimeRecords from "./components/TimeRecords/TimeRecords.js";
 
 //real utils
 function removeDuplicates(array) {
@@ -23,8 +24,15 @@ function saveToLocalStorage(data, name) {
 function loadBackup() {
   const userEntries = JSON.parse(localStorage.getItem("TasksBackup"));
   const timeRecords = document.getElementById("time-records");
-  timeRecords.replaceWith(timeRecords(userEntries));
+  timeRecords.replaceWith(TimeRecords(userEntries));
   saveToLocalStorage(userEntries, "RecordedTasks");
+}
+
+function restoreAutomaticBackup() {
+  const userEntries = JSON.parse(localStorage.getItem("AutomaticBackup"));
+  saveToLocalStorage(userEntries, "RecordedTasks");
+  const timeRecords = document.getElementById("time-records");
+  timeRecords.replaceWith(TimeRecords(userEntries));
 }
 
 function deleteEntry(id) {
@@ -161,6 +169,7 @@ export {
   deleteEntry,
   deleteAllEntries,
   loadBackup,
+  restoreAutomaticBackup,
   generateRandomInteger,
   removeDuplicates,
   saveToLocalStorage,

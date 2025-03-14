@@ -1,4 +1,4 @@
-import { switchToAnalysis } from "./menuLogic.js";
+import { switchToAnalysis, switchToNewTask } from "./menuLogic.js";
 import {
   deleteEntry,
   deleteAllEntries,
@@ -6,6 +6,7 @@ import {
   timeReset,
   loadBackup,
   handleEdit,
+  restoreAutomaticBackup,
 } from "./utils.js";
 
 const wantedDelete = {
@@ -71,6 +72,7 @@ const afterEditContent = {
   button3: "Back to the done tasks.",
   style1: "modal_button--green",
   firstFunction: switchToAnalysis,
+  secondFunction: switchToNewTask,
   mode: "afterEdit",
 };
 
@@ -80,6 +82,7 @@ const chooseBackup = {
   button2: "TaskBackup",
   button3: "AutomaticBackup",
   secondFunction: loadBackup,
+  thirdFunction: restoreAutomaticBackup,
   mode: "chooseBackup",
 };
 

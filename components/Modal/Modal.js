@@ -1,24 +1,16 @@
-import {
-  removeAndHideEverything,
-  deActivate,
-  switchToDone,
-  switchToAnalysis,
-  switchToNewTask,
-} from "../../menuLogic.js";
+import { switchToDone } from "../../menuLogic.js";
 import { modalContentList } from "../../modalContent.js";
-import { saveToLocalStorage, timeReset } from "../../utils.js";
-import TimeRecords from "../TimeRecords/TimeRecords.js";
 
 export default function Modal(keyWord, id, entryToEdit) {
   const props = modalContentList.filter((el) => el.mode === keyWord);
   const {
-    argument,
     text,
     button1,
     button2,
     button3,
     firstFunction,
     secondFunction,
+    thirdFunction,
     style1,
     style2,
     style3,
@@ -42,8 +34,6 @@ export default function Modal(keyWord, id, entryToEdit) {
     ${button3}
     </button> 
     `;
-
-  const userEntries = JSON.parse(localStorage.getItem("RecordedTasks"));
 
   const modalButton1 = modal.querySelector('[data-js="modal-button-1"]');
   modalButton1.addEventListener("click", handleFirst);
@@ -77,53 +67,8 @@ export default function Modal(keyWord, id, entryToEdit) {
   }
 
   function handleThird() {
-    if (mode === "chooseBackup") {
-      const userEntries = JSON.parse(localStorage.getItem("AutomaticBackup"));
-      saveToLocalStorage(userEntries, "RecordedTasks");
-      const timeRecords = document.getElementById("time-records");
-      timeRecords.replaceWith(TimeRecords(userEntries));
-    } else {
-      switchToDone();
-    }
+    thirdFunction ? thirdFunction() : switchToDone();
     modal.remove();
-  }
-
-  function handleYes() {
-    switch (mode) {
-      // case "resetTime":
-      //   timeReset();
-      //   modal.remove();
-      //   break;
-      // case "reset":
-      //   formReset();
-      //   break;
-      // case "afterSave":
-      //   modal.remove();
-      //   break;
-      // case "delete":
-      //   deleteEntry(id);
-      //   break;
-      // case "deleteAll":
-      //   deleteAllEntries();
-      //   break;
-      // case "chooseBackup":
-      //   const userEntries = JSON.parse(localStorage.getItem("TasksBackup"));
-      //   const timeRecords = document.getElementById("time-records");
-      //   timeRecords.replaceWith(TimeRecords(userEntries));
-      //   saveToLocalStorage(userEntries, "RecordedTasks");
-      //   modal.remove();
-      //   break;
-      case "edit":
-        handleEdit();
-        modal.remove();
-        const app = document.getElementById("app");
-        app.append(Modal("afterEdit"));
-        break;
-      case "afterEdit":
-        modal.remove();
-        switchToNewTask();
-        break;
-    }
   }
 
   return modal;

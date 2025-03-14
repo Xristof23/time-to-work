@@ -1,4 +1,8 @@
+import Analysis from "../components/Analysis/Analysis.js";
 import ListContainer from "../components/ListContainer/ListContainer.js";
+
+import What from "./components/What/What.js";
+import { whatContent } from "./textContent.js";
 
 function removeAndHideEverything() {
   const what = document.getElementById("what");
@@ -24,6 +28,15 @@ function deActivate() {
   testButton.classList.toggle("menu_button--active");
 }
 
+function switchToWhat() {
+  removeAndHideEverything();
+  deActivate();
+  const app = document.getElementById("app");
+  const whatButton = document.querySelector('[data-js="what-button"]');
+  whatButton.classList.add("menu_button--active");
+  app.append(What(whatContent));
+}
+
 function switchToAnalysis() {
   removeAndHideEverything();
   deActivate();
@@ -32,7 +45,7 @@ function switchToAnalysis() {
   const analysisButton = document.querySelector('[data-js="analysis-button"]');
   analysisButton.classList.add("menu_button--active");
   const myUserEntries = JSON.parse(localStorage.getItem("RecordedTasks")) || [];
-  app.append(analysis(myUserEntries));
+  app.append(Analysis(myUserEntries));
 }
 
 function switchToDone() {
@@ -60,6 +73,7 @@ export {
   removeAndHideEverything,
   deActivate,
   switchToAnalysis,
+  switchToWhat,
   switchToDone,
   switchToNewTask,
 };
