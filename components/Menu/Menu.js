@@ -1,8 +1,9 @@
-import What from "../What/What.js";
-import { whatContent } from "../../textContent.js";
-import ListContainer from "../ListContainer/ListContainer.js";
-import Analysis from "../Analysis/Analysis.js";
-import { deActivate, removeAndHideEverything } from "../../menuLogic.js";
+import {
+  switchToAnalysis,
+  switchToDone,
+  switchToNewTask,
+  switchToWhat,
+} from "../../menuLogic.js";
 
 export default function Menu() {
   const menu = document.createElement("nav");
@@ -23,42 +24,23 @@ export default function Menu() {
   doneTasksButton.addEventListener("click", handleClick, false);
   analysisButton.addEventListener("click", handleClick, false);
 
-  const userEntries = JSON.parse(localStorage.getItem("RecordedTasks")) || [];
-
   function handleClick(element) {
     element = element || window.event;
     const target = element.target || element.srcElement,
       text = target.id;
-    const app = document.getElementById("app");
-    const newTask = document.getElementById("form-container");
-    const listContainer = document.getElementById("list-container");
-    removeAndHideEverything();
-    deActivate();
+
     switch (text) {
       case "what-button":
-        whatButton.classList.add("menu_button--active");
-        app.append(What(whatContent));
+        switchToWhat();
         break;
       case "new-task-button":
-        newTaskButton.classList.add("menu_button--active");
-        newTask.classList.remove("form_container--noDisplay");
+        switchToNewTask();
         break;
       case "done-tasks-button":
-        const newUserEntries =
-          JSON.parse(localStorage.getItem("RecordedTasks")) || [];
-        doneTasksButton.classList.add("menu_button--active");
-        if (listContainer && newUserEntries.length != userEntries.length) {
-          remove.listContainer;
-          app.append(ListContainer(newUserEntries));
-        } else {
-          app.append(ListContainer(newUserEntries));
-        }
+        switchToDone();
         break;
       case "analysis-button":
-        analysisButton.classList.add("menu_button--active");
-        const myUserEntries =
-          JSON.parse(localStorage.getItem("RecordedTasks")) || [];
-        app.append(Analysis(myUserEntries));
+        switchToAnalysis();
         break;
     }
   }

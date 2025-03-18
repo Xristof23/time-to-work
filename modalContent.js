@@ -1,7 +1,21 @@
+import { switchToAnalysis, switchToNewTask } from "./menuLogic.js";
+import {
+  deleteEntry,
+  deleteAllEntries,
+  formReset,
+  timeReset,
+  loadBackup,
+  handleEdit,
+  restoreAutomaticBackup,
+} from "./utils.js";
+
 const wantedDelete = {
   text: "Do you really want to delete this entry? This is not reversible! Press &quot;No, cancel.&quot;, if you are not sure to delete entry with id ",
   button1: "No, cancel.",
   button2: "Yes, go on.",
+  style1: "modal_button--green",
+  style2: "modal_button--red",
+  secondFunction: deleteEntry,
   mode: "delete",
 };
 
@@ -9,20 +23,29 @@ const wantedDeleteAll = {
   text: "Do you really want to delete all entries? This is not reversible! Press &quot;No, cancel.&quot;, if you are not sure!",
   button1: "No, cancel.",
   button2: "Yes, go on.",
+  style1: "modal_button--green",
+  style2: "modal_button--red",
+  secondFunction: deleteAllEntries,
   mode: "deleteAll",
 };
 
 const wantedReset = {
-  text: "Do you really want to reset? Your entry has not been saved yet! Press No, abort., if you are not sure!",
+  text: "Do you really want to reset? Your entry has not been saved yet! Press &quot;No, cancel.&quot;, if you are not sure!",
   button1: "No, cancel.",
   button2: "Yes, go on.",
+  style1: "modal_button--green",
+  style2: "modal_button--red",
+  secondFunction: formReset,
   mode: "reset",
 };
 
 const resetTime = {
-  text: "Do you really want to reset? Your entry has not been saved yet! Press No, abort., if you are not sure!",
+  text: "Do you really want to reset? Your entry has not been saved yet! Press  &quot;No, cancel.&quot;, if you are not sure!",
   button1: "No, cancel.",
   button2: "Yes, go on.",
+  style1: "modal_button--green",
+  style2: "modal_button--red",
+  secondFunction: timeReset,
   mode: "resetTime",
 };
 
@@ -36,6 +59,9 @@ const editContent = {
   text: "Do you really want to save your changes?",
   button1: "No, keep editing.",
   button2: "Ok, save.",
+  style1: "modal_button--green",
+  style2: "modal_button--red",
+  secondFunction: handleEdit,
   mode: "edit",
 };
 
@@ -44,6 +70,9 @@ const afterEditContent = {
   button1: "Go to analysis.",
   button2: "Start a new task.",
   button3: "Back to the done tasks.",
+  style1: "modal_button--green",
+  firstFunction: switchToAnalysis,
+  secondFunction: switchToNewTask,
   mode: "afterEdit",
 };
 
@@ -52,6 +81,8 @@ const chooseBackup = {
   button1: "No, cancel.",
   button2: "TaskBackup",
   button3: "AutomaticBackup",
+  secondFunction: loadBackup,
+  thirdFunction: restoreAutomaticBackup,
   mode: "chooseBackup",
 };
 

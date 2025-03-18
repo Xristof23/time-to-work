@@ -17,14 +17,14 @@
   display: none;
 }
 
-.yes_button {
+.modal_button--red {
   color: var(--white);
   font-weight: 700;
   border: 2px solid var(--red);
   background-color: var(--red);
 }
 
-.no-button {
+.modal_button--green {
   font-weight: 500;
   color: var(--darkblue);
   border: 2px solid var(--secondary-light);
