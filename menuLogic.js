@@ -24,6 +24,7 @@ function deActivate() {
     testElements,
     (testElement) => testElement.nodeName === "BUTTON"
   );
+  console.log(testButtons);
   const testButton = testButtons[0];
   testButton.classList.toggle("menu_button--active");
 }
@@ -41,7 +42,6 @@ function switchToAnalysis() {
   removeAndHideEverything();
   deActivate();
   const app = document.getElementById("app");
-  const analysis = document.getElementById("analysis");
   const analysisButton = document.querySelector('[data-js="analysis-button"]');
   analysisButton.classList.add("menu_button--active");
   const myUserEntries = JSON.parse(localStorage.getItem("RecordedTasks")) || [];
@@ -52,7 +52,7 @@ function switchToDone() {
   removeAndHideEverything();
   deActivate();
   const app = document.getElementById("app");
-  const userEntries = JSON.parse(localStorage.getItem("RecordedTasks"));
+  const userEntries = JSON.parse(localStorage.getItem("RecordedTasks")) || [];
   app.append(ListContainer(userEntries));
   const doneTasksButton = document.querySelector(
     '[data-js="done-tasks-button"]'
